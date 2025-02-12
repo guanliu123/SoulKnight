@@ -311,9 +311,10 @@ public class BattleLogic
             if (!GameData.g_bRplayMode) {
                 recordBattleInfo();
 #if _CLIENTLOGIC_
-                SimpleSocket socket = new SimpleSocket();
-                socket.Init();
-                socket.sendBattleRecordToServer(UnityTools.playerPrefsGetString("battleRecord"));
+                //把战斗回放数据发给服务器，这里暂时屏蔽可能用不到
+                // SimpleSocket socket = new SimpleSocket();
+                // socket.Init();
+                // socket.sendBattleRecordToServer(UnityTools.playerPrefsGetString("battleRecord"));
 #endif
             }
 

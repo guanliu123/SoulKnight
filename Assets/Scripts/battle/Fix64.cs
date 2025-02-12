@@ -9,6 +9,7 @@
 
 using System;
 using System.IO;
+using UnityEngine;
 
 public partial struct Fix64 : IEquatable<Fix64>, IComparable<Fix64> {
     readonly long m_rawValue;
@@ -487,6 +488,13 @@ public struct FixVector3
         this.x = v.x;
         this.y = v.y;
         this.z = v.z;
+    }
+    
+    public FixVector3(Vector3 v)
+    {
+        this.x = (Fix64)v.x;
+        this.y = (Fix64)v.y;
+        this.z = (Fix64)v.z;
     }
 
     public Fix64 this[int index]

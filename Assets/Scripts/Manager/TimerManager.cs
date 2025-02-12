@@ -9,14 +9,18 @@ public class Timer
 {
     public Fix64 originDuration;
     public Fix64 duration;
-    public bool isLoop;
+    //public bool isLoop;
+    public int loopTimes;
+    //public int maxLoopTimes;
     public UnityAction callback;
 
-    public Timer(Fix64 _duration, UnityAction _callback,bool _isLoop)
+    //如果循环次数设置为-1则永远循环
+    public Timer(Fix64 _duration, UnityAction _callback,int _loopTimes)
     {
         originDuration = _duration;
         duration = _duration;
-        isLoop = _isLoop;
+        loopTimes=_loopTimes;
+        //maxLoopTimes = _loopTimes;
         callback = _callback;
     }
 
@@ -42,17 +46,18 @@ public class Timer
         originDuration = (Fix64)0;
         duration = (Fix64)0;
         callback = null;
-        isLoop = false;
+        loopTimes = 0;
+        //maxLoopTimes = 0;
     }
 }
 
 public class TimerManager : MonoSingletonBase<TimerManager>
 {
     //等待加入循环的列表，在每次遍历后加入
-    private List<Timer> waitList;
-    private List<Timer> timers;
+    private static List<Timer> waitList;
+    private static List<Timer> timers;
     //储存被创建出来但是被停用的timer方便再次使用
-    private List<Timer> timerPool;
+    private static List<Timer> timerPool;
 
     protected override void Awake()
     {
@@ -72,7 +77,8 @@ public class TimerManager : MonoSingletonBase<TimerManager>
             if (timers[i].DecreaseTime() <= (Fix64)0)
             {
                 timers[i].callback?.Invoke();
-                if (!timers[i].isLoop)
+                if (timers[i].loopTimes > 0) timers[i].loopTimes--;
+                if (timers[i].loopTimes==0)
                 {                    
                     timers[i].Format();
                     timerPool.Add(timers[i]);
@@ -86,7 +92,7 @@ public class TimerManager : MonoSingletonBase<TimerManager>
         }
     }
 
-    public Timer GetTimer(Fix64 _duration,UnityAction _callback,bool isLoop=false)
+    public static Timer GetTimer(Fix64 _duration,UnityAction _callback,int _loopTimes=1)
     {
         Timer timer;
         if (timerPool.Count > 0)
@@ -95,39 +101,46 @@ public class TimerManager : MonoSingletonBase<TimerManager>
             timer.originDuration = _duration;
             timer.duration = _duration;
             timer.callback = _callback;
-            timer.isLoop = isLoop;
+            timer.loopTimes = _loopTimes;
             timerPool.RemoveAt(0);
         }
         else
         {
-            timer = new Timer(_duration, _callback,isLoop);
+            timer = new Timer(_duration, _callback,_loopTimes);
         }
 
         return timer;
     }
 
-    public void AddTimer(Timer timer)
+    public static void AddTimer(Timer timer)
     {
         waitList.Add(timer);
+    }
+
+    public static Timer Register(Fix64 _duration,UnityAction _callback,int _loopTimes=1)
+    {
+        Timer t = GetTimer(_duration, _callback, _loopTimes);
+        AddTimer(t);
+        return t;
     }
 
     /// <summary>
     /// 重置定时器
     /// </summary>
     /// <param name="timer"></param>
-    public void ResetTimer(Timer timer)
+    public static void ResetTimer(Timer timer)
     {
         if(timer==null|| !timers.Contains(timer)) return;
         
         timer.ResetTime();
     }
     
-    public void RemoveTimer(Timer timer)
+    public static void  RemoveTimer(Timer timer)
     {
         if(timer==null|| !timers.Contains(timer)) return;
         
         timer.duration = (Fix64)0;
         timer.callback=null;
-        timer.isLoop = false;
+        timer.loopTimes = 0;
     }
 }

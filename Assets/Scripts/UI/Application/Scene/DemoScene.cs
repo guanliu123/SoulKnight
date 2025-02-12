@@ -29,6 +29,6 @@ public class DemoScene : SceneBase
 
     private void SceneLoaded(Scene scene,LoadSceneMode mode)
     {
-        //PanelManager.Instance.Push(new StartPanel());
+        PanelManager.Instance.Push(new LoginPanel());
     }
 }

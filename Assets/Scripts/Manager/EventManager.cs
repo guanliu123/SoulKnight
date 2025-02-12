@@ -28,7 +28,7 @@ public class EventManager : SingletonBase<EventManager>
     private Dictionary<string, IEventInfo> eventDic = new Dictionary<string, IEventInfo>();
 
     // 添加事件监听，一个参数的
-    public void AddListener<T>(string name, UnityAction<T> action)
+    public void On<T>(string name, UnityAction<T> action)
     {
         if (eventDic.ContainsKey(name))
             (eventDic[name] as EventInfo<T>).actions += action;
@@ -37,7 +37,7 @@ public class EventManager : SingletonBase<EventManager>
     }
 
     // 添加事件监听，无参数的
-    public void AddListener(string name, UnityAction action)
+    public void On(string name, UnityAction action)
     {
         if (eventDic.ContainsKey(name))
             (eventDic[name] as EventInfo).actions += action;
@@ -66,14 +66,14 @@ public class EventManager : SingletonBase<EventManager>
     }
 
     //移除监听，无参的
-    public void RemoveListener(string name, UnityAction action)
+    public void Off(string name, UnityAction action)
     {
         if (eventDic.ContainsKey(name))
             (eventDic[name] as EventInfo).actions -= action;
     }
 
     //移除监听，一个参数的
-    public void RemoveListener<T>(string name, UnityAction<T> action)
+    public void Off<T>(string name, UnityAction<T> action)
     {
         if (eventDic.ContainsKey(name))
             (eventDic[name] as EventInfo<T>).actions -= action;

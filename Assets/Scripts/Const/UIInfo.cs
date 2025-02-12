@@ -4,6 +4,7 @@ using UnityEngine;
 
 public static class UIInfo
 {
-    public const string StartPanel = "Prefabs/Panels/StartPanel";
+    public const string InitialPanel = "Prefabs/Panels/InitialPanel";
+    public const string LoginPanel = "Prefabs/Panels/LoginPanel";
     public const string BattlePanel = "Prefabs/Panels/BattlePanel";
 }
