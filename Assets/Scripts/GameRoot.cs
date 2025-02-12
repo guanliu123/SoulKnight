@@ -21,9 +21,9 @@ public class GameRoot : MonoBehaviour
     private void Start()
     {
         //进入时是什么场景就加载对应脚本
-        if (SceneManager.GetActiveScene().name == "DemoScene")
+        if (SceneManager.GetActiveScene().name == "InitScene")
         {
-            SceneSystem.Instance.SetScene(new DemoScene());
+            SceneSystem.Instance.SetScene(new InitScene());
         }
     }
 

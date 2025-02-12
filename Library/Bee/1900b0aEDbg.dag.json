@@ -10193,7 +10193,7 @@
         "Assets/Scripts/UI/Application/Panels/BattlePanel.cs",
         "Assets/Scripts/UI/Application/Panels/InitialPanel.cs",
         "Assets/Scripts/UI/Application/Panels/LoginPnale.cs",
-        "Assets/Scripts/UI/Application/Scene/DemoScene.cs",
+        "Assets/Scripts/UI/Application/Scene/InitScene.cs",
         "Assets/Scripts/UI/BattleUI.cs",
         "Assets/Scripts/UI/FileHelper/FileHelper.cs",
         "Assets/Scripts/UI/UIFrameWork/BasePanel.cs",

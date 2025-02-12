@@ -2,6 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+public static class SceneInfo
+{
+    public const string InitScene = "Prefabs/Scene/InitScene";
+}
+
 public static class UIInfo
 {
     public const string InitialPanel = "Prefabs/Panels/InitialPanel";

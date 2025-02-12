@@ -6,7 +6,7 @@ using UnityEngine;
 public class InitialPanel : BasePanel
 {
     
-    public InitialPanel() : base(new UIType(UIInfo.LoginPanel))
+    public InitialPanel() : base(new UIType(UIInfo.InitialPanel))
     {
     }
     public override void OnEnter()
