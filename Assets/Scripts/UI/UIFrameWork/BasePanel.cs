@@ -20,7 +20,7 @@ namespace UIFrameWork
 
         private void Init()
         {
-            if(panel==null) panel = UIManager.Instance.GetSingleUI(UIType);
+            if(panel==null) panel =UIManager.Instance.GetSingleUI(UIType);
             if(container==null) container=panel.GetComponent<UIContainer>();
         }
         //进入时
@@ -52,8 +52,8 @@ namespace UIFrameWork
 
         protected T FindComponent<T>(string name) where T : Component
         {
-            Init();
-
+            //Init();
+            
             return container.GetXXX(name) as T;
         }
     }

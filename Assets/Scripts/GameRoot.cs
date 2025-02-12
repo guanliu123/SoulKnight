@@ -16,6 +16,7 @@ public class GameRoot : MonoBehaviour
         else
             Destroy(gameObject);
         DontDestroyOnLoad(gameObject);
+        InitInitialManager();
         //Application.targetFrameRate = 60;
     }
     private void Start()
@@ -40,6 +41,10 @@ public class GameRoot : MonoBehaviour
         {
             yield return new WaitForSeconds(3.0f);
         }
+    }
 
+    private void InitInitialManager()
+    {
+        LoadManager.Instance.Init();
     }
 }

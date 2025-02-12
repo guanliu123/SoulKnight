@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UIFrameWork;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class InitialPanel : BasePanel
 {
@@ -13,20 +14,25 @@ public class InitialPanel : BasePanel
     {
         base.OnEnter();
         
-        //FindComponent<Button>("Btn_Login").onClick.AddListener(OnLogin);
-        //这里进行一些游戏的初始化操作，包括重要的manager初始化和网络连接
+        FindComponent<Button>("Btn_Start").onClick.AddListener(() =>
+        {
+            LogTool.Log("开始游戏");
+        });
         GameInit();
     }
 
     public void GameInit()
     {
-        LoadManager.Instance.Init();
-        NetManager.Instance.Init();
-        //这里后面要把host配置一下
-        NetManager.Instance.Connect("");
         MonoManager.Instance.Init();
         //TableManager.Instance.Init();
         //PayManager.Instance.Init();
         NetReciver.Instance.Init(new ResponseRegister());
+    }
+
+    public void NetInit()
+    {
+        //这里后面要把host配置一下
+        NetManager.Instance.Init();
+        NetManager.Instance.Connect("");
     }
 }

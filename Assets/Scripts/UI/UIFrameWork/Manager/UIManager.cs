@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using UnityEngine;
 //UI管理器
 namespace UIFrameWork
@@ -23,16 +24,35 @@ namespace UIFrameWork
             if (dicUI.ContainsKey(uIType))
                 return dicUI[uIType];
             //如果不存在，从预设中加载
-            GameObject uiPrefab = Resources.Load<GameObject>(uIType.Path);
+            //GameObject uiPrefab = Resources.Load<GameObject>(uIType.Path);
             GameObject uiInstance = null;
-            if (uiPrefab != null)
+            // if (uiPrefab != null)
+            // {
+            //     uiInstance = GameObject.Instantiate(uiPrefab, parent.transform);
+            //     uiInstance.name = uIType.Name;
+            //     dicUI.Add(uIType, uiInstance);
+            // }
+            // else
+            //     Debug.LogError($"在路径:{uIType.Path}中没有找到名为{uIType.Name}的预设，请查询");
+            IAsset asset = LoadManager.Instance.Load<GameObject>(uIType.Path);
+            if (asset != null && asset.asset() != null)
             {
+                GameObject uiPrefab = asset.asset() as GameObject;
                 uiInstance = GameObject.Instantiate(uiPrefab, parent.transform);
                 uiInstance.name = uIType.Name;
                 dicUI.Add(uIType, uiInstance);
             }
-            else
-                Debug.LogError($"在路径:{uIType.Path}中没有找到名为{uIType.Name}的预设，请查询");
+            // LoadManager.Instance.Instantiate(uIType.Path, (obj) =>
+            // {
+            //     if (!obj == null)
+            //     {
+            //         uiInstance = obj as GameObject;
+            //         uiInstance.transform.SetParent(parent.transform);
+            //         uiInstance.name = uIType.Name;
+            //         dicUI.Add(uIType, uiInstance);
+            //     }
+            // });
+            
             return uiInstance;
         }
 
