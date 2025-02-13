@@ -31,7 +31,8 @@ public class GameRoot : MonoBehaviour
     public void SwitchScene(string sceneName)
     {
         //SceneManager.LoadScene(sceneName);
-        StartCoroutine(Delay(sceneName));
+        string sn = "Resources_moved/" + sceneName;
+        StartCoroutine(Delay(sn));
     }
 
     private IEnumerator Delay(string sceneName)

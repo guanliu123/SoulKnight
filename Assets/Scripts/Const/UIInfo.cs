@@ -5,6 +5,7 @@ using UnityEngine;
 public static class SceneInfo
 {
     public const string InitScene = "Prefabs/Scene/InitScene";
+    public const string HomeScene = "Prefabs/Scene/HomeScene";
 }
 
 public static class UIInfo

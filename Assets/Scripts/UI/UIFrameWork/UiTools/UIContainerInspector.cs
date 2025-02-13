@@ -129,7 +129,7 @@ public class UIContainerInspector : Editor
             tfProp.objectReferenceValue = currentTransform;
             EditorGUILayout.PropertyField(typeProp, GUIContent.none);
 
-            if (GUILayout.Button("-", GUILayout.Width(20)))
+            if (GUILayout.Button("×", GUILayout.Width(20)))
             {
                 delIndex = i;
             }
@@ -145,6 +145,12 @@ public class UIContainerInspector : Editor
         if (GUILayout.Button("Add"))
         {
             setsProperty.arraySize++;
+            // 获取新元素的SerializedProperty
+            var newElement = setsProperty.GetArrayElementAtIndex(setsProperty.arraySize - 1);
+            // 清空字段
+            newElement.FindPropertyRelative("name").stringValue = string.Empty;
+            newElement.FindPropertyRelative("tf").objectReferenceValue=null;
+            EditorGUILayout.PropertyField(newElement.FindPropertyRelative("type"), GUIContent.none);
         }
         
         if (serializedObject.ApplyModifiedProperties())
