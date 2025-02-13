@@ -40,7 +40,7 @@ public class TableManager : SingletonBase<TableManager>
         //     return null;
         // }
         AsyncOperationHandle<TextAsset> handle = 
-            Addressables.LoadAssetAsync<TextAsset>("Data/Luban/" + file+".json");
+            Addressables.LoadAssetAsync<TextAsset>("Assets/Resources_moved/Data/Luban/" + file+".json");
         TextAsset go = handle.WaitForCompletion();
     
         if (handle.Status == AsyncOperationStatus.Succeeded)

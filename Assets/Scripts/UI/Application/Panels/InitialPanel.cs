@@ -26,7 +26,6 @@ public class InitialPanel : BasePanel
         MonoManager.Instance.Init();
         //TableManager.Instance.Init();
         //PayManager.Instance.Init();
-        NetReciver.Instance.Init(new ResponseRegister());
     }
 
     public void NetInit()
@@ -34,5 +33,6 @@ public class InitialPanel : BasePanel
         //这里后面要把host配置一下
         NetManager.Instance.Init();
         NetManager.Instance.Connect("");
+        NetReciver.Instance.Init(new ResponseRegister());
     }
 }

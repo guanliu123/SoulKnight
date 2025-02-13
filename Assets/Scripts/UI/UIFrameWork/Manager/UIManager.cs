@@ -34,7 +34,7 @@ namespace UIFrameWork
             // }
             // else
             //     Debug.LogError($"在路径:{uIType.Path}中没有找到名为{uIType.Name}的预设，请查询");
-            IAsset asset = LoadManager.Instance.Load<GameObject>(uIType.Path);
+            IAsset asset = LoadManager.Instance.Load<GameObject>("Assets/Resources_moved/"+uIType.Path);
             if (asset != null && asset.asset() != null)
             {
                 GameObject uiPrefab = asset.asset() as GameObject;
