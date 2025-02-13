@@ -334,6 +334,8 @@
 -r:"C:/Program Files/Unity/Hub/Editor/2022.3.18f1/Editor/Data/PlaybackEngines/iOSSupport/UnityEditor.iOS.Extensions.Common.dll"
 -r:"C:/Program Files/Unity/Hub/Editor/2022.3.18f1/Editor/Data/PlaybackEngines/iOSSupport/UnityEditor.iOS.Extensions.Xcode.dll"
 -r:"Library/Bee/artifacts/1900b0aEDbg.dag/Assembly-CSharp-firstpass.ref.dll"
+-r:"Library/Bee/artifacts/1900b0aEDbg.dag/Luban.Editor.ref.dll"
+-r:"Library/Bee/artifacts/1900b0aEDbg.dag/Luban.Runtime.ref.dll"
 -r:"Library/Bee/artifacts/1900b0aEDbg.dag/Unity.Addressables.Editor.ref.dll"
 -r:"Library/Bee/artifacts/1900b0aEDbg.dag/Unity.Addressables.ref.dll"
 -r:"Library/Bee/artifacts/1900b0aEDbg.dag/Unity.ResourceManager.ref.dll"
@@ -1955,12 +1957,21 @@
 "Assets/Scripts/Const/ResponseId.cs"
 "Assets/Scripts/Const/UIInfo.cs"
 "Assets/Scripts/GameRoot.cs"
+"Assets/Scripts/Luban/Activity.cs"
+"Assets/Scripts/Luban/Item.cs"
+"Assets/Scripts/Luban/Tables.cs"
+"Assets/Scripts/Luban/TbActivity.cs"
+"Assets/Scripts/Luban/TbItem.cs"
+"Assets/Scripts/Luban/vector2.cs"
+"Assets/Scripts/Luban/vector3.cs"
+"Assets/Scripts/Luban/vector4.cs"
 "Assets/Scripts/Manager/EventManager.cs"
 "Assets/Scripts/Manager/GameManager.cs"
 "Assets/Scripts/Manager/LoadManager.cs"
 "Assets/Scripts/Manager/MonoController.cs"
 "Assets/Scripts/Manager/MonoManager.cs"
 "Assets/Scripts/Manager/ObjectPoolManager.cs"
+"Assets/Scripts/Manager/TableManager.cs"
 "Assets/Scripts/Manager/TimeCenter.cs"
 "Assets/Scripts/Manager/TimerManager.cs"
 "Assets/Scripts/MonoSingletonBase.cs"
@@ -1999,7 +2010,7 @@
 "Assets/Scripts/UI/UIFrameWork/UIType.cs"
 "Assets/Scripts/view/prefab.cs"
 -langversion:9.0
-
+/unsafe+
 /deterministic
 /optimize-
 /debug:portable

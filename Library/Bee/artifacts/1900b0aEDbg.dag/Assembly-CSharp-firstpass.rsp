@@ -333,6 +333,8 @@
 -r:"C:/Program Files/Unity/Hub/Editor/2022.3.18f1/Editor/Data/PlaybackEngines/AndroidPlayer/Unity.Android.Types.dll"
 -r:"C:/Program Files/Unity/Hub/Editor/2022.3.18f1/Editor/Data/PlaybackEngines/iOSSupport/UnityEditor.iOS.Extensions.Common.dll"
 -r:"C:/Program Files/Unity/Hub/Editor/2022.3.18f1/Editor/Data/PlaybackEngines/iOSSupport/UnityEditor.iOS.Extensions.Xcode.dll"
+-r:"Library/Bee/artifacts/1900b0aEDbg.dag/Luban.Editor.ref.dll"
+-r:"Library/Bee/artifacts/1900b0aEDbg.dag/Luban.Runtime.ref.dll"
 -r:"Library/Bee/artifacts/1900b0aEDbg.dag/Unity.Addressables.Editor.ref.dll"
 -r:"Library/Bee/artifacts/1900b0aEDbg.dag/Unity.Addressables.ref.dll"
 -r:"Library/Bee/artifacts/1900b0aEDbg.dag/Unity.ResourceManager.ref.dll"
@@ -347,7 +349,7 @@
 -analyzer:"C:/Program Files/Unity/Hub/Editor/2022.3.18f1/Editor/Data/Tools/Unity.SourceGenerators/Unity.SourceGenerators.dll"
 "Assets/Plugins/UnityMainThreadDispatcher.cs"
 -langversion:9.0
-
+/unsafe+
 /deterministic
 /optimize-
 /debug:portable

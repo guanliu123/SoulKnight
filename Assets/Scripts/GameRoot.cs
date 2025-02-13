@@ -46,5 +46,6 @@ public class GameRoot : MonoBehaviour
     private void InitInitialManager()
     {
         LoadManager.Instance.Init();
+        TableManager.Instance.Init();
     }
 }

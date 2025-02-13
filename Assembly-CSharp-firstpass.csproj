@@ -30,7 +30,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <NoWarn>0169,0649</NoWarn>
-    <AllowUnsafeBlocks>False</AllowUnsafeBlocks>
+    <AllowUnsafeBlocks>True</AllowUnsafeBlocks>
     <TreatWarningsAsErrors>False</TreatWarningsAsErrors>
   </PropertyGroup>
   <PropertyGroup>
@@ -711,6 +711,14 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="Luban.Runtime.csproj">
+      <Project>{5e8a81b5-c542-ab98-d24d-35a27e3a8222}</Project>
+      <Name>Luban.Runtime</Name>
+    </ProjectReference>
+    <ProjectReference Include="Luban.Editor.csproj">
+      <Project>{fdb47137-d1c7-f72f-0be1-78a66d664ec8}</Project>
+      <Name>Luban.Editor</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
