@@ -11,6 +11,7 @@ public class InitialPanel : BasePanel
     private float distrance = 110f;
     private float durationTime=0.5f;
     private Image scarf;
+    private Transform tips;
     private bool isShow;
     
     public InitialPanel() : base(new UIType(UIInfo.InitialPanel))
@@ -24,6 +25,8 @@ public class InitialPanel : BasePanel
         
         Button btnMain=FindComponent<Button>("Btn_Main");
         scarf = FindComponent<Image>("Img_Scarf");
+        tips = FindComponent<Transform>("BottomTips");
+
         btnMain.onClick.AddListener(() =>
         {
             btnMain.interactable = false;
@@ -53,6 +56,7 @@ public class InitialPanel : BasePanel
 
     public void ChangeImg()
     {
+        tips.gameObject.SetActive(!isShow);
         scarf.DOFade(isShow?1:0, durationTime);
     }
 
