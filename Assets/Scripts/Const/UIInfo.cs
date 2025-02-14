@@ -14,6 +14,6 @@ public static class UIInfo
 {
     public const string InitialPanel = "Prefabs/Panels/InitialPanel";
     public const string LoginPanel = "Prefabs/Panels/LoginPanel";
-    public const string BattlePanel = "Prefabs/Panels/BattlePanel";
     public const string BattleInfoPanel = "Prefabs/Panels/BattleInfoPanel";
+    public const string LoadingPanel = "Prefabs/Panels/LoadingPanel";
 }

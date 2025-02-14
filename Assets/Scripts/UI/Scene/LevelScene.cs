@@ -9,6 +9,6 @@ public class LevelScene : SceneBase
         base.Init();
         scenePath = SceneInfo.LevelScene;
         sceneName = "LevelScene";
-        basePanel = new BattleInfoPanel();
+        basePanel = new LoadingPanel();
     }
 }
