@@ -2040,6 +2040,7 @@
 "Assets/Scripts/Net/Response/ResponseRegister.cs"
 "Assets/Scripts/Net/ServerDataDefine.cs"
 "Assets/Scripts/SingletonBase.cs"
+"Assets/Scripts/Test/MapManager.cs"
 "Assets/Scripts/Tool/GameTool.cs"
 "Assets/Scripts/Tool/JsonTool.cs"
 "Assets/Scripts/Tool/LogTool.cs"

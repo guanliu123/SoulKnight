@@ -1417,6 +1417,7 @@
     <Compile Include="Assets\Best HTTP (Pro)\BestHTTP\SecureProtocol\asn1\DerUTF8String.cs" />
     <Compile Include="Assets\Best HTTP (Pro)\BestHTTP\SecureProtocol\crypto\generators\Pkcs12ParametersGenerator.cs" />
     <Compile Include="Assets\Best HTTP (Pro)\BestHTTP\SecureProtocol\crypto\signers\IsoTrailers.cs" />
+    <Compile Include="Assets\Scripts\Test\MapManager.cs" />
     <Compile Include="Assets\Best HTTP (Pro)\BestHTTP\SecureProtocol\crypto\tls\TlsSrtpUtilities.cs" />
     <Compile Include="Assets\Best HTTP (Pro)\BestHTTP\SecureProtocol\crypto\tls\ByteQueueStream.cs" />
     <Compile Include="Assets\Best HTTP (Pro)\BestHTTP\SecureProtocol\cms\KEKRecipientInfoGenerator.cs" />
