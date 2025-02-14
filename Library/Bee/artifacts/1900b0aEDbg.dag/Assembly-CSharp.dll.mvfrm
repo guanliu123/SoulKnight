@@ -11,6 +11,23 @@ UnityEditor
 AdvancedRuleOverrideTile
 UnityEngine
 RuleOverrideTile
+RegisterGenericJobTypeAttribute
+Unity
+Entities
+DataStreamReader
+Networking
+Transport
+DataStreamWriter
+FileUtilityHybrid
+Unity
+Entities
+Hybrid
+ReferencedUnityObjects
+SerializeUtilityHybrid
+Serialization
+ResourceMetaData
+ResourceCatalogData
+SceneBoundingVolume
 AssetModificationProcessor
 
 Sysroot
