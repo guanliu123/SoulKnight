@@ -5,6 +5,7 @@ using UnityEngine;
 public class SceneSystem:SingletonBase<SceneSystem>
 {
     private SceneBase sceneBase;
+    
     public void SetScene(SceneBase scene)
     {
         if (scene == null)
@@ -12,6 +13,7 @@ public class SceneSystem:SingletonBase<SceneSystem>
         if (sceneBase != null)
             sceneBase.OnExit();//切换场景时原场景退出
         sceneBase = scene;
+        sceneBase.Init();
         sceneBase.OnEnter();//新场景进入
     }
 }

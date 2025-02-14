@@ -1,12 +1,43 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using UIFrameWork;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
-public abstract class SceneBase
+public class SceneBase
 {
+    protected string sceneName;
+    protected string scenePath;
+    protected BasePanel basePanel;
+    //初始化必要数据
+    public virtual void Init()
+    {
+        
+    }
+    
     //场景进入时
-    public abstract void OnEnter();
-    //场景离开时
-    public abstract void OnExit();
+    public virtual void OnEnter()
+    {
+        if(SceneManager.GetActiveScene().name!=sceneName)
+        {
+            GameRoot.Instance.ChangeScene(scenePath);
+            SceneManager.sceneLoaded += SceneLoaded;
+        }
+        else
+        {
+            if(basePanel!=null) PanelManager.Instance.Push(basePanel);
+        }
+    }
 
+    //场景离开时
+    public virtual void OnExit()
+    {
+        SceneManager.sceneLoaded -= SceneLoaded;
+        PanelManager.Instance.Clear();
+    }
+
+    protected virtual void SceneLoaded(Scene scene,LoadSceneMode mode)
+    {
+        if(basePanel!=null) PanelManager.Instance.Push(basePanel);
+    }
 }

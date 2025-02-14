@@ -28,7 +28,12 @@ public class GameRoot : MonoBehaviour
         }
     }
 
-    public void SwitchScene(string sceneName)
+    public void SwitchScene(SceneBase scene)
+    {
+        SceneSystem.Instance.SetScene(scene);
+    }
+
+    public void ChangeScene(string sceneName)
     {
         //SceneManager.LoadScene(sceneName);
         string sn = "Resources_moved/" + sceneName;

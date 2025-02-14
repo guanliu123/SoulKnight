@@ -23,7 +23,8 @@ public class UIContainer:MonoBehaviour
         TextMeshProUGUI,
         TMP_InputField,
         Button,
-        Toggle
+        Toggle,
+        Image
     }
     
     [HideInInspector]
@@ -80,7 +81,10 @@ public class UIContainer:MonoBehaviour
                 {
                     components.Add(t.name,t.tf.GetComponent<Toggle>());
                 }break;
-                
+                case COMPONENT_TYPE.Image:
+                {
+                    components.Add(t.name,t.tf.GetComponent<Image>());
+                }break;
                 default:
                 {
                     components.Add(t.name,t.tf);

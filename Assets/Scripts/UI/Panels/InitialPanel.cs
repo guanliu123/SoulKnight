@@ -8,21 +8,28 @@ using UnityEngine.UI;
 public class InitialPanel : BasePanel
 {
     private Vector3 dir = Vector3.up;
-    private float distrance = 100f;
+    private float distrance = 110f;
     private float durationTime=0.5f;
+    private Image scarf;
+    private bool isShow;
     
     public InitialPanel() : base(new UIType(UIInfo.InitialPanel))
     {
+        //todo:后面删掉
+        UserData.UpdateUserData();
     }
     public override void OnEnter()
     {
         base.OnEnter();
         
         Button btnMain=FindComponent<Button>("Btn_Main");
+        scarf = FindComponent<Image>("Img_Scarf");
         btnMain.onClick.AddListener(() =>
         {
             btnMain.interactable = false;
             Transform btnGroup=FindComponent<Transform>("BottomBtnGroup");
+            isShow = !isShow;
+            ChangeImg();
             btnGroup.DOMove(dir*distrance+btnGroup.position, durationTime).OnComplete(() =>
             {
                 dir = -dir;
@@ -33,19 +40,25 @@ public class InitialPanel : BasePanel
         FindComponent<Button>("Btn_SinglePerson").onClick.AddListener(() =>
         {
             GameManager.SetGameMode(GameModeType.SingleMode);
-            GameRoot.Instance.SwitchScene(SceneInfo.HomeScene);
+            if (UserData.isNew)
+            {
+                GameRoot.Instance.SwitchScene(new LevelScene());
+            }
+            else
+            {
+                GameRoot.Instance.SwitchScene(new HomeScene());
+            }
         });
     }
 
-    public void ChangeImg(bool isShow)
+    public void ChangeImg()
     {
-        //todo:显示围巾和标题
+        scarf.DOFade(isShow?1:0, durationTime);
     }
 
     public void GameInit()
     {
         MonoManager.Instance.Init();
-        //PayManager.Instance.Init();
     }
 
     public void NetInit()
