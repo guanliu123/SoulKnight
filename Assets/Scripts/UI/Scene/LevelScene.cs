@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class LevelScene : SceneBase
 {
@@ -9,6 +10,12 @@ public class LevelScene : SceneBase
         base.Init();
         scenePath = SceneInfo.LevelScene;
         sceneName = "LevelScene";
-        basePanel = new LoadingPanel();
+        //basePanel = new LoadingPanel();
+    }
+
+    protected override void SceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        base.SceneLoaded(scene, mode);
+        LevelManager.Instance.Init();
     }
 }

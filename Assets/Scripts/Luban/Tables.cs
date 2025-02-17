@@ -16,11 +16,13 @@ public partial class Tables
 {
     public TbItem TbItem {get; }
     public TbRoom TbRoom {get; }
+    public TBConfigData TBConfigData {get; }
 
     public Tables(System.Func<string, JSONNode> loader)
     {
         TbItem = new TbItem(loader("tbitem"));
         TbRoom = new TbRoom(loader("tbroom"));
+        TBConfigData = new TBConfigData(loader("tbconfigdata"));
         ResolveRef();
     }
     
@@ -28,6 +30,7 @@ public partial class Tables
     {
         TbItem.ResolveRef(this);
         TbRoom.ResolveRef(this);
+        TBConfigData.ResolveRef(this);
     }
 }
 

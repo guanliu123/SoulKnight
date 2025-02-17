@@ -143,7 +143,7 @@ public class LoadManager : SingletonBase<LoadManager>
             }
         }
         
-        AsyncOperationHandle<T> handle = Addressables.LoadAssetAsync<T>(assetName);
+        AsyncOperationHandle<T> handle = Addressables.LoadAssetAsync<T>("Assets/Resources_moved/"+assetName);
         T go = handle.WaitForCompletion();
         if (handle.Status == AsyncOperationStatus.Failed)
         {
@@ -184,7 +184,7 @@ public class LoadManager : SingletonBase<LoadManager>
             }
         }
         
-        AsyncOperationHandle<T> handle = Addressables.LoadAssetAsync<T>(assetName);
+        AsyncOperationHandle<T> handle = Addressables.LoadAssetAsync<T>("Assets/Resources_moved/"+assetName);
         if (handle.IsDone && handle.Result == null)
         {
             LogTool.LogError($"异步加载资源失败，Path：{assetName}, OpException{handle.OperationException}");

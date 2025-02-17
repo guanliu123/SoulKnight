@@ -18,10 +18,11 @@ public sealed partial class Room : Luban.BeanBase
     public Room(JSONNode _buf) 
     {
         { if(!_buf["id"].IsNumber) { throw new SerializationException(); }  Id = _buf["id"]; }
+        { if(!_buf["levelbelong"].IsNumber) { throw new SerializationException(); }  Levelbelong = _buf["levelbelong"]; }
         { if(!_buf["path"].IsString) { throw new SerializationException(); }  Path = _buf["path"]; }
         { if(!_buf["type"].IsNumber) { throw new SerializationException(); }  Type = _buf["type"]; }
         { if(!_buf["width"].IsNumber) { throw new SerializationException(); }  Width = _buf["width"]; }
-        { if(!_buf["Length"].IsNumber) { throw new SerializationException(); }  Length = _buf["Length"]; }
+        { if(!_buf["height"].IsNumber) { throw new SerializationException(); }  Height = _buf["height"]; }
     }
 
     public static Room DeserializeRoom(JSONNode _buf)
@@ -34,6 +35,10 @@ public sealed partial class Room : Luban.BeanBase
     /// </summary>
     public readonly int Id;
     /// <summary>
+    /// 房间所属大关
+    /// </summary>
+    public readonly int Levelbelong;
+    /// <summary>
     /// 房间tilemap加载路径
     /// </summary>
     public readonly string Path;
@@ -42,13 +47,13 @@ public sealed partial class Room : Luban.BeanBase
     /// </summary>
     public readonly int Type;
     /// <summary>
-    /// 房间宽度
+    /// 房间宽度（必须为奇数）
     /// </summary>
     public readonly int Width;
     /// <summary>
-    /// 房间长度
+    /// 房间高度（必须为奇数）
     /// </summary>
-    public readonly int Length;
+    public readonly int Height;
    
     public const int __ID__ = 2553083;
     public override int GetTypeId() => __ID__;
@@ -61,10 +66,11 @@ public sealed partial class Room : Luban.BeanBase
     {
         return "{ "
         + "id:" + Id + ","
+        + "levelbelong:" + Levelbelong + ","
         + "path:" + Path + ","
         + "type:" + Type + ","
         + "width:" + Width + ","
-        + "Length:" + Length + ","
+        + "height:" + Height + ","
         + "}";
     }
 }

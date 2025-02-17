@@ -385,6 +385,7 @@
     <Compile Include="Assets\Best HTTP (Pro)\BestHTTP\SecureProtocol\asn1\cms\ContentInfo.cs" />
     <Compile Include="Assets\Best HTTP (Pro)\BestHTTP\SecureProtocol\asn1\cmp\RevDetails.cs" />
     <Compile Include="Assets\Best HTTP (Pro)\BestHTTP\SecureProtocol\asn1\pkcs\Attribute.cs" />
+    <Compile Include="Assets\Scripts\Manager\Battle\LevelManager.cs" />
     <Compile Include="Assets\Best HTTP (Pro)\BestHTTP\SecureProtocol\asn1\DerBoolean.cs" />
     <Compile Include="Assets\Best HTTP (Pro)\BestHTTP\SecureProtocol\crypto\macs\CbcBlockCipherMac.cs" />
     <Compile Include="Assets\Best HTTP (Pro)\BestHTTP\SecureProtocol\crypto\tls\LegacyTlsAuthentication.cs" />
@@ -591,6 +592,7 @@
     <Compile Include="Assets\Best HTTP (Pro)\BestHTTP\SecureProtocol\asn1\x9\KeySpecificInfo.cs" />
     <Compile Include="Assets\Scripts\UI\Panels\LoadingPanel.cs" />
     <Compile Include="Assets\Best HTTP (Pro)\Examples\SocketIO\SocketIOWePlaySample.cs" />
+    <Compile Include="Assets\Scripts\Const\ConfigId.cs" />
     <Compile Include="Assets\Best HTTP (Pro)\BestHTTP\SecureProtocol\crypto\digests\SkeinDigest.cs" />
     <Compile Include="Assets\Scripts\Tool\SystemUtils.cs" />
     <Compile Include="Assets\Best HTTP (Pro)\BestHTTP\SecureProtocol\crypto\signers\DsaSigner.cs" />
@@ -786,8 +788,9 @@
     <Compile Include="Assets\Best HTTP (Pro)\BestHTTP\SecureProtocol\crypto\paddings\ZeroBytePadding.cs" />
     <Compile Include="Assets\Best HTTP (Pro)\BestHTTP\SecureProtocol\math\ec\multiplier\MontgomeryLadderMultiplier.cs" />
     <Compile Include="Assets\Best HTTP (Pro)\BestHTTP\SecureProtocol\asn1\DerT61String.cs" />
-    <Compile Include="Assets\Best HTTP (Pro)\BestHTTP\SecureProtocol\crypto\tls\TlsSrpLoginParameters.cs" />
+    <Compile Include="Assets\Scripts\Const\EnumCenter.cs" />
     <Compile Include="Assets\Best HTTP (Pro)\BestHTTP\SecureProtocol\crypto\agreement\DHAgreement.cs" />
+    <Compile Include="Assets\Best HTTP (Pro)\BestHTTP\SecureProtocol\crypto\tls\TlsSrpLoginParameters.cs" />
     <Compile Include="Assets\Best HTTP (Pro)\BestHTTP\SecureProtocol\cms\CMSStreamException.cs" />
     <Compile Include="Assets\Best HTTP (Pro)\BestHTTP\SecureProtocol\crypto\agreement\jpake\JPakeUtilities.cs" />
     <Compile Include="Assets\Best HTTP (Pro)\BestHTTP\SecureProtocol\cms\RecipientId.cs" />
@@ -963,6 +966,7 @@
     <Compile Include="Assets\Best HTTP (Pro)\BestHTTP\SecureProtocol\crypto\parameters\Srp6GroupParameters.cs" />
     <Compile Include="Assets\Best HTTP (Pro)\BestHTTP\SecureProtocol\crypto\tls\OcspStatusRequest.cs" />
     <Compile Include="Assets\Best HTTP (Pro)\BestHTTP\SecureProtocol\asn1\cryptopro\ECGOST3410NamedCurves.cs" />
+    <Compile Include="Assets\Scripts\Manager\Battle\MapManager.cs" />
     <Compile Include="Assets\Best HTTP (Pro)\BestHTTP\SecureProtocol\crypto\tls\ECCurveType.cs" />
     <Compile Include="Assets\Best HTTP (Pro)\BestHTTP\SecureProtocol\crypto\agreement\X448Agreement.cs" />
     <Compile Include="Assets\Best HTTP (Pro)\BestHTTP\SignalR\JsonEncoders\DefaultJsonEncoder.cs" />
@@ -1104,6 +1108,7 @@
     <Compile Include="Assets\Best HTTP (Pro)\BestHTTP\SecureProtocol\crypto\digests\GOST3411_2012Digest.cs" />
     <Compile Include="Assets\Best HTTP (Pro)\BestHTTP\SecureProtocol\security\KeyException.cs" />
     <Compile Include="Assets\Best HTTP (Pro)\BestHTTP\SecureProtocol\asn1\crmf\CrmfObjectIdentifiers.cs" />
+    <Compile Include="Assets\Scripts\Luban\ConfigData.cs" />
     <Compile Include="Assets\Best HTTP (Pro)\BestHTTP\SecureProtocol\ocsp\CertificateID.cs" />
     <Compile Include="Assets\Best HTTP (Pro)\BestHTTP\SecureProtocol\cms\CMSCompressedDataStreamGenerator.cs" />
     <Compile Include="Assets\Best HTTP (Pro)\BestHTTP\SecureProtocol\tsp\TSPValidationException.cs" />
@@ -1294,7 +1299,6 @@
     <Compile Include="Assets\Best HTTP (Pro)\BestHTTP\SecureProtocol\crypto\tls\TlsRsaSigner.cs" />
     <Compile Include="Assets\Best HTTP (Pro)\Examples\SignalRCore\HubWithAuthorization.cs" />
     <Compile Include="Assets\Best HTTP (Pro)\BestHTTP\SecureProtocol\crypto\digests\Blake2bDigest.cs" />
-    <Compile Include="Assets\Scripts\Manager\LevelManager.cs" />
     <Compile Include="Assets\Best HTTP (Pro)\BestHTTP\SecureProtocol\cms\KeyAgreeRecipientInfoGenerator.cs" />
     <Compile Include="Assets\Best HTTP (Pro)\BestHTTP\SecureProtocol\asn1\DerBitString.cs" />
     <Compile Include="Assets\Best HTTP (Pro)\BestHTTP\SecureProtocol\math\ec\custom\sec\SecT113R1Point.cs" />
@@ -1417,7 +1421,6 @@
     <Compile Include="Assets\Best HTTP (Pro)\BestHTTP\SecureProtocol\asn1\DerUTF8String.cs" />
     <Compile Include="Assets\Best HTTP (Pro)\BestHTTP\SecureProtocol\crypto\generators\Pkcs12ParametersGenerator.cs" />
     <Compile Include="Assets\Best HTTP (Pro)\BestHTTP\SecureProtocol\crypto\signers\IsoTrailers.cs" />
-    <Compile Include="Assets\Scripts\Test\MapManager.cs" />
     <Compile Include="Assets\Best HTTP (Pro)\BestHTTP\SecureProtocol\crypto\tls\TlsSrtpUtilities.cs" />
     <Compile Include="Assets\Best HTTP (Pro)\BestHTTP\SecureProtocol\crypto\tls\ByteQueueStream.cs" />
     <Compile Include="Assets\Best HTTP (Pro)\BestHTTP\SecureProtocol\cms\KEKRecipientInfoGenerator.cs" />
@@ -1482,8 +1485,8 @@
     <Compile Include="Assets\Best HTTP (Pro)\BestHTTP\SecureProtocol\math\ec\custom\sec\SecP128R1FieldElement.cs" />
     <Compile Include="Assets\Best HTTP (Pro)\BestHTTP\SecureProtocol\crypto\InvalidCipherTextException.cs" />
     <Compile Include="Assets\Best HTTP (Pro)\BestHTTP\SecureProtocol\asn1\gm\GMObjectIdentifiers.cs" />
-    <Compile Include="Assets\Best HTTP (Pro)\BestHTTP\SecureProtocol\asn1\ua\UAObjectIdentifiers.cs" />
     <Compile Include="Assets\Scripts\Luban\Room.cs" />
+    <Compile Include="Assets\Best HTTP (Pro)\BestHTTP\SecureProtocol\asn1\ua\UAObjectIdentifiers.cs" />
     <Compile Include="Assets\Best HTTP (Pro)\BestHTTP\SecureProtocol\cms\CMSSignedData.cs" />
     <Compile Include="Assets\Best HTTP (Pro)\BestHTTP\SecureProtocol\crypto\tls\TlsCredentials.cs" />
     <Compile Include="Assets\Best HTTP (Pro)\BestHTTP\SecureProtocol\crypto\parameters\DHKeyGenerationParameters.cs" />
@@ -1620,6 +1623,7 @@
     <Compile Include="Assets\Best HTTP (Pro)\BestHTTP\SecureProtocol\crypto\tls\AbstractTlsAgreementCredentials.cs" />
     <Compile Include="Assets\Best HTTP (Pro)\BestHTTP\SecureProtocol\crypto\tls\SecurityParameters.cs" />
     <Compile Include="Assets\Best HTTP (Pro)\BestHTTP\SecureProtocol\crypto\signers\RsaDigestSigner.cs" />
+    <Compile Include="Assets\Scripts\Data\ConfigData.cs" />
     <Compile Include="Assets\Best HTTP (Pro)\BestHTTP\SecureProtocol\crypto\signers\X931Signer.cs" />
     <Compile Include="Assets\Best HTTP (Pro)\BestHTTP\SecureProtocol\math\ec\custom\sec\SecT131R1Curve.cs" />
     <Compile Include="Assets\Best HTTP (Pro)\BestHTTP\SecureProtocol\asn1\pkcs\RC2CBCParameter.cs" />
@@ -1658,6 +1662,7 @@
     <Compile Include="Assets\Best HTTP (Pro)\BestHTTP\SecureProtocol\asn1\cms\RecipientIdentifier.cs" />
     <Compile Include="Assets\Best HTTP (Pro)\BestHTTP\SecureProtocol\ocsp\BasicOCSPResp.cs" />
     <Compile Include="Assets\Best HTTP (Pro)\BestHTTP\SignalR\Transports\WebSocketTransport.cs" />
+    <Compile Include="Assets\Scripts\Luban\TBConfigData.cs" />
     <Compile Include="Assets\Best HTTP (Pro)\BestHTTP\SecureProtocol\tsp\TimeStampTokenGenerator.cs" />
     <Compile Include="Assets\Best HTTP (Pro)\BestHTTP\SecureProtocol\crypto\engines\SM4Engine.cs" />
     <Compile Include="Assets\Best HTTP (Pro)\BestHTTP\SecureProtocol\asn1\IAsn1Choice.cs" />
@@ -1698,9 +1703,9 @@
     <Compile Include="Assets\Scripts\battle\core\state\TowerStandState.cs" />
     <Compile Include="Assets\Best HTTP (Pro)\BestHTTP\SecureProtocol\util\BigIntegers.cs" />
     <Compile Include="Assets\Best HTTP (Pro)\BestHTTP\SecureProtocol\asn1\DerSet.cs" />
+    <Compile Include="Assets\Best HTTP (Pro)\BestHTTP\SecureProtocol\crypto\modes\IAeadBlockCipher.cs" />
     <Compile Include="Assets\Best HTTP (Pro)\BestHTTP\SecureProtocol\crypto\CipherKeyGenerator.cs" />
     <Compile Include="Assets\Best HTTP (Pro)\BestHTTP\SecureProtocol\crypto\tls\TlsStreamCipher.cs" />
-    <Compile Include="Assets\Best HTTP (Pro)\BestHTTP\SecureProtocol\crypto\modes\IAeadBlockCipher.cs" />
     <Compile Include="Assets\Best HTTP (Pro)\BestHTTP\SecureProtocol\asn1\ASN1SetParser.cs" />
     <Compile Include="Assets\Best HTTP (Pro)\BestHTTP\SecureProtocol\asn1\x509\sigi\NameOrPseudonym.cs" />
     <Compile Include="Assets\Best HTTP (Pro)\BestHTTP\SecureProtocol\crypto\agreement\srp\SRP6VerifierGenerator.cs" />
@@ -1726,7 +1731,9 @@
     <Compile Include="Assets\Best HTTP (Pro)\BestHTTP\SecureProtocol\crypto\signers\ECNRSigner.cs" />
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Mobile Overlay.shader" />
+    <None Include="Assets\Edgar\package.json" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_Bitmap.shader" />
+    <None Include="Assets\Resources_moved\Data\Luban\tbconfigdata.json" />
     <None Include="Assets\TextMesh Pro\Shaders\TMPro_Mobile.cginc" />
     <None Include="Assets\Best HTTP (Pro)\license.txt" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF SSD.shader" />
@@ -2035,6 +2042,9 @@
     </Reference>
     <Reference Include="System.Runtime.CompilerServices.Unsafe">
       <HintPath>C:\Users\JLTech\Documents\UnityProjects\SKnight\Library\PackageCache\com.unity.collections@2.5.2\Unity.Collections.Tests\System.Runtime.CompilerServices.Unsafe\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
+    </Reference>
+    <Reference Include="EdgarSingleFile">
+      <HintPath>C:\Users\JLTech\Documents\UnityProjects\SKnight\Assets\Edgar\Libraries\EdgarSingleFile.dll</HintPath>
     </Reference>
     <Reference Include="UnityEditor.iOS.Extensions.Xcode">
       <HintPath>C:\Program Files\Unity\Hub\Editor\2022.3.18f1\Editor\Data\PlaybackEngines\iOSSupport\UnityEditor.iOS.Extensions.Xcode.dll</HintPath>
@@ -2534,13 +2544,25 @@
       <Project>{ee0e8de1-5387-84a9-273b-cb58e19de2cf}</Project>
       <Name>Assembly-CSharp-firstpass</Name>
     </ProjectReference>
+    <ProjectReference Include="Edgar.Unity.Examples.csproj">
+      <Project>{950e0e86-09a6-7e96-b868-2bc04e0f9d13}</Project>
+      <Name>Edgar.Unity.Examples</Name>
+    </ProjectReference>
     <ProjectReference Include="Luban.Editor.csproj">
       <Project>{fdb47137-d1c7-f72f-0be1-78a66d664ec8}</Project>
       <Name>Luban.Editor</Name>
     </ProjectReference>
+    <ProjectReference Include="Edgar.Unity.Editor.csproj">
+      <Project>{af3bbc2d-b0fa-88d9-1642-4dde0d96fbe9}</Project>
+      <Name>Edgar.Unity.Editor</Name>
+    </ProjectReference>
     <ProjectReference Include="Luban.Runtime.csproj">
       <Project>{5e8a81b5-c542-ab98-d24d-35a27e3a8222}</Project>
       <Name>Luban.Runtime</Name>
+    </ProjectReference>
+    <ProjectReference Include="Edgar.Unity.csproj">
+      <Project>{8532a36a-b8ee-97a9-2a77-cdbac262d898}</Project>
+      <Name>Edgar.Unity</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -1,9 +1,26 @@
 [
   {
     "id": 1001,
-    "path": "Room1",
+    "levelbelong": 1,
+    "path": "Room1_1",
     "type": 1,
     "width": 17,
-    "Length": 13
+    "height": 13
+  },
+  {
+    "id": 1002,
+    "levelbelong": 1,
+    "path": "Room1_2",
+    "type": 1,
+    "width": 11,
+    "height": 11
+  },
+  {
+    "id": 1003,
+    "levelbelong": 1,
+    "path": "Room1_3",
+    "type": 1,
+    "width": 9,
+    "height": 7
   }
 ]

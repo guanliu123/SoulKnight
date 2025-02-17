@@ -25,7 +25,7 @@ public class SceneBase
         }
         else
         {
-            if(basePanel!=null) PanelManager.Instance.Push(basePanel);
+            if(basePanel!=null) PanelManager.Instance.OpenUI(basePanel);
         }
     }
 
@@ -33,11 +33,11 @@ public class SceneBase
     public virtual void OnExit()
     {
         SceneManager.sceneLoaded -= SceneLoaded;
-        PanelManager.Instance.Clear();
+        PanelManager.Instance.CloseAllUI();
     }
 
     protected virtual void SceneLoaded(Scene scene,LoadSceneMode mode)
     {
-        if(basePanel!=null) PanelManager.Instance.Push(basePanel);
+        if(basePanel!=null) PanelManager.Instance.OpenUI(basePanel);
     }
 }

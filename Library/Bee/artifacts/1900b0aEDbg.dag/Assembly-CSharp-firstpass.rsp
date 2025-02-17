@@ -123,6 +123,7 @@
 -define:DOTWEEN
 -define:CSHARP_7_OR_LATER
 -define:CSHARP_7_3_OR_NEWER
+-r:"Assets/Edgar/Libraries/EdgarSingleFile.dll"
 -r:"Assets/Plugins/Demigiant/DOTween/DOTween.dll"
 -r:"Assets/Plugins/Newtonsoft.Json.dll"
 -r:"C:/Program Files/Unity/Hub/Editor/2022.3.18f1/Editor/Data/Managed/UnityEngine/UnityEditor.CoreModule.dll"
@@ -344,6 +345,9 @@
 -r:"Library/PackageCache/com.unity.entities@1.3.9/Unity.Entities.CodeGen/Mono.Cecil.Rocks.dll"
 -r:"Library/PackageCache/com.unity.entities@1.3.9/Unity.Entities.CodeGen/Unity.Cecil.Awesome.dll"
 -r:"Library/PackageCache/com.unity.ext.nunit@2.0.3/net40/unity-custom/nunit.framework.dll"
+-r:"Library/Bee/artifacts/1900b0aEDbg.dag/Edgar.Unity.Editor.ref.dll"
+-r:"Library/Bee/artifacts/1900b0aEDbg.dag/Edgar.Unity.Examples.ref.dll"
+-r:"Library/Bee/artifacts/1900b0aEDbg.dag/Edgar.Unity.ref.dll"
 -r:"Library/Bee/artifacts/1900b0aEDbg.dag/Luban.Editor.ref.dll"
 -r:"Library/Bee/artifacts/1900b0aEDbg.dag/Luban.Runtime.ref.dll"
 -r:"Library/Bee/artifacts/1900b0aEDbg.dag/Unity.2D.Tilemap.Editor.ref.dll"

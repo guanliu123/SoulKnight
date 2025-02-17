@@ -5,5 +5,5 @@ public static class EventId
     public const string START_LOGIN = "START_LOGIN";
     public const string SET_LOADING_TEXT = "SET_LOADING_TEXT";
     public const string FIRST_LOGIN_SERVER_COMPLETE = "FIRST_LOGIN_SERVER_COMPLETE";
-
+    public const string MAP_GENERATION_COMPLETED = "MAP_GENERATION_COMPLETED";
 }

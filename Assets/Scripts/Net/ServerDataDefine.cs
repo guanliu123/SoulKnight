@@ -54,3 +54,8 @@ public class TServerDataLogin
     
     public object[] items { get; set; }
 }
+
+public class TMapData
+{
+ public int[,] MapRoom;
+}
