@@ -12,7 +12,7 @@ namespace Edgar.Unity
         /// Number of milliseconds before the current attempt to generate
         /// a layout is aborted.
         /// </summary>
-        public int Timeout = 10000;
+        public int Timeout = 100000;
 
         /// <summary>
         /// Whether to override repeat mode configuration of individual room templates.
@@ -24,10 +24,5 @@ namespace Edgar.Unity
         /// </summary>
         [Range(0, 5)]
         public int MinimumRoomDistance = 1;
-        
-        /// <summary>
-        /// Controls how room templates are instantiated. <seealso cref="RoomTemplatePrefabModeGrid2D" />
-        /// </summary>
-        public RoomTemplatePrefabModeGrid2D RoomTemplatePrefabMode = RoomTemplatePrefabModeGrid2D.Instantiate;
     }
 }

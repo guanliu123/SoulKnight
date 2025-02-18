@@ -1,6 +1,6 @@
+using Edgar.GraphBasedGenerator.Grid2D;
 using System;
 using System.Collections.Generic;
-using Edgar.GraphBasedGenerator.Grid2D;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
@@ -14,8 +14,7 @@ namespace Edgar.Unity
     {
         private readonly LayoutGrid2D<RoomBase> mapLayout;
 
-        public DungeonGeneratorLevelGrid2D(Dictionary<RoomBase, RoomInstanceGrid2D> roomInstances, LayoutGrid2D<RoomBase> mapLayout, GameObject rootGameObject, LevelDescriptionGrid2D levelDescription, int seed)
-            : base(roomInstances, rootGameObject, levelDescription, seed)
+        public DungeonGeneratorLevelGrid2D(Dictionary<RoomBase, RoomInstanceGrid2D> roomInstances, LayoutGrid2D<RoomBase> mapLayout, GameObject rootGameObject, LevelDescriptionGrid2D levelDescription) : base(roomInstances, rootGameObject, levelDescription)
         {
             this.mapLayout = mapLayout;
         }

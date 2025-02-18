@@ -66,7 +66,7 @@ namespace Edgar.Unity
         /// <param name="zoom">Zoom of the level graph editor window.</param>
         public virtual void Draw(Vector2 gridOffset, float zoom, bool isDirected)
         {
-            #if UNITY_EDITOR
+#if UNITY_EDITOR
             var style = Connection.GetEditorStyle(IsSelected());
 
             var from = From.GetRect(gridOffset, zoom).center;
@@ -100,7 +100,7 @@ namespace Edgar.Unity
                 center += 1.2f * direction;
                 Handles.DrawAAConvexPolygon(center - perpendicular, center + direction, center + perpendicular);
             }
-            #endif
+#endif
         }
 
         /// <summary>
@@ -109,11 +109,11 @@ namespace Edgar.Unity
         /// <returns></returns>
         protected virtual bool IsSelected()
         {
-            #if UNITY_EDITOR
+#if UNITY_EDITOR
             return Selection.objects.Contains(Connection);
-            #else
+#else
             return false;
-            #endif
+#endif
         }
     }
 }

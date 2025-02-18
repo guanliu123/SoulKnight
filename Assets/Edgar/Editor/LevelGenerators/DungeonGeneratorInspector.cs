@@ -21,12 +21,25 @@ namespace Edgar.Unity.Editor
         {
             serializedObject.Update();
 
-            var levelGenerator = (DungeonGeneratorBaseGrid2D) target;
+            var levelGenerator = (DungeonGeneratorBaseGrid2D)target;
 
             EditorGUIUtility.labelWidth = EditorGUIUtility.currentViewWidth / 2f;
 
             EditorGUILayout.LabelField("Input config", EditorStyles.boldLabel);
-            EditorGUILayout.PropertyField(serializedObject.FindProperty(nameof(DungeonGeneratorBaseGrid2D.FixedLevelGraphConfig)));
+
+            // PRO
+            EditorGUILayout.PropertyField(serializedObject.FindProperty(nameof(DungeonGeneratorBaseGrid2D.InputType)));
+            switch (levelGenerator.InputType)
+            {
+                case DungeonGeneratorInputTypeGrid2D.CustomInput:
+                    EditorGUILayout.PropertyField(serializedObject.FindProperty(nameof(DungeonGeneratorBaseGrid2D.CustomInputTask)));
+                    break;
+                case DungeonGeneratorInputTypeGrid2D.FixedLevelGraph:
+                    EditorGUILayout.PropertyField(serializedObject.FindProperty(nameof(DungeonGeneratorBaseGrid2D.FixedLevelGraphConfig)));
+                    break;
+            }
+
+            EditorGUILayout.Space();
 
             EditorGUILayout.LabelField("Generator config", EditorStyles.boldLabel);
             EditorGUILayout.PropertyField(serializedObject.FindProperty(nameof(DungeonGeneratorBaseGrid2D.GeneratorConfig)));
@@ -46,7 +59,7 @@ namespace Edgar.Unity.Editor
             EditorGUILayout.LabelField("Other", EditorStyles.boldLabel);
             EditorGUILayout.PropertyField(serializedObject.FindProperty(nameof(DungeonGeneratorBaseGrid2D.UseRandomSeed)));
             EditorGUILayout.PropertyField(serializedObject.FindProperty(nameof(DungeonGeneratorBaseGrid2D.RandomGeneratorSeed)));
-            EditorGUILayout.PropertyField(serializedObject.FindProperty(nameof(DungeonGeneratorBaseGrid2D.GenerateOn)));
+            EditorGUILayout.PropertyField(serializedObject.FindProperty(nameof(DungeonGeneratorBaseGrid2D.GenerateOnStart)));
 
             EditorGUILayout.HelpBox("If you have problems with the performance of the generator, you can enable diagnostics what will run after a level is generated and print results to the console. Do not use in production.", MessageType.Info);
             EditorGUILayout.PropertyField(serializedObject.FindProperty(nameof(DungeonGeneratorBaseGrid2D.EnableDiagnostics)));
@@ -59,20 +72,17 @@ namespace Edgar.Unity.Editor
             advancedFoldout = EditorGUILayout.Foldout(advancedFoldout, "Advanced");
             if (advancedFoldout)
             {
-                if (GUILayout.Button("Export level description"))
+                if (GUILayout.Button("Export map description"))
                 {
-                    levelGenerator.ExportLevelDescription();
+                    levelGenerator.ExportMapDescription();
                 }
             }
 
             EditorGUILayout.Space();
 
-            if (levelGenerator is DungeonGeneratorGrid2D)
+            if (GUILayout.Button("Generate level"))
             {
-                if (GUILayout.Button("Generate level"))
-                {
-                    levelGenerator.Generate();
-                }
+                levelGenerator.Generate();
             }
 
             EditorGUIUtility.labelWidth = 0;

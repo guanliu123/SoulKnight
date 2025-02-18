@@ -75,8 +75,9 @@ MonoBehaviour:
   EditorData:
     PanOffset: {x: 222.45415, y: -55.810665}
     Zoom: 0.7701224
-  RoomType: Assets.ProceduralLevelGenerator.Scripts.Generators.Common.LevelGraph.Room
-  ConnectionType: Assets.ProceduralLevelGenerator.Scripts.Generators.Common.LevelGraph.Connection
+  RoomType: Edgar.Unity.Room
+  ConnectionType: Edgar.Unity.Connection
+  IsDirected: 0
 --- !u!114 &114014894578984330
 MonoBehaviour:
   m_ObjectHideFlags: 0

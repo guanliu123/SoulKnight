@@ -3,7 +3,6 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Reflection;
 using UnityEditor;
-using UnityEngine;
 
 namespace Edgar.Unity.Editor
 {
@@ -45,11 +44,11 @@ namespace Edgar.Unity.Editor
                 return;
             }
 
-            var projectBrowsers = (IEnumerable) GetAllProjectsBrowsersMethod.Invoke(null, Array.Empty<object>());
+            var projectBrowsers = (IEnumerable)GetAllProjectsBrowsersMethod.Invoke(null, Array.Empty<object>());
 
             foreach (EditorWindow projectBrowser in projectBrowsers)
             {
-                var isLocked = (bool) IsLockedProperty.GetValue(projectBrowser);
+                var isLocked = (bool)IsLockedProperty.GetValue(projectBrowser);
 
                 if (!isLocked)
                 {

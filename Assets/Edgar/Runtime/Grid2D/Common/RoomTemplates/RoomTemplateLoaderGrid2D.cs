@@ -1,11 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using Edgar.Geometry;
+﻿using Edgar.Geometry;
 using Edgar.GraphBasedGenerator.Common;
 using Edgar.GraphBasedGenerator.Grid2D;
 using Edgar.Legacy.GeneralAlgorithms.Algorithms.Common;
 using Edgar.Unity.Diagnostics;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
@@ -205,7 +205,7 @@ namespace Edgar.Unity
                 return false;
             }
 
-            var allowedTransformations = new List<TransformationGrid2D> {TransformationGrid2D.Identity};
+            var allowedTransformations = new List<TransformationGrid2D> { TransformationGrid2D.Identity };
             var roomTemplateComponent = roomTemplatePrefab.GetComponent<RoomTemplateSettingsGrid2D>();
             var repeatMode = roomTemplateComponent?.RepeatMode ?? RoomTemplateRepeatMode.AllowRepeat;
             var doors = roomTemplatePrefab.GetComponent<DoorsGrid2D>();
@@ -232,7 +232,7 @@ namespace Edgar.Unity
 
             foreach (var point in points)
             {
-                sum += (point.X - previous.X) * (long) (point.Y + previous.Y);
+                sum += (point.X - previous.X) * (long)(point.Y + previous.Y);
                 previous = point;
             }
 

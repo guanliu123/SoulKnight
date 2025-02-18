@@ -1,9 +1,9 @@
-﻿using System;
+﻿using Edgar.GraphBasedGenerator.Common;
+using Edgar.GraphBasedGenerator.Grid2D;
+using System;
 using System.Collections;
 using System.Linq;
 using System.Threading.Tasks;
-using Edgar.GraphBasedGenerator.Common;
-using Edgar.GraphBasedGenerator.Grid2D;
 using UnityEngine;
 
 namespace Edgar.Unity
@@ -65,14 +65,14 @@ namespace Edgar.Unity
             var generator = new GraphBasedGeneratorGrid2D<RoomBase>(levelDescriptionGrid2D, configuration);
             generator.InjectRandomGenerator(Payload.Random);
 
-            #if UNITY_WEBGL
+#if UNITY_WEBGL
             var layout = generator.GenerateLayout();
 
             if (layout == null)
             {
                 throw new TimeoutException();
             }
-            #else
+#else
             // Run the generator in a different thread so that the computation is not blocking
             LayoutGrid2D<RoomBase> layout = null;
             var task = Task.Run(() => layout = generator.GenerateLayout());
@@ -101,10 +101,10 @@ namespace Edgar.Unity
                 }
             }
 
-            #endif
+#endif
 
             // Transform the level to its Unity representation
-            var generatedLevel = GeneratorUtilsGrid2D.TransformLayout(layout, levelDescription, rootGameObject, config.RoomTemplatePrefabMode, Payload.Seed);
+            var generatedLevel = GeneratorUtilsGrid2D.TransformLayout(layout, levelDescription, rootGameObject);
 
             var stats = new GeneratorStats()
             {

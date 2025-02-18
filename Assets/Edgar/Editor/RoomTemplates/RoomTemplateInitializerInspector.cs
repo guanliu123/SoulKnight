@@ -8,7 +8,7 @@ namespace Edgar.Unity.Editor
     {
         public override void OnInspectorGUI()
         {
-            var roomTemplateInitializer = (RoomTemplateInitializerBaseGrid2D) target;
+            var roomTemplateInitializer = (RoomTemplateInitializerBaseGrid2D)target;
 
             DrawDefaultInspector();
 

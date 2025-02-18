@@ -73,7 +73,7 @@ namespace Edgar.Unity
 
             Length = 0;
             Length = GetLength(From, To);
-            
+
         }
 
         private static int GetLength(Vector3Int from, Vector3Int to)
@@ -143,36 +143,31 @@ namespace Edgar.Unity
                 return point == From ? 0 : -1;
             }
 
-            if (point == From)
-            {
-                return 0;
-            }
-
             int index;
             int sign;
 
-            if (Direction.x != 0 && point.y == fromY && point.z == fromZ)
+            if (Direction.x != 0)
             {
                 index = point.x - From.x;
                 sign = Direction.x;
             }
-            else if (Direction.y != 0 && point.x == fromX && point.z == fromZ)
+            else if (Direction.y != 0)
             {
                 index = point.y - From.y;
                 sign = Direction.y;
             }
-            else if (Direction.z != 0 && point.y == fromY && point.x == fromX)
+            else if (Direction.z != 0)
             {
                 index = point.z - From.z;
                 sign = Direction.z;
             }
             else
             {
-                return -1;
+                throw new ArgumentOutOfRangeException();
             }
 
             var absoluteIndex = Math.Abs(index);
-            if (sign == Math.Sign(index) && absoluteIndex < Length)
+            if ((sign == Math.Sign(index) || (index == 0 && point == From)) && absoluteIndex < Length)
             {
                 return absoluteIndex;
             }

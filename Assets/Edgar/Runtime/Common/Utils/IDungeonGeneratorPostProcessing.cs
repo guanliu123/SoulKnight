@@ -9,7 +9,7 @@ namespace Edgar.Unity
     /// This interface is needed because post-processing logic can be implemented as a ScriptableObject or a MonoBehaviour.
     /// </remarks>
     /// <typeparam name="TLevel"></typeparam>
-    public interface IDungeonGeneratorPostProcessing<in TLevel>
+    public interface IDungeonGeneratorPostProcessing<in TLevel, in TCallbacks>
     {
         /// <summary>
         /// Instance of a random numbers generator that is used throughout the whole process of generating a level.
@@ -25,5 +25,8 @@ namespace Edgar.Unity
         void Run(TLevel level);
 
         void SetRandomGenerator(Random random);
+
+        // PRO
+        void RegisterCallbacks(TCallbacks callbacks);
     }
 }

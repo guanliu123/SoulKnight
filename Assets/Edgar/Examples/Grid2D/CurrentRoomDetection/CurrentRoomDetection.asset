@@ -35,8 +35,8 @@ MonoBehaviour:
   - {fileID: 114571993687451652}
   - {fileID: 114542072930144088}
   EditorData:
-    PanOffset: {x: 0, y: 0}
-    Zoom: 1
+    PanOffset: {x: 62.0394, y: 29.149017}
+    Zoom: 0.97029907
   RoomType: ProceduralLevelGenerator.Unity.Generators.Common.LevelGraph.Room
   ConnectionType: ProceduralLevelGenerator.Unity.Generators.Common.LevelGraph.Connection
 --- !u!114 &114049828876990214

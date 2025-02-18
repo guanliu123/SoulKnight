@@ -1,18 +1,12 @@
-﻿using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using UnityEditor;
-using UnityEngine;
-
-namespace Edgar.Unity.Editor
+﻿namespace Edgar.Unity.Editor
 {
     public static class EditorUtils
     {
-        #if OndrejNepozitekEdgar
+#if OndrejNepozitekEdgar
         [MenuItem("Edgar debug/Sync build scenes")]
         public static void SyncBuildScenes()
         {
-            #if UNITY_EDITOR
+#if UNITY_EDITOR
             var scenes = new List<EditorBuildSettingsScene>();
             var guids = AssetDatabase.FindAssets("t:Scene", new[] {"Assets/Edgar/Examples"});
             if (guids != null)
@@ -30,8 +24,8 @@ namespace Edgar.Unity.Editor
 
             Debug.Log("Adding scenes to build settings:\n" + string.Join("\n", scenes.Select(scene => scene.path)));
             EditorBuildSettings.scenes = scenes.ToArray();
-            #endif
+#endif
         }
-        #endif
+#endif
     }
 }

@@ -1,10 +1,8 @@
-﻿using System;
+﻿using Edgar.GraphBasedGenerator.Grid2D;
+using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using System.Reflection;
-using Edgar.GraphBasedGenerator.Grid2D;
-using Edgar.Unity.Export;
 using UnityEngine;
 
 namespace Edgar.Unity
@@ -14,6 +12,16 @@ namespace Edgar.Unity
     /// </summary>
     public abstract class DungeonGeneratorBaseGrid2D : LevelGeneratorBase<DungeonGeneratorPayloadGrid2D>
     {
+        // PRO
+        public DungeonGeneratorInputTypeGrid2D InputType;
+
+        // PRO
+        [ExpandableScriptableObject]
+        public DungeonGeneratorInputBaseGrid2D CustomInputTask;
+
+        // PRO
+        protected override bool ThrowExceptionImmediately => ThrowExceptionsImmediately;
+
         [Expandable]
         public FixedLevelGraphConfigGrid2D FixedLevelGraphConfig;
 
@@ -49,27 +57,7 @@ namespace Edgar.Unity
         /// <summary>
         /// Whether to generate a level on enter play mode.
         /// </summary>
-        [Obsolete("Use the GenerateOn field instead.")]
-        public bool GenerateOnStart
-        {
-            get => GenerateOn == GenerateOn.Start;
-            set
-            {
-                if (value)
-                {
-                    GenerateOn = GenerateOn.Start;
-                }
-                else
-                {
-                    GenerateOn = GenerateOn.Manually;
-                }
-            }
-        }
-        
-        /// <summary>
-        /// Whether to generate a level automatically when entering the play mode/opening a scene.
-        /// </summary>
-        public GenerateOn GenerateOn = GenerateOn.Awake;
+        public bool GenerateOnStart = true;
 
         public bool ThrowExceptionsImmediately = false;
 
@@ -80,15 +68,7 @@ namespace Edgar.Unity
 
         public void Start()
         {
-            if (GenerateOn == GenerateOn.Start)
-            {
-                Generate();
-            }
-        }
-        
-        public void Awake()
-        {
-            if (GenerateOn == GenerateOn.Awake)
+            if (GenerateOnStart)
             {
                 Generate();
             }
@@ -113,7 +93,15 @@ namespace Edgar.Unity
 
         protected virtual IPipelineTask<DungeonGeneratorPayloadGrid2D> GetInputTask()
         {
-            return new FixedLevelGraphInputTaskGrid2D(FixedLevelGraphConfig);
+            if (InputType == DungeonGeneratorInputTypeGrid2D.CustomInput)
+            {
+                // PRO
+                return CustomInputTask;
+            }
+            else
+            {
+                return new FixedLevelGraphInputTaskGrid2D(FixedLevelGraphConfig);
+            }
         }
 
         protected virtual IPipelineTask<DungeonGeneratorPayloadGrid2D> GetGeneratorTask()
@@ -145,68 +133,29 @@ namespace Edgar.Unity
 
         protected virtual DungeonGeneratorPayloadGrid2D InitializePayload()
         {
-            var (random, seed) = GetRandomNumbersGenerator(UseRandomSeed, RandomGeneratorSeed);
             return new DungeonGeneratorPayloadGrid2D()
             {
-                Random = random,
-                Seed = seed,
+                Random = GetRandomNumbersGenerator(UseRandomSeed, RandomGeneratorSeed),
                 DungeonGenerator = this,
             };
         }
 
-        public void ExportLevelDescription(bool useTmpFolder = false)
+        public void ExportMapDescription()
         {
             var payload = InitializePayload();
             var inputSetup = GetInputTask();
 
-            var pipelineItems = new List<IPipelineTask<DungeonGeneratorPayloadGrid2D>> {inputSetup};
+            var pipelineItems = new List<IPipelineTask<DungeonGeneratorPayloadGrid2D>> { inputSetup };
 
             PipelineRunner.Run(pipelineItems, payload);
 
-            var directoryName = $"EdgarExport{(useTmpFolder ? "_tmp" : "")}";
-            if (!Directory.Exists(directoryName))
-            {
-                Directory.CreateDirectory(directoryName);
-            }
-            
-            var dateString = DateTime.Now.ToString("yyyy_MM_dd__HH_mm_ss");
-            var rawPath = Path.Combine(directoryName, $"{dateString}_raw.json");
-            var unityPath = Path.Combine(directoryName, $"{dateString}_unity.json");
+            var levelDescription = payload.LevelDescription.GetLevelDescription();
+            levelDescription.Name = "Test";
+            var wrappedLevelDescription = GetWrappedLevelDescription(levelDescription);
 
-            var levelDescription = payload.LevelDescription;
-            ExportRawLevelDescription(levelDescription, rawPath);
-            ExportUnityLevelDescription(levelDescription, unityPath);
-        }
-
-        private void ExportUnityLevelDescription(LevelDescriptionGrid2D levelDescription, string path)
-        {
-            try
-            {
-                var exportRunner = new ExportRunner();
-                var json = exportRunner.ExportToJson(levelDescription, GeneratorConfig.MinimumRoomDistance, GeneratorConfig.RepeatModeOverride);
-                File.WriteAllText(path, json);
-                Debug.Log($"Level description (Unity) exported to {path}");
-            }
-            catch (Exception e)
-            {
-                Debug.LogError($"Could not export level description (Unity): {e.Message}");
-                throw;
-            }
-        }
-
-        private void ExportRawLevelDescription(LevelDescriptionGrid2D levelDescription, string path)
-        {
-            try
-            {
-                var wrappedLevelDescription = GetWrappedLevelDescription(levelDescription.GetLevelDescription());
-                wrappedLevelDescription.SaveToJson(path);
-                Debug.Log($"Level description (raw) exported to {path}");
-            }
-            catch (Exception e)
-            {
-                Debug.LogError($"Could not export level description (raw): {e.Message}");
-                throw;
-            }
+            var filename = "exportedMapDescription.json";
+            wrappedLevelDescription.SaveToJson(filename);
+            Debug.Log($"Map description exported to {filename}");
         }
 
         private LevelDescriptionGrid2D<RoomWrapper> GetWrappedLevelDescription(LevelDescriptionGrid2D<RoomBase> originalLevelDescription)
@@ -230,7 +179,7 @@ namespace Edgar.Unity
 
             var id = 0;
             var mapping = originalLevelDescription
-                .GetGraph()
+                .GetGraphWithoutCorridors()
                 .Vertices
                 .Select(x => (x, new RoomWrapper(id++, x.GetDisplayName())))
                 .ToDictionary(x => x.x, x => x.Item2);
@@ -240,7 +189,7 @@ namespace Edgar.Unity
                 levelDescription.AddRoom(pair.Value, originalLevelDescription.GetRoomDescription(pair.Key));
             }
 
-            foreach (var edge in originalLevelDescription.GetGraph().Edges)
+            foreach (var edge in originalLevelDescription.GetGraphWithoutCorridors().Edges)
             {
                 var from = mapping[edge.From];
                 var to = mapping[edge.To];
@@ -291,7 +240,7 @@ namespace Edgar.Unity
 
         protected override int OnUpgradeSerializedData(int version)
         {
-            #pragma warning disable 618
+#pragma warning disable 618
             if (version < 2)
             {
                 if (OtherConfig != null)
@@ -325,14 +274,9 @@ namespace Edgar.Unity
                     }
                 }
             }
+#pragma warning restore 618
 
-            if (version < 4)
-            {
-                GenerateOn = GenerateOnStart ? GenerateOn.Start : GenerateOn.Manually;
-            }
-            #pragma warning restore 618
-
-            return 4;
+            return 3;
         }
     }
 }

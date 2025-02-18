@@ -16,7 +16,7 @@ namespace Edgar.Unity
         public bool CanFold { get; set; } = true;
     }
 
-    #if UNITY_EDITOR
+#if UNITY_EDITOR
     /// <summary>
     /// Draws the property field for any field marked with ExpandableAttribute.
     /// </summary>
@@ -62,7 +62,7 @@ namespace Edgar.Unity
 
         public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
         {
-            var attr = (ExpandableScriptableObjectAttribute) attribute;
+            var attr = (ExpandableScriptableObjectAttribute)attribute;
 
             var fieldRect = new Rect(position);
             fieldRect.height = EditorGUIUtility.singleLineHeight;
@@ -233,5 +233,5 @@ namespace Edgar.Unity
 
         #endregion
     }
-    #endif
+#endif
 }

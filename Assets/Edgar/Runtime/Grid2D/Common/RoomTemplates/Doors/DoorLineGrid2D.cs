@@ -1,7 +1,5 @@
-﻿using System;
-using Edgar.Geometry;
-using Edgar.GraphBasedGenerator.Common.Doors;
-using Edgar.GraphBasedGenerator.Grid2D;
+﻿using Edgar.Geometry;
+using System;
 using UnityEngine;
 
 namespace Edgar.Unity
@@ -9,11 +7,17 @@ namespace Edgar.Unity
     [Serializable]
     public class DoorLineGrid2D : IDoorLine
     {
+        [HideInInspector]
         public Vector3Int From;
 
+        [HideInInspector]
         public Vector3Int To;
 
         public int Length;
+
+        public DoorDirection Direction;
+
+        public DoorSocketBase Socket;
 
         Vector3Int IDoorLine.From => From;
 
@@ -33,15 +37,15 @@ namespace Edgar.Unity
             return new GraphBasedGenerator.Grid2D.DoorLineGrid2D(
                 line,
                 Length - 1,
-                null,
-                DoorType.Undirected);
+                Socket,
+                DoorsGrid2D.GetDoorType(Direction));
         }
 
         #region Equals
 
         protected bool Equals(DoorLineGrid2D other)
         {
-            return From.Equals(other.From) && To.Equals(other.To) && Length == other.Length;
+            return From.Equals(other.From) && To.Equals(other.To) && Length == other.Length && Direction == other.Direction && Equals(Socket, other.Socket);
         }
 
         public override bool Equals(object obj)
@@ -49,7 +53,7 @@ namespace Edgar.Unity
             if (ReferenceEquals(null, obj)) return false;
             if (ReferenceEquals(this, obj)) return true;
             if (obj.GetType() != this.GetType()) return false;
-            return Equals((DoorLineGrid2D) obj);
+            return Equals((DoorLineGrid2D)obj);
         }
 
         public override int GetHashCode()
@@ -59,6 +63,8 @@ namespace Edgar.Unity
                 var hashCode = From.GetHashCode();
                 hashCode = (hashCode * 397) ^ To.GetHashCode();
                 hashCode = (hashCode * 397) ^ Length;
+                hashCode = (hashCode * 397) ^ (int)Direction;
+                hashCode = (hashCode * 397) ^ (Socket != null ? Socket.GetHashCode() : 0);
                 return hashCode;
             }
         }

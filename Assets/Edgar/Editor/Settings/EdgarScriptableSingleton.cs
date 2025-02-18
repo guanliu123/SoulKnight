@@ -12,7 +12,7 @@ namespace Edgar.Unity.Editor
         {
             get
             {
-                if ((Object)EdgarScriptableSingleton<T>.s_Instance == (Object)null)
+                if (s_Instance == null)
                     EdgarScriptableSingleton<T>.CreateAndLoad();
                 return EdgarScriptableSingleton<T>.s_Instance;
             }
@@ -20,8 +20,8 @@ namespace Edgar.Unity.Editor
 
         protected EdgarScriptableSingleton()
         {
-            if ((Object)EdgarScriptableSingleton<T>.s_Instance != (Object)null)
-                Debug.LogError((object)"ScriptableSingleton already exists. Did you query the singleton in a constructor?");
+            if (s_Instance != null)
+                Debug.LogError("ScriptableSingleton already exists. Did you query the singleton in a constructor?");
             else
                 EdgarScriptableSingleton<T>.s_Instance = (object)this as T;
         }
@@ -31,16 +31,16 @@ namespace Edgar.Unity.Editor
             string filePath = EdgarScriptableSingleton<T>.GetFilePath();
             if (!string.IsNullOrEmpty(filePath))
                 InternalEditorUtility.LoadSerializedFileAndForget(filePath);
-            if (!((Object)EdgarScriptableSingleton<T>.s_Instance == (Object)null))
+            if (!(s_Instance == null))
                 return;
             ScriptableObject.CreateInstance<T>().hideFlags = HideFlags.HideInHierarchy | HideFlags.DontSave;
         }
 
         protected virtual void Save(bool saveAsText)
         {
-            if ((Object)EdgarScriptableSingleton<T>.s_Instance == (Object)null)
+            if (s_Instance == null)
             {
-                Debug.Log((object)"Cannot save ScriptableSingleton: no instance!");
+                Debug.Log("Cannot save ScriptableSingleton: no instance!");
             }
             else
             {
@@ -50,7 +50,7 @@ namespace Edgar.Unity.Editor
                 string directoryName = Path.GetDirectoryName(filePath);
                 if (!Directory.Exists(directoryName))
                     Directory.CreateDirectory(directoryName);
-                InternalEditorUtility.SaveToSerializedFileAndForget((Object[])new T[1]
+                InternalEditorUtility.SaveToSerializedFileAndForget(new T[1]
                 {
                     EdgarScriptableSingleton<T>.s_Instance
                 }, filePath, saveAsText);

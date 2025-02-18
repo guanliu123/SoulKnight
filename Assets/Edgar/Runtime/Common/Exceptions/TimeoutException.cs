@@ -1,5 +1,5 @@
-﻿using System.Collections.Generic;
-using Edgar.Unity.Diagnostics;
+﻿using Edgar.Unity.Diagnostics;
+using System.Collections.Generic;
 
 namespace Edgar.Unity
 {

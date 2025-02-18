@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Reflection;
 using UnityEditor;
 using UnityEngine;
 using Debug = UnityEngine.Debug;
@@ -27,7 +26,7 @@ namespace Edgar.Unity.Editor
 
         private RoomControl hoverRoomControl;
 
-        private List<Tuple<RoomControl, Vector2>> draggedRoomControlsAndPositions;
+        private Vector2 originalDragRoomPosition;
 
         private int currentPickerWindow;
 
@@ -158,7 +157,7 @@ namespace Edgar.Unity.Editor
         /// <returns></returns>
         private int Round(float i, int nearest)
         {
-            return (int) Math.Round(i / (double) nearest) * nearest;
+            return (int)Math.Round(i / (double)nearest) * nearest;
         }
 
         /// <summary>
@@ -279,7 +278,7 @@ namespace Edgar.Unity.Editor
             GUILayout.EndArea();
         }
 
-        #if UNITY_2019_1_OR_NEWER
+#if UNITY_2019_1_OR_NEWER
         private bool IsDirty()
         {
             if (LevelGraph == null)
@@ -289,7 +288,7 @@ namespace Edgar.Unity.Editor
 
             return EditorUtility.IsDirty(LevelGraph);
         }
-        #else
+#else
         private MethodInfo isDirtyMethod;
         private bool IsDirty()
         {
@@ -312,7 +311,7 @@ namespace Edgar.Unity.Editor
 
             return false;
         }
-        #endif
+#endif
 
         private void DrawRooms()
         {
@@ -326,7 +325,7 @@ namespace Edgar.Unity.Editor
         {
             foreach (var connectionControl in connectionControls)
             {
-                connectionControl.Draw(panOffset, zoom, false);
+                connectionControl.Draw(panOffset, zoom, LevelGraph.IsDirected);
             }
         }
 

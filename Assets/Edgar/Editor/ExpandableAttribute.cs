@@ -5,8 +5,8 @@ using UnityEngine;
 
 namespace Edgar.Unity.Editor
 {
-    #if UNITY_EDITOR
-    #endif
+#if UNITY_EDITOR
+#endif
 
     /// <summary>
     /// Use this property on a ScriptableObject type to allow the editors drawing the field to draw an expandable
@@ -19,7 +19,7 @@ namespace Edgar.Unity.Editor
         }
     }
 
-    #if UNITY_EDITOR
+#if UNITY_EDITOR
     /// <summary>
     /// Draws the property field for any field marked with ExpandableAttribute.
     /// </summary>
@@ -228,5 +228,5 @@ namespace Edgar.Unity.Editor
             }
         }
     }
-    #endif
+#endif
 }

@@ -12,7 +12,7 @@ namespace Edgar.Unity
     {
     }
 
-    #if UNITY_EDITOR
+#if UNITY_EDITOR
     [CustomPropertyDrawer(typeof(ReadOnlyAttribute))]
     internal class ReadOnlyDrawer : PropertyDrawer
     {
@@ -31,5 +31,5 @@ namespace Edgar.Unity
             GUI.enabled = true;
         }
     }
-    #endif
+#endif
 }

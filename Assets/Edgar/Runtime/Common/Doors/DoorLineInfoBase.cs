@@ -16,7 +16,7 @@ namespace Edgar.Unity
     /// </remarks>
     /// <typeparam name="TDoorInstance"></typeparam>
     [Serializable]
-    public abstract class DoorLineInfoBase<TDoorInstance, TDoorLine> 
+    public abstract class DoorLineInfoBase<TDoorInstance, TDoorLine>
         where TDoorInstance : class
         where TDoorLine : IDoorLine
     {
@@ -54,7 +54,7 @@ namespace Edgar.Unity
         public List<TileInfo> GetTiles()
         {
             var from = doorLine.From;
-            var to = doorLine.To + (Vector3Int) direction * (doorLine.Length - 1);
+            var to = doorLine.To + (Vector3Int)direction * (doorLine.Length - 1);
             var line = new OrthogonalLine(from, to);
             var result = new List<TileInfo>();
 

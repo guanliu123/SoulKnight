@@ -77,7 +77,7 @@ namespace Edgar.Unity
 
             if (overrideOutline != null)
             {
-                return new List<Tilemap>() {overrideOutline};
+                return new List<Tilemap>() { overrideOutline };
             }
 
             return tilemaps
@@ -107,7 +107,7 @@ namespace Edgar.Unity
                         continue;
                     }
 
-                    usedTiles.Add((Vector2Int) position);
+                    usedTiles.Add((Vector2Int)position);
                 }
             }
 

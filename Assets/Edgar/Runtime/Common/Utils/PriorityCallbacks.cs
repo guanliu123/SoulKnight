@@ -7,7 +7,7 @@ namespace Edgar.Unity
     /// Class that makes it possible to run callbacks with given priorities (order).
     /// </summary>
     /// <typeparam name="TCallback"></typeparam>
-    public class PriorityCallbacks<TCallback>
+    public class PriorityCallbacks<TCallback> : IPriorityCallbacks<TCallback>
     {
         private readonly Dictionary<int, List<TCallback>> callbacks = new Dictionary<int, List<TCallback>>();
         private readonly List<TCallback> callbacksBefore = new List<TCallback>();

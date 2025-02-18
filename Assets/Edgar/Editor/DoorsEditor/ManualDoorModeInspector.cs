@@ -9,6 +9,11 @@ namespace Edgar.Unity.Editor
         {
         }
 
+        protected override SerializedProperty GetDoorsListProperty()
+        {
+            return serializedProperty.FindPropertyRelative(nameof(ManualDoorModeDataGrid2D.DoorsList));
+        }
+
         protected override void DeleteAllDoors()
         {
             Undo.RecordObject(doors, "Delete all door positions");
@@ -23,9 +28,18 @@ namespace Edgar.Unity.Editor
             var gameObject = doors.transform.gameObject;
             var grid = gameObject.GetComponentInChildren<Grid>();
 
-            foreach (var door in doors.ManualDoorModeData.DoorsList)
+            for (var i = 0; i < doors.ManualDoorModeData.DoorsList.Count; i++)
             {
-                DrawDoor(grid, door.From.RoundToUnityIntVector3(), door.To.RoundToUnityIntVector3());
+                var door = doors.ManualDoorModeData.DoorsList[i];
+                var color = door.Socket != null ? door.Socket.GetColor() : Color.red;
+                var label = $"Id: {i}";
+
+                if (door.Direction != DoorDirection.Undirected)
+                {
+                    label += door.Direction == DoorDirection.Entrance ? "\nIn" : "\nOut";
+                }
+
+                DrawDoor(grid, door.From.RoundToUnityIntVector3(), door.To.RoundToUnityIntVector3(), color, label);
             }
         }
 
@@ -49,10 +63,10 @@ namespace Edgar.Unity.Editor
         {
             var gameObject = doors.transform.gameObject;
             var grid = gameObject.GetComponentInChildren<Grid>();
-            DrawDoor(grid, from, to);
+            DrawDoor(grid, from, to, Color.red);
         }
 
-        private void DrawDoor(Grid grid, Vector3Int from, Vector3Int to)
+        private void DrawDoor(Grid grid, Vector3Int from, Vector3Int to, Color color, string label = null)
         {
             var length = new OrthogonalLine(from, to).Length;
             var doorLine = new DoorLineGrid2D()
@@ -62,9 +76,7 @@ namespace Edgar.Unity.Editor
                 Length = length,
             };
 
-            var color = Color.red;
-
-            DoorsInspectorUtils.DrawDoorLine(doorLine, grid, color);
+            DoorsInspectorUtils.DrawDoorLine(doorLine, grid, color, label);
         }
 
         protected override void AddDoor(Vector3Int from, Vector3Int to)
@@ -73,6 +85,8 @@ namespace Edgar.Unity.Editor
             {
                 From = from,
                 To = to,
+                Socket = doors.DefaultSocket,
+                Direction = doors.DefaultDirection,
             };
 
             if (!doors.ManualDoorModeData.DoorsList.Contains(newDoor))

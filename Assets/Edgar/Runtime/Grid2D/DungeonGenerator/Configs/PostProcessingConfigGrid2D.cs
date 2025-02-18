@@ -26,8 +26,6 @@ namespace Edgar.Unity
 
         public bool DisableRoomTemplatesColliders = true;
 
-        public bool AnalyzeLevelStructure = true;
-
         private bool IsTilemapsFromExample => TilemapLayersStructure == TilemapLayersStructureModeGrid2D.FromExample;
 
         private bool IsTilemapsCustom => TilemapLayersStructure == TilemapLayersStructureModeGrid2D.Custom;

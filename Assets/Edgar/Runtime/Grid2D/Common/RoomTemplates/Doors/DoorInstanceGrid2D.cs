@@ -68,13 +68,31 @@ namespace Edgar.Unity
         [NonSerialized]
         private RoomInstanceGrid2D connectedRoomInstance;
 
-        public DoorInstanceGrid2D(OrthogonalLine doorLine, Vector2Int facingDirection, RoomBase connectedRoom, RoomInstanceGrid2D connectedRoomInstance)
+        /// <summary>
+        ///     Socket of the door. Null if there was not socket assigned.
+        /// </summary>
+        public DoorSocketBase Socket => socket;
+
+        [SerializeField]
+        private DoorSocketBase socket;
+
+        /// <summary>
+        ///     Direction of the door.
+        /// </summary>
+        public DoorDirection Direction => direction;
+
+        [SerializeField]
+        private DoorDirection direction;
+
+        public DoorInstanceGrid2D(OrthogonalLine doorLine, Vector2Int facingDirection, RoomBase connectedRoom, RoomInstanceGrid2D connectedRoomInstance, DoorSocketBase socket, DoorDirection direction)
         {
             this.doorLine = doorLine;
             this.facingDirection = facingDirection;
             this.connectedRoom = connectedRoom;
             this.connectedRoomInstance = connectedRoomInstance;
             this.isHorizontal = FacingDirection == Vector2Int.up || FacingDirection == Vector2Int.down;
+            this.socket = socket;
+            this.direction = direction;
         }
     }
 }

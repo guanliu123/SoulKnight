@@ -30,7 +30,7 @@ namespace Edgar.Unity
 
         public override IEnumerator Process()
         {
-            var callbacks = new PriorityCallbacks<DungeonGeneratorPostProcessCallbackGrid2D>();
+            var callbacks = new DungeonGeneratorCallbacksGrid2D();
 
             // Register default callbacks
             RegisterCallbacks(callbacks);
@@ -47,6 +47,9 @@ namespace Edgar.Unity
 
                     postProcessingTask.SetRandomGenerator(Payload.Random);
                     callbacks.RegisterAfterAll(postProcessingTask.Run);
+
+                    // PRO
+                    postProcessingTask.RegisterCallbacks(callbacks);
                 }
             }
 
@@ -61,6 +64,9 @@ namespace Edgar.Unity
                     }
 
                     postProcessingTask.SetRandomGenerator(Payload.Random);
+
+                    // PRO
+                    postProcessingTask.RegisterCallbacks(callbacks);
                     callbacks.RegisterAfterAll(postProcessingTask.Run);
                 }
             }
@@ -113,14 +119,6 @@ namespace Edgar.Unity
                 callbacks.RegisterCallback(PostProcessPrioritiesGrid2D.DisableRoomTemplateColliders, (level) =>
                 {
                     PostProcessUtilsGrid2D.DisableRoomTemplateColliders(level);
-                });
-            }
-
-            if (config.AnalyzeLevelStructure)
-            {
-                callbacks.RegisterAfterAll((level) =>
-                {
-                    PostProcessUtilsGrid2D.AnalyzeLevelStructure(level);
                 });
             }
         }

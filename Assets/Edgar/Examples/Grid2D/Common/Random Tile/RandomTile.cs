@@ -26,13 +26,13 @@ namespace Edgar.Unity.Examples
                 hash ^= location.y;
                 hash = hash + 0x46ac12fd + (hash << 7);
                 hash = (hash + 0xbe9730af) ^ (hash << 11);
-                Random.InitState((int) hash);
-                tileData.sprite = m_Sprites[(int) (m_Sprites.Length * Random.value)];
+                Random.InitState((int)hash);
+                tileData.sprite = m_Sprites[(int)(m_Sprites.Length * Random.value)];
             }
         }
     }
 
-    #if UNITY_EDITOR
+#if UNITY_EDITOR
     [CustomEditor(typeof(RandomTile))]
     public class RandomTileEditor : Editor
     {
@@ -57,12 +57,12 @@ namespace Edgar.Unity.Examples
 
             for (var i = 0; i < count; i++)
             {
-                tile.m_Sprites[i] = (Sprite) EditorGUILayout.ObjectField("Sprite " + (i + 1), tile.m_Sprites[i], typeof(Sprite), false, null);
+                tile.m_Sprites[i] = (Sprite)EditorGUILayout.ObjectField("Sprite " + (i + 1), tile.m_Sprites[i], typeof(Sprite), false, null);
             }
 
             if (EditorGUI.EndChangeCheck())
                 EditorUtility.SetDirty(tile);
         }
     }
-    #endif
+#endif
 }

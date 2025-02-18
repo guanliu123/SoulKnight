@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Reflection;
 using UnityEditor;
-using UnityEngine;
 using UnityEngine.UIElements;
 
 namespace Edgar.Unity.Editor
@@ -12,6 +11,7 @@ namespace Edgar.Unity.Editor
         private SerializedObject serializedObject;
         private EdgarSettingsGrid2D.Inspector inspectorGrid2D;
         private EdgarSettingsGeneral.Inspector inspectorGeneral;
+        private EdgarSettingsGrid3D.Inspector inspectorGrid3D;
 
         public EdgarSettingsProvider(string path, SettingsScope scopes, IEnumerable<string> keywords = null)
             : base(path, scopes, keywords) { }
@@ -22,6 +22,7 @@ namespace Edgar.Unity.Editor
             serializedObject = new SerializedObject(EdgarSettings.instance);
             inspectorGrid2D = new EdgarSettingsGrid2D.Inspector(serializedObject);
             inspectorGeneral = new EdgarSettingsGeneral.Inspector(serializedObject);
+            inspectorGrid3D = new EdgarSettingsGrid3D.Inspector(serializedObject);
         }
 
         public override void OnGUI(string searchContext)
@@ -33,6 +34,7 @@ namespace Edgar.Unity.Editor
 
                 inspectorGeneral.OnGUI();
                 inspectorGrid2D.OnGUI();
+                inspectorGrid3D.OnGUI();
 
                 if (EditorGUI.EndChangeCheck())
                 {

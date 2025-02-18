@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Linq;
 using System.Reflection;
 using UnityEditor;
 using UnityEngine;
@@ -70,13 +69,13 @@ namespace Edgar.Unity
         }
     }
 
-    #if UNITY_EDITOR
+#if UNITY_EDITOR
     [CustomPropertyDrawer(typeof(ConditionalHideAttribute))]
     internal class ConditionalHidePropertyDrawer : PropertyDrawer
     {
         public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
         {
-            ConditionalHideAttribute condHAtt = (ConditionalHideAttribute) attribute;
+            ConditionalHideAttribute condHAtt = (ConditionalHideAttribute)attribute;
             bool enabled = GetConditionalHideAttributeResult(condHAtt, property);
 
             bool wasEnabled = GUI.enabled;
@@ -91,7 +90,7 @@ namespace Edgar.Unity
 
         public override float GetPropertyHeight(SerializedProperty property, GUIContent label)
         {
-            ConditionalHideAttribute condHAtt = (ConditionalHideAttribute) attribute;
+            ConditionalHideAttribute condHAtt = (ConditionalHideAttribute)attribute;
             bool enabled = GetConditionalHideAttributeResult(condHAtt, property);
 
             if (!condHAtt.HideInInspector && enabled)
@@ -271,7 +270,7 @@ namespace Edgar.Unity
         {
             if (val is bool)
             {
-                return (bool) val;
+                return (bool)val;
             }
 
             return true;
@@ -299,7 +298,7 @@ namespace Edgar.Unity
                         .Replace("]", "");
                     var indexNumber = int.Parse(index);
 
-                    var array = (object[]) obj;
+                    var array = (object[])obj;
                     obj = array[indexNumber];
 
                     continue;
@@ -333,5 +332,5 @@ namespace Edgar.Unity
             return obj;
         }
     }
-    #endif
+#endif
 }

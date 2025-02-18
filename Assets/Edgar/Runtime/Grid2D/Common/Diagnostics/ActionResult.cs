@@ -10,6 +10,16 @@ namespace Edgar.Unity.Diagnostics
 
         public List<string> Errors { get; } = new List<string>();
 
+        public ActionResult()
+        {
+
+        }
+
+        public ActionResult(string error)
+        {
+            AddError(error);
+        }
+
         public void AddError(string error)
         {
             Errors.Add(error);

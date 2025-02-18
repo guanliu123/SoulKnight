@@ -32,7 +32,7 @@ namespace Edgar.Unity
 
         public static Vector3Int RoundToUnityIntVector3(this Vector3 vector)
         {
-            return new Vector3Int((int) vector.x, (int) vector.y, (int) vector.z);
+            return new Vector3Int((int)vector.x, (int)vector.y, (int)vector.z);
         }
 
         public static HashSet<T> ToHashSet<T>(this IEnumerable<T> source, IEqualityComparer<T> comparer = null)
@@ -40,7 +40,7 @@ namespace Edgar.Unity
             return new HashSet<T>(source, comparer);
         }
 
-        #if UNITY_EDITOR
+#if UNITY_EDITOR
         /// <summary>
         /// Gets visible children of `SerializedProperty` at 1 level depth.
         /// </summary>
@@ -63,6 +63,6 @@ namespace Edgar.Unity
                 } while (currentProperty.NextVisible(includeNested));
             }
         }
-        #endif
+#endif
     }
 }

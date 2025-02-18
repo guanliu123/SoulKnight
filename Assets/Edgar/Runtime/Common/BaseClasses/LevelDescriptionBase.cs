@@ -1,10 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using Edgar.GraphBasedGenerator.Grid2D;
+﻿using Edgar.GraphBasedGenerator.Grid2D;
 using Edgar.Graphs;
 using Edgar.Legacy.GeneralAlgorithms.DataStructures.Common;
 using Edgar.Unity.Diagnostics;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 namespace Edgar.Unity

@@ -29,6 +29,15 @@ namespace Edgar.Unity.Editor
 
         private static void AddProPopups()
         {
+            scenePopups.Add(PopupDatabasePro.GetFogOfWarPopup());
+            scenePopups.Add(PopupDatabasePro.GetMinimapPopup());
+            scenePopups.Add(PopupDatabasePro.GetDoorSocketsPopup());
+            scenePopups.Add(PopupDatabasePro.GetDirectedLevelGraphsPopup());
+            scenePopups.Add(PopupDatabasePro.GetMinimap2Popup());
+            scenePopups.Add(PopupDatabasePro.GetMetroidvaniaRooftopPopup());
+            scenePopups.Add(PopupDatabasePro.GetMetroidvaniaUndergroundPopup());
+            scenePopups.Add(PopupDatabasePro.GetGungeonPopup());
+            scenePopups.Add(PopupDatabasePro.GetIsometric1Popup());
         }
 
         private static void SceneOpenedCallback(Scene scene, OpenSceneMode mode)

@@ -12,8 +12,6 @@ namespace Edgar.Unity
         public DungeonGeneratorLevelGrid2D GeneratedLevel { get; set; }
 
         public Random Random { get; set; }
-        
-        public int Seed { get; set; }
 
         public GeneratorStats GeneratorStats { get; set; }
 

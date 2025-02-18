@@ -60,7 +60,7 @@ namespace Edgar.Unity
             var rect = GetRect(gridOffset, zoom);
 
             var rectStyle = new GUIStyle(LevelGraphEditorStyles.RoomControl);
-            rectStyle.fontSize = (int) (rectStyle.fontSize * zoom);
+            rectStyle.fontSize = (int)(rectStyle.fontSize * zoom);
             rectStyle.normal.textColor = style.TextColor;
 
             var oldBackgroundColor = GUI.backgroundColor;
@@ -75,11 +75,11 @@ namespace Edgar.Unity
         /// <returns></returns>
         protected virtual bool IsSelected()
         {
-            #if UNITY_EDITOR
+#if UNITY_EDITOR
             return Selection.objects.Contains(Room);
-            #else
+#else
             return false;
-            #endif
+#endif
         }
     }
 }

@@ -22,36 +22,55 @@ namespace Edgar.Unity.Editor
         /// <param name="isDotted"></param>
         public static void DrawRectangleOutline(Grid grid, Vector3Int fromTile, Vector3Int toTile, Color color, Vector2 sizeModifier = default, bool addDiagonal = false, string label = null, bool isDotted = false)
         {
-            if (grid.cellLayout == GridLayout.CellLayout.Isometric || grid.cellLayout == GridLayout.CellLayout.IsometricZAsY)
-            {
-                if (DateTime.Now.Subtract(TimeSpan.FromSeconds(30)) > lastIsometricErrorShown)
-                {
-                    Debug.LogError("Isometric levels are only supported in the PRO version");
-                    lastIsometricErrorShown = DateTime.Now;
-                }
+            //if (grid.cellLayout == GridLayout.CellLayout.Isometric || grid.cellLayout == GridLayout.CellLayout.IsometricZAsY)
+            //{
+            //    if (DateTime.Now.Subtract(TimeSpan.FromSeconds(30)) > lastIsometricErrorShown)
+            //    {
+            //        Debug.LogError("Isometric levels are only supported in the PRO version");
+            //        lastIsometricErrorShown = DateTime.Now;
+            //    }
 
-                return;
-            }
+            //    return;
+            //}
+
+            var drawLine = isDotted
+                ? (Action<Vector3, Vector3>)((p1, p2) => Handles.DrawDottedLine(p1, p2, 2f))
+                : (p1, p2) => Handles.DrawLine(p1, p2);
 
             // Make sure that the from tile is on the bottom-left
             if (fromTile.x > toTile.x || fromTile.y > toTile.y)
             {
-                (fromTile, toTile) = (toTile, fromTile);
+                var tmp = fromTile;
+                fromTile = toTile;
+                toTile = tmp;
             }
 
             // Calculate world coordinates of the cells
             var fromWorld = grid.CellToWorld(fromTile);
             var toWorld = grid.CellToWorld(toTile);
 
-            var xDirection = grid.CellToLocal(new Vector3Int(1, 0, 0));
-            var yDirection = grid.CellToLocal(new Vector3Int(0, 1, 0));
+            var cellSizeX = grid.cellSize.x;
+            var cellSizeY = grid.cellSize.y;
 
-            var xSizeModifier = sizeModifier.x * xDirection;
-            var ySizeModifier = sizeModifier.y * yDirection;
+            var xDirection = new Vector3(cellSizeX, 0);
+            var yDirection = new Vector3(0, cellSizeY);
+
+            var xSizeModifier = new Vector3(sizeModifier.x, 0);
+            var ySizeModifier = new Vector3(0, sizeModifier.y);
+
+            // PRO only
+            if (grid.cellLayout == GridLayout.CellLayout.Isometric || grid.cellLayout == GridLayout.CellLayout.IsometricZAsY)
+            {
+                xDirection = new Vector3(cellSizeX, cellSizeY) / 2;
+                yDirection = new Vector3(-cellSizeX, cellSizeY) / 2;
+
+                xSizeModifier = new Vector3(sizeModifier.x, sizeModifier.y) / 2;
+                ySizeModifier = new Vector3(-sizeModifier.x, sizeModifier.y) / 2;
+            }
 
             var points = new List<Vector3>();
 
-            if (fromTile.x < toTile.x)
+            if (fromWorld.x < toWorld.x)
             {
                 points.Add(fromWorld);
                 points.Add(fromWorld + yDirection);
@@ -71,6 +90,13 @@ namespace Edgar.Unity.Editor
             points[2] += -xSizeModifier - ySizeModifier;
             points[3] += -xSizeModifier + ySizeModifier;
 
+            // PRO only
+            if (grid.cellLayout == GridLayout.CellLayout.Isometric || grid.cellLayout == GridLayout.CellLayout.IsometricZAsY)
+            {
+                points[0] -= (xSizeModifier + ySizeModifier) / 2;
+                points[2] -= (-xSizeModifier - ySizeModifier) / 2;
+            }
+
             var originalColor = Handles.color;
             Handles.color = color;
 
@@ -80,7 +106,7 @@ namespace Edgar.Unity.Editor
 
                 var style = new GUIStyle();
                 style.normal.textColor = color;
-                style.fontSize = (int) (15 / size);
+                style.fontSize = (int)(15 / size);
 
                 if (style.fontSize >= 5)
                 {
@@ -88,29 +114,17 @@ namespace Edgar.Unity.Editor
                 }
             }
 
-            DrawLine(points[0], points[1], isDotted);
-            DrawLine(points[1], points[2], isDotted);
-            DrawLine(points[2], points[3], isDotted);
-            DrawLine(points[3], points[0], isDotted);
+            drawLine(points[0], points[1]);
+            drawLine(points[1], points[2]);
+            drawLine(points[2], points[3]);
+            drawLine(points[3], points[0]);
 
             if (addDiagonal)
             {
-                DrawLine(points[0], points[2], isDotted);
+                drawLine(points[0], points[2]);
             }
 
             Handles.color = originalColor;
-        }
-
-        private static void DrawLine(Vector3 point1, Vector3 point2, bool isDotted)
-        {
-            if (isDotted)
-            {
-                Handles.DrawDottedLine(point1, point2, 2f);
-            }
-            else
-            {
-                Handles.DrawLine(point1, point2);
-            }
         }
     }
 }

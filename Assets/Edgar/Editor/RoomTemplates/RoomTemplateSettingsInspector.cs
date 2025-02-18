@@ -20,7 +20,7 @@ namespace Edgar.Unity.Editor
 
             DrawDefaultInspector();
 
-            var roomTemplate = (RoomTemplateSettingsGrid2D) target;
+            var roomTemplate = (RoomTemplateSettingsGrid2D)target;
             var validityCheck = RoomTemplateDiagnostics.CheckAll(roomTemplate.gameObject);
 
             if (!validityCheck.HasErrors)
@@ -33,12 +33,6 @@ namespace Edgar.Unity.Editor
                 if (wrongManualDoorsCheck.HasErrors)
                 {
                     EditorGUILayout.HelpBox(string.Join("\n", wrongManualDoorsCheck.Errors).Trim(), MessageType.Warning);
-                }
-
-                var wrongPositionGameObjects = RoomTemplateDiagnostics.CheckWrongPositionGameObjects(roomTemplate.gameObject);
-                if (wrongPositionGameObjects.HasErrors)
-                {
-                    EditorGUILayout.HelpBox(string.Join("\n", wrongPositionGameObjects.Errors).Trim(), MessageType.Warning);
                 }
             }
             else
@@ -120,7 +114,7 @@ namespace Edgar.Unity.Editor
 
         private void ShowStatus()
         {
-            var roomTemplate = (RoomTemplateSettingsGrid2D) target;
+            var roomTemplate = (RoomTemplateSettingsGrid2D)target;
             var originalBackground = GUI.backgroundColor;
 
             Handles.BeginGUI();
@@ -152,12 +146,12 @@ namespace Edgar.Unity.Editor
                 }
             }
 
-            GUILayout.Label($"Outline: <b>{outlineText}</b>", new GUIStyle(EditorStyles.label) {richText = true});
-            GUILayout.Label($"Doors: <b>{doorsText}</b>", new GUIStyle(EditorStyles.label) {richText = true});
+            GUILayout.Label($"Outline: <b>{outlineText}</b>", new GUIStyle(EditorStyles.label) { richText = true });
+            GUILayout.Label($"Doors: <b>{doorsText}</b>", new GUIStyle(EditorStyles.label) { richText = true });
 
             if (!isOutlineValid || !areDoorsValid)
             {
-                GUILayout.Label($"<size=9>See the Room template settings component for details</size>", new GUIStyle(EditorStyles.label) {richText = true, wordWrap = true});
+                GUILayout.Label($"<size=9>See the Room template settings component for details</size>", new GUIStyle(EditorStyles.label) { richText = true, wordWrap = true });
             }
 
             GUILayout.EndVertical();
@@ -171,7 +165,7 @@ namespace Edgar.Unity.Editor
         {
             try
             {
-                var roomTemplate = (RoomTemplateSettingsGrid2D) target;
+                var roomTemplate = (RoomTemplateSettingsGrid2D)target;
                 var outline = roomTemplate.GetOutline();
 
                 if (outline == null)
@@ -194,20 +188,20 @@ namespace Edgar.Unity.Editor
 
         private void AddOnSceneGUIDelegate()
         {
-            #if UNITY_2019_1_OR_NEWER
+#if UNITY_2019_1_OR_NEWER
             SceneView.duringSceneGui += OnSceneGUIPersistent;
-            #else
+#else
             SceneView.onSceneGUIDelegate += OnSceneGUIPersistent;
-            #endif
+#endif
         }
 
         private void RemoveOnSceneGUIDelegate()
         {
-            #if UNITY_2019_1_OR_NEWER
+#if UNITY_2019_1_OR_NEWER
             SceneView.duringSceneGui -= OnSceneGUIPersistent;
-            #else
+#else
             SceneView.onSceneGUIDelegate -= OnSceneGUIPersistent;
-            #endif
+#endif
         }
     }
 }

@@ -1,5 +1,5 @@
-﻿using System.Linq;
-using Edgar.Geometry;
+﻿using Edgar.Geometry;
+using System.Linq;
 using UnityEditor;
 using UnityEngine;
 
@@ -10,17 +10,24 @@ namespace Edgar.Unity.Editor
         public HybridDoorModeInspector(SerializedObject serializedObject, DoorsGrid2D doors, SerializedProperty serializedProperty) : base(serializedObject, doors, serializedProperty)
         {
         }
-        
+
         protected override void DrawAllDoors()
         {
             var gameObject = doors.transform.gameObject;
             var grid = gameObject.GetComponentInChildren<Grid>();
 
-            var color = Color.red;
-
-            foreach (var doorLine in doors.HybridDoorModeData.DoorLines)
+            for (var i = 0; i < doors.HybridDoorModeData.DoorLines.Count; i++)
             {
-                DoorsInspectorUtils.DrawDoorLine(doorLine, grid, color);
+                var doorLine = doors.HybridDoorModeData.DoorLines[i];
+                var color = doorLine.Socket != null ? doorLine.Socket.GetColor() : Color.red;
+                var label = $"Id: {i}";
+
+                if (doorLine.Direction != DoorDirection.Undirected)
+                {
+                    label += doorLine.Direction == DoorDirection.Entrance ? "\nIn" : "\nOut";
+                }
+
+                DoorsInspectorUtils.DrawDoorLine(doorLine, grid, color, label);
             }
         }
 
@@ -65,6 +72,8 @@ namespace Edgar.Unity.Editor
                 From = from,
                 To = to,
                 Length = length,
+                Socket = doors.DefaultSocket,
+                Direction = doors.DefaultDirection,
             };
             var line = new OrthogonalLineGrid2D(from.ToCustomIntVector2(), to.ToCustomIntVector2());
 
@@ -81,6 +90,11 @@ namespace Edgar.Unity.Editor
 
                 EditorUtility.SetDirty(doors);
             }
+        }
+
+        protected override SerializedProperty GetDoorsListProperty()
+        {
+            return serializedProperty.FindPropertyRelative(nameof(HybridDoorModeDataGrid2D.DoorLines));
         }
 
         protected override void DeleteAllDoors()

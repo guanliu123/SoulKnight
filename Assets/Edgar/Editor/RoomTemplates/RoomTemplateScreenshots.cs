@@ -1,8 +1,4 @@
-﻿using System.IO;
-using System.Linq;
-using UnityEditor;
-using UnityEditor.Experimental.SceneManagement;
-using UnityEditorInternal;
+﻿using System.Linq;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
@@ -16,7 +12,7 @@ namespace Edgar.Unity.Editor
             return PostProcessUtilsGrid2D.GetTilemapsCenter(tilemaps, true);
         }
 
-        #if OndrejNepozitekEdgar
+#if OndrejNepozitekEdgar
         [MenuItem("Edgar debug/Room template screenshot with center %g")]
         public static void TakeScreenshotWithCenter()
         {
@@ -61,7 +57,8 @@ namespace Edgar.Unity.Editor
 
             byte[] pngData = result.EncodeToPNG();
             var path =
-                "C:\\Users\\ondra\\Projects\\JavaScript\\Edgar-Unity\\docs\\assets\\2d\\examples\\example2\\";
+                "C:\\Users\\ondra\\Projects\\JavaScript\\Edgar-Unity\\docs\\assets\\3d\\generator_settings\\";
+
 
             FileStream file = File.Create($"{path}{name}.png");
 
@@ -71,11 +68,10 @@ namespace Edgar.Unity.Editor
             }
 
             file.Write(pngData, 0, pngData.Length);
-
             file.Close();
 
             Debug.Log($"Room template screenshot taken - {name}.png");
         }
-        #endif
+#endif
     }
 }

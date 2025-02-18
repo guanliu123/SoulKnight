@@ -8,6 +8,8 @@
 
         public EdgarSettingsGrid2D Grid2D = new EdgarSettingsGrid2D();
 
+        public EdgarSettingsGrid3D Grid3D = new EdgarSettingsGrid3D();
+
         public void Save()
         {
             Save(true);

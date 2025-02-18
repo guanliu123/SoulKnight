@@ -306,8 +306,8 @@ private void SetFloorWithWall(Vector3Int pos)
 //生成房间 （用二维 int 数组表示）
     private Room RandomRoom()
     {
-        int index = Random.Range(0,_rooms[RoomType.Normal].Count);
-        return _rooms[RoomType.Normal][index];
+        int index = Random.Range(0,_rooms[RoomType.EnemyRoom].Count);
+        return _rooms[RoomType.EnemyRoom][index];
         // int width = GetOddNumber(roomMinW, roomMaxW);
         // int height = GetOddNumber(roomMinH, roomMaxH);   
         // var room = new int[width, height];

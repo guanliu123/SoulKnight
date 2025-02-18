@@ -1,5 +1,4 @@
-﻿using System;
-using Edgar.GraphBasedGenerator.Grid2D.Exceptions;
+﻿using Edgar.GraphBasedGenerator.Grid2D.Exceptions;
 using UnityEditor;
 using UnityEngine;
 
@@ -75,6 +74,53 @@ namespace Edgar.Unity.Editor
             }
 
             ShowAdditionalFields();
+
+            EditorGUILayout.PropertyField(serializedObject.FindProperty(nameof(DoorsGrid2D.DefaultSocket)), new GUIContent("Default socket for new doors"));
+            EditorGUILayout.PropertyField(serializedObject.FindProperty(nameof(DoorsGrid2D.DefaultDirection)), new GUIContent("Default direction for new doors"));
+            ShowList(GetDoorsListProperty());
+
+            serializedObject.ApplyModifiedProperties();
+        }
+
+        protected abstract SerializedProperty GetDoorsListProperty();
+
+        private void ShowList(SerializedProperty list)
+        {
+            var showList = EditorGUILayout.Foldout(list.isExpanded, "Doors list", new GUIStyle(EditorStyles.foldout)
+            {
+                fontStyle = FontStyle.Bold,
+            });
+            list.isExpanded = showList;
+
+            if (showList)
+            {
+                GUILayout.BeginVertical(EditorStyles.helpBox);
+
+                for (int i = 0; i < list.arraySize; i++)
+                {
+                    GUILayout.BeginVertical(EditorStyles.helpBox);
+
+                    EditorGUILayout.PropertyField(list.GetArrayElementAtIndex(i), new GUIContent($"Door {i}"));
+
+                    GUILayout.BeginHorizontal();
+
+                    if (GUILayout.Button("Remove", EditorStyles.miniButton))
+                    {
+                        var oldSize = list.arraySize;
+                        list.DeleteArrayElementAtIndex(i);
+                        if (list.arraySize == oldSize)
+                        {
+                            list.DeleteArrayElementAtIndex(i);
+                        }
+                    }
+
+                    GUILayout.EndHorizontal();
+
+                    GUILayout.EndVertical();
+                }
+
+                GUILayout.EndVertical();
+            }
         }
 
         protected abstract void DeleteAllDoors();
@@ -106,7 +152,7 @@ namespace Edgar.Unity.Editor
             var gameObject = doors.transform.gameObject;
             var e = Event.current;
 
-            
+            var tilePosition = GetCurrentTilePosition();
 
             // Make sure that the current active object in the inspector is not deselected
             Selection.activeGameObject = gameObject;
@@ -115,8 +161,8 @@ namespace Edgar.Unity.Editor
 
             if (e.type == EventType.MouseUp)
             {
-                var tilePosition = GetCurrentTilePosition();
                 RemoveDoor(tilePosition);
+
                 Event.current.Use();
             }
 
@@ -138,18 +184,21 @@ namespace Edgar.Unity.Editor
             Selection.activeGameObject = gameObject;
             var controlId = GUIUtility.GetControlID(FocusType.Passive);
             HandleUtility.AddDefaultControl(controlId);
-            
+
+            // Compute tile position below the mouse cursor
+            var tilePosition = GetCurrentTilePosition();
+
             switch (e.type)
             {
                 case EventType.MouseDown:
                     if (e.button == 0)
                     {
-                        var tilePosition = GetCurrentTilePosition();
                         firstPoint = tilePosition;
                         hasFirstTile = true;
                         hasSecondTile = false;
                         e.Use();
                     }
+
                     break;
 
                 case EventType.MouseUp:
@@ -162,13 +211,13 @@ namespace Edgar.Unity.Editor
 
                         e.Use();
                     }
+
                     break;
             }
 
             // If we have the first tile, we can show how would the door look like if we released the mouse button
             if (hasFirstTile)
             {
-                var tilePosition = GetCurrentTilePosition();
                 var from = firstPoint;
                 var to = tilePosition;
 
@@ -211,14 +260,13 @@ namespace Edgar.Unity.Editor
             var grid = gameObject.GetComponentInChildren<Grid>();
 
             var ray = HandleUtility.GUIPointToWorldRay(Event.current.mousePosition);
-            var plane = new Plane(grid.CellToLocal(new Vector3Int(0, 0, 1)), Vector3.zero);
+            var plane = new Plane(Vector3.forward, Vector3.zero);
             Vector3Int tilePosition;
 
             // Compute ray cast with the plane so that this works also in 3D view
             if (plane.Raycast(ray, out var enter))
             {
-                var rayPoint = ray.GetPoint(enter);
-                tilePosition = grid.WorldToCell(rayPoint);
+                tilePosition = grid.WorldToCell(ray.GetPoint(enter));
             }
             // Fallback to the old behaviour just in case
             else

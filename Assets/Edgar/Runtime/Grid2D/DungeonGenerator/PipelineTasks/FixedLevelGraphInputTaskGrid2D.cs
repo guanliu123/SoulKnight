@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections;
 using System.Linq;
 using UnityEngine;
 
@@ -52,7 +50,7 @@ namespace Edgar.Unity
             {
                 if (config.UseCorridors)
                 {
-                    var corridorRoom = (RoomBase) ScriptableObject.CreateInstance(typeOfRooms);
+                    var corridorRoom = (RoomBase)ScriptableObject.CreateInstance(typeOfRooms);
 
                     if (corridorRoom is Room basicRoom)
                     {
@@ -67,6 +65,8 @@ namespace Edgar.Unity
                     levelDescription.AddConnection(connection);
                 }
             }
+
+            InputSetupUtils.CheckIfDirected(levelDescription, config.LevelGraph);
 
             Payload.LevelDescription = levelDescription;
 

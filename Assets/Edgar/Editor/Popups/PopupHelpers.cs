@@ -1,6 +1,4 @@
-﻿using System.Text;
-
-namespace Edgar.Unity.Editor
+﻿namespace Edgar.Unity.Editor
 {
     public class PopupHelpers
     {

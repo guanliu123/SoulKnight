@@ -1,7 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using Edgar.GraphBasedGenerator.Grid2D;
+using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using Edgar.GraphBasedGenerator.Grid2D;
 using UnityEngine;
 
 namespace Edgar.Unity.Diagnostics

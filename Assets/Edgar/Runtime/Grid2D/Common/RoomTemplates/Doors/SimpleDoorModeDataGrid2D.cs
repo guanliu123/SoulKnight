@@ -1,9 +1,8 @@
-﻿using System;
+﻿using Edgar.Geometry;
+using Edgar.GraphBasedGenerator.Grid2D;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using Edgar.Geometry;
-using Edgar.GraphBasedGenerator.Common.Doors;
-using Edgar.GraphBasedGenerator.Grid2D;
 
 namespace Edgar.Unity
 {
@@ -13,6 +12,8 @@ namespace Edgar.Unity
         public int DistanceFromCorners = 1;
 
         public int DoorLength = 1;
+
+        public DoorSocketBase Socket;
 
         public SettingsMode Mode;
 
@@ -82,6 +83,8 @@ namespace Edgar.Unity
                         From = doorLineTemp.From.ToUnityIntVector3(),
                         To = doorLineTemp.To.ToUnityIntVector3(),
                         Length = settings.Length,
+                        Socket = Socket,
+                        Direction = DoorDirection.Undirected,
                     };
                     doorLines.Add(doorLine);
                 }

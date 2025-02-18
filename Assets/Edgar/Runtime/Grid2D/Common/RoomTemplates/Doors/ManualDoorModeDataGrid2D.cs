@@ -1,6 +1,6 @@
-﻿using System;
+﻿using Edgar.GraphBasedGenerator.Grid2D;
+using System;
 using System.Collections.Generic;
-using Edgar.GraphBasedGenerator.Grid2D;
 
 namespace Edgar.Unity
 {
@@ -18,7 +18,9 @@ namespace Edgar.Unity
                 // TODO: ugly
                 var doorLine = new GraphBasedGenerator.Grid2D.DoorGrid2D(
                     door.From.RoundToUnityIntVector3().ToCustomIntVector2(),
-                    door.To.RoundToUnityIntVector3().ToCustomIntVector2()
+                    door.To.RoundToUnityIntVector3().ToCustomIntVector2(),
+                    door.Socket,
+                    DoorsGrid2D.GetDoorType(door.Direction)
                 );
 
                 doors.Add(doorLine);

@@ -55,5 +55,8 @@ namespace Edgar.Unity
         public string RoomType = typeof(Room).FullName;
 
         public string ConnectionType = typeof(Connection).FullName;
+
+
+        public bool IsDirected = false;
     }
 }

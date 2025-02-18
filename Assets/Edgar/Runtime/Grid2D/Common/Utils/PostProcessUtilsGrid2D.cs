@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Edgar.Unity.Diagnostics;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 using Object = UnityEngine.Object;
@@ -276,28 +275,6 @@ namespace Edgar.Unity
             }
         }
 
-        public static void AnalyzeLevelStructure(DungeonGeneratorLevelGrid2D level)
-        {
-            if (!Application.isEditor)
-            {
-                return;
-            }
-
-            try
-            {
-                var result = LevelStructureDiagnostics.Analyze(level);
-                if (result.IsPotentialProblem)
-                {
-                    Debug.LogWarning(result.Summary);
-                }
-            }
-            catch (Exception e)
-            {
-                Debug.LogError("Could not analyze level structure, see the exception below");
-                Debug.LogException(e);
-            }
-        }
-
 
         /// <summary>
         /// Disables colliders of individual tilemaps in a given room template.
@@ -312,18 +289,12 @@ namespace Edgar.Unity
                 // Iterate through all the colliders
                 foreach (var collider in tilemap.GetComponents<Collider2D>())
                 {
-                    #if UNITY_2023_2_OR_NEWER
-                    var usedByComposite = collider.compositeOperation != Collider2D.CompositeOperation.None;
-                    #else
-                    var usedByComposite = collider.usedByComposite;
-                    #endif
-                    
                     // If the collider is not used by composite collider and it is not a trigger, destroy it
-                    if (!usedByComposite && !collider.isTrigger)
+                    if (!collider.usedByComposite && !collider.isTrigger)
                     {
                         Destroy(collider);
                     }
-                    else if (usedByComposite)
+                    else if (collider.usedByComposite)
                     {
                         // If the collider is used by composite but that composite does not exist or is not a trigger, destroy it
                         if (collider.composite == null || !collider.composite.isTrigger)

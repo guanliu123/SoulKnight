@@ -30,20 +30,14 @@ namespace Edgar.Unity
         /// </remarks>
         public List<TRoomInstance> RoomInstances { get; }
 
-        /// <summary>
-        /// Seed that was used by the random numbers generator.
-        /// </summary>
-        public int Seed { get; }
-
         private readonly Dictionary<RoomBase, TRoomInstance> roomInstances;
 
-        protected GeneratedLevelBase(Dictionary<RoomBase, TRoomInstance> roomInstances, GameObject rootGameObject, TLevelDescription levelDescription, int seed)
+        protected GeneratedLevelBase(Dictionary<RoomBase, TRoomInstance> roomInstances, GameObject rootGameObject, TLevelDescription levelDescription)
         {
             this.roomInstances = roomInstances;
             RoomInstances = roomInstances.Values.ToList();
             RootGameObject = rootGameObject;
             LevelDescription = levelDescription;
-            Seed = seed;
         }
 
         public TRoomInstance GetRoomInstance(RoomBase room)

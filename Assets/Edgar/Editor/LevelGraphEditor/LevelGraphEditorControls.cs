@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
 using UnityEditor;
@@ -37,170 +36,153 @@ namespace Edgar.Unity.Editor
             switch (e.type)
             {
                 case EventType.MouseDown:
-                {
-                    isDoubleClick = e.clickCount == 2;
-                    mouseDownPosition = e.mousePosition;
+                    {
+                        isDoubleClick = e.clickCount == 2;
+                        mouseDownPosition = e.mousePosition;
 
-                    if (CurrentState == State.Idle)
+                        if (CurrentState == State.Idle)
+                        {
+                            var currentHoverRoomControl = GetHoverRoomControl(e.mousePosition);
+                            var hoverConnectionControl = GetHoverConnectionControl(e.mousePosition);
+
+                            if (currentHoverRoomControl != null)
+                            {
+                                // Hold room on left click
+                                if (e.button == 0 && !e.control)
+                                {
+                                    hoverRoomControl = currentHoverRoomControl;
+                                    CurrentState = State.HoldRoom;
+                                }
+                                // Start making a connection on left click with control
+                                else if (e.button == 0 && e.control)
+                                {
+                                    CurrentState = State.CreateConnection;
+                                    connectionStartControl = currentHoverRoomControl;
+                                }
+                            }
+                            else if (hoverConnectionControl != null)
+                            {
+                                /* empty */
+                            }
+                            // Hold grid on right click on empty space
+                            else if (e.button == 1 || e.button == 2)
+                            {
+                                CurrentState = State.HoldGrid;
+                            }
+                        }
+
+                        break;
+                    }
+
+                case EventType.MouseUp:
                     {
                         var currentHoverRoomControl = GetHoverRoomControl(e.mousePosition);
-                        var hoverConnectionControl = GetHoverConnectionControl(e.mousePosition);
+                        var currentHoverConnectionControl = GetHoverConnectionControl(e.mousePosition);
+
+                        var mouseDownDistance = Vector2.Distance(mouseDownPosition, e.mousePosition);
+                        var doubleClickToConfigure = EdgarSettings.instance.General.DoubleClickToConfigureRoom;
 
                         if (currentHoverRoomControl != null)
                         {
-                            // Hold room on left click
-                            if (e.button == 0 && !e.control)
+                            // Configure room on double click
+                            if (e.button == 0 && !e.control && ((doubleClickToConfigure && isDoubleClick) || (!doubleClickToConfigure && mouseDownDistance <= 2)))
                             {
-                                hoverRoomControl = currentHoverRoomControl;
-                                CurrentState = State.HoldRoom;
+                                SelectObject(currentHoverRoomControl.Room, e.shift);
+
+                                GUI.changed = true;
+                                CurrentState = State.Idle;
                             }
-                            // Start making a connection on left click with control
-                            else if (e.button == 0 && e.control)
+                            // Show room context menu on right click
+                            else if (e.button == 1)
                             {
-                                CurrentState = State.CreateConnection;
-                                connectionStartControl = currentHoverRoomControl;
+                                ShowRoomContextMenu(currentHoverRoomControl);
+                                GUI.changed = true;
+                            }
+                            // Create a connection if hovering a room
+                            else if (CurrentState == State.CreateConnection)
+                            {
+                                CreateConnection(connectionStartControl, currentHoverRoomControl);
+                                GUI.changed = true;
                             }
                         }
-                        else if (hoverConnectionControl != null)
+                        else if (currentHoverConnectionControl != null)
                         {
-                            /* empty */
+                            // Configure connection on double click
+                            if (e.button == 0 && ((doubleClickToConfigure && isDoubleClick) || (!doubleClickToConfigure && mouseDownDistance <= 2)))
+                            {
+                                SelectObject(currentHoverConnectionControl.Connection);
+                                GUI.changed = true;
+                            }
+                            // Show connection context menu on right click
+                            else if (e.button == 1)
+                            {
+                                ShowConnectionContextMenu(currentHoverConnectionControl);
+                                GUI.changed = true;
+                            }
                         }
-                        // Hold grid on right click on empty space
-                        else if (e.button == 1 || e.button == 2)
-                        {
-                            CurrentState = State.HoldGrid;
-                        }
-                    }
-
-                    break;
-                }
-
-                case EventType.MouseUp:
-                {
-                    var currentHoverRoomControl = GetHoverRoomControl(e.mousePosition);
-                    var currentHoverConnectionControl = GetHoverConnectionControl(e.mousePosition);
-
-                    var mouseDownDistance = Vector2.Distance(mouseDownPosition, e.mousePosition);
-                    var doubleClickToConfigure = EdgarSettings.instance.General.DoubleClickToConfigureRoom;
-
-                    if (currentHoverRoomControl != null)
-                    {
-                        // Configure room on double click
-                        if (e.button == 0 && !e.control && ((doubleClickToConfigure && isDoubleClick) || (!doubleClickToConfigure && mouseDownDistance <= 2)))
-                        {
-                            SelectObject(currentHoverRoomControl.Room, e.shift);
-
-                            GUI.changed = true;
-                            CurrentState = State.Idle;
-                        }
-                        // Show room context menu on right click
-                        else if (e.button == 1)
-                        {
-                            ShowRoomContextMenu(currentHoverRoomControl);
-                            GUI.changed = true;
-                        }
-                        // Create a connection if hovering a room
+                        // Change GUI if didn't find anything to connect to, otherwise there would be a line rendered pointing to nothing
                         else if (CurrentState == State.CreateConnection)
                         {
-                            CreateConnection(connectionStartControl, currentHoverRoomControl);
                             GUI.changed = true;
                         }
-                    }
-                    else if (currentHoverConnectionControl != null)
-                    {
-                        // Configure connection on double click
-                        if (e.button == 0 && ((doubleClickToConfigure && isDoubleClick) || (!doubleClickToConfigure && mouseDownDistance <= 2)))
+                        // Create room on double click
+                        else if (e.button == 0 && isDoubleClick)
                         {
-                            SelectObject(currentHoverConnectionControl.Connection);
+                            CreateRoom(e.mousePosition);
                             GUI.changed = true;
                         }
-                        // Show connection context menu on right click
-                        else if (e.button == 1)
-                        {
-                            ShowConnectionContextMenu(currentHoverConnectionControl);
-                            GUI.changed = true;
-                        }
-                    }
-                    // Change GUI if didn't find anything to connect to, otherwise there would be a line rendered pointing to nothing
-                    else if (CurrentState == State.CreateConnection)
-                    {
-                        GUI.changed = true;
-                    }
-                    // Create room on double click
-                    else if (e.button == 0 && isDoubleClick)
-                    {
-                        CreateRoom(e.mousePosition);
-                        GUI.changed = true;
-                    }
 
-                    CurrentState = State.Idle;
+                        CurrentState = State.Idle;
 
-                    break;
-                }
+                        break;
+                    }
 
                 case EventType.MouseDrag:
-                {
-                    // Drag grid
-                    if (CurrentState == State.HoldGrid || CurrentState == State.DragGrid)
                     {
-                        CurrentState = State.DragGrid;
-                        panOffset += e.delta / zoom;
-
-                        GUI.changed = true;
-                    }
-
-                    // Drag room
-                    if (CurrentState == State.HoldRoom || CurrentState == State.DragRoom)
-                    {
-                        if (CurrentState == State.HoldRoom)
+                        // Drag grid
+                        if (CurrentState == State.HoldGrid || CurrentState == State.DragGrid)
                         {
-                            drag = Vector2.zero;
+                            CurrentState = State.DragGrid;
+                            panOffset += e.delta / zoom;
 
-                            // If the currently dragged room is among selected objects, make sure all selected objects are dragged
-                            if (Selection.objects.Any(x => x == hoverRoomControl.Room))
-                            {
-                                draggedRoomControlsAndPositions = Selection.objects
-                                    .Select(room => roomControls.FirstOrDefault(control => control.Room == room))
-                                    .Where(x => x != null)
-                                    .Select(x => Tuple.Create(x, x.Room.Position))
-                                    .ToList();
-                            }
-                            // Otherwise only drag the currently dragged room
-                            else
-                            {
-                                draggedRoomControlsAndPositions = new List<Tuple<RoomControl, Vector2>>()
-                                {
-                                    Tuple.Create(hoverRoomControl, hoverRoomControl.Room.Position)
-                                };
-                            }
+                            GUI.changed = true;
                         }
 
-                        CurrentState = State.DragRoom;
-                        drag += e.delta;
+                        // Drag room
+                        if (CurrentState == State.HoldRoom || CurrentState == State.DragRoom)
+                        {
+                            if (CurrentState == State.HoldRoom)
+                            {
+                                drag = Vector2.zero;
+                                originalDragRoomPosition = hoverRoomControl.Room.Position;
+                            }
 
-                        HandleDragRoomControl(e);
-                        GUI.changed = true;
+                            CurrentState = State.DragRoom;
+                            drag += e.delta;
+
+                            HandleDragRoomControl(e);
+                            GUI.changed = true;
+                        }
+
+                        if (CurrentState == State.CreateConnection)
+                        {
+                            GUI.changed = true;
+                        }
+
+                        break;
                     }
-
-                    if (CurrentState == State.CreateConnection)
-                    {
-                        GUI.changed = true;
-                    }
-
-                    break;
-                }
 
                 case EventType.ScrollWheel:
-                {
-                    // Scroll
-                    if (CurrentState == State.Idle)
                     {
-                        HandleZoom(e);
-                        GUI.changed = true;
-                    }
+                        // Scroll
+                        if (CurrentState == State.Idle)
+                        {
+                            HandleZoom(e);
+                            GUI.changed = true;
+                        }
 
-                    break;
-                }
+                        break;
+                    }
             }
 
             if (e.type == EventType.ExecuteCommand || e.type == EventType.ValidateCommand)
@@ -245,7 +227,7 @@ namespace Edgar.Unity.Editor
         {
             var type = FindType(LevelGraph.RoomType);
             var roomType = type != null ? LevelGraph.RoomType : typeof(Room).FullName;
-            var room = (RoomBase) CreateInstance(roomType);
+            var room = (RoomBase)CreateInstance(roomType);
 
             // Add room to the level graph
             LevelGraph.Rooms.Add(room);
@@ -295,7 +277,7 @@ namespace Edgar.Unity.Editor
 
             if (roomTypeToControlType.TryGetValue(room.GetType(), out var customControl))
             {
-                roomControl = (RoomControl) Activator.CreateInstance(customControl);
+                roomControl = (RoomControl)Activator.CreateInstance(customControl);
             }
             else
             {
@@ -330,7 +312,7 @@ namespace Edgar.Unity.Editor
 
             var type = FindType(LevelGraph.RoomType);
             var connectionType = type != null ? LevelGraph.ConnectionType : typeof(Connection).FullName;
-            var connection = (ConnectionBase) CreateInstance(connectionType);
+            var connection = (ConnectionBase)CreateInstance(connectionType);
 
             connection.From = from.Room;
             connection.To = to.Room;
@@ -358,7 +340,7 @@ namespace Edgar.Unity.Editor
             ConnectionControl connectionControl;
             if (connectionTypeToControlType.TryGetValue(connection.GetType(), out var customControl))
             {
-                connectionControl = (ConnectionControl) Activator.CreateInstance(customControl);
+                connectionControl = (ConnectionControl)Activator.CreateInstance(customControl);
             }
             else
             {
@@ -377,21 +359,17 @@ namespace Edgar.Unity.Editor
         /// <param name="e"></param>
         private void HandleDragRoomControl(Event e)
         {
+            var control = hoverRoomControl;
             var dragOffset = drag / zoom;
+            var newPosition = originalDragRoomPosition + dragOffset;
 
-            foreach (var tuple in draggedRoomControlsAndPositions)
+            // Snap to grid if permanently enabled or if holding shift
+            if (snapToGrid || e.shift)
             {
-                var roomControl = tuple.Item1;
-                var originalPosition = tuple.Item2;
-                var newPosition = originalPosition + dragOffset;
-                // Snap to grid if permanently enabled or if holding shift
-                if (snapToGrid || e.shift)
-                {
-                    newPosition = GetSnappedToGridPosition(newPosition);
-                }
-                
-                roomControl.Room.Position = newPosition;
+                newPosition = GetSnappedToGridPosition(newPosition);
             }
+
+            control.Room.Position = newPosition;
 
             SetDirtyInternal();
         }
@@ -577,7 +555,7 @@ namespace Edgar.Unity.Editor
             }
             else
             {
-                Selection.objects = new List<UnityEngine.Object>(Selection.objects) {o}.ToArray();
+                Selection.objects = new List<UnityEngine.Object>(Selection.objects) { o }.ToArray();
             }
         }
 

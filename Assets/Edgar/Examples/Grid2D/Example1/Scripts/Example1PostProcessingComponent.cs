@@ -15,6 +15,7 @@ namespace Edgar.Unity.Examples.Example1
 
         public override void Run(DungeonGeneratorLevelGrid2D level)
         {
+            Debug.Log(1);
             HandleEnemies(level);
         }
 

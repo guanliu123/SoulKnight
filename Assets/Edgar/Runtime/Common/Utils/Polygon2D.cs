@@ -1,8 +1,8 @@
-﻿using System;
+﻿using Edgar.Geometry;
+using Edgar.Legacy.GeneralAlgorithms.Algorithms.Polygons;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using Edgar.Geometry;
-using Edgar.Legacy.GeneralAlgorithms.Algorithms.Polygons;
 using UnityEngine;
 using Vector2Int = UnityEngine.Vector2Int;
 
@@ -32,7 +32,7 @@ namespace Edgar.Unity
 
         public Polygon2D(PolygonGrid2D polygon)
         {
-            points = polygon.GetPoints().Select(x => (Vector2Int) x.ToUnityIntVector3()).ToList();
+            points = polygon.GetPoints().Select(x => (Vector2Int)x.ToUnityIntVector3()).ToList();
             gridPolygon = polygon;
         }
 
@@ -59,7 +59,7 @@ namespace Edgar.Unity
                 .GetLines()
                 .SelectMany(x => x.GetPoints())
                 .Distinct()
-                .Select(x => (Vector2Int) x.ToUnityIntVector3())
+                .Select(x => (Vector2Int)x.ToUnityIntVector3())
                 .ToList();
         }
 
@@ -105,7 +105,7 @@ namespace Edgar.Unity
             {
                 for (int j = 0; j <= rectangle.Height; j++)
                 {
-                    points.Add((Vector2Int) (rectangle.A + new EdgarVector2Int(i, j)).ToUnityIntVector3());
+                    points.Add((Vector2Int)(rectangle.A + new EdgarVector2Int(i, j)).ToUnityIntVector3());
                 }
             }
 

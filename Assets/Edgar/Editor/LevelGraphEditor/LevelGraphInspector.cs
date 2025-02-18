@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using UnityEditor;
 using UnityEngine;
 
@@ -10,11 +12,14 @@ namespace Edgar.Unity.Editor
         private bool defaultRoomTemplatesFoldout;
         private bool corridorRoomTemplatesFoldout;
 
+        private List<Type> derivedRoomTypes;
+        private List<Type> derivedConnectionTypes;
+
         public override void OnInspectorGUI()
         {
             serializedObject.Update();
 
-            var foldoutStyle = new GUIStyle(EditorStyles.foldout) {fontStyle = FontStyle.Bold};
+            var foldoutStyle = new GUIStyle(EditorStyles.foldout) { fontStyle = FontStyle.Bold };
 
             defaultRoomTemplatesFoldout = EditorGUILayout.Foldout(defaultRoomTemplatesFoldout, "Default room templates", foldoutStyle);
 
@@ -48,12 +53,66 @@ namespace Edgar.Unity.Editor
                 EditorGUI.indentLevel--;
             }
 
+            EditorGUILayout.Space();
+
+            EditorGUILayout.PropertyField(
+                serializedObject.FindProperty(nameof(LevelGraph.IsDirected)),
+                new GUIContent("Is Directed"),
+                true);
+
+            EditorGUILayout.LabelField("Custom room and connection types", EditorStyles.boldLabel);
+
+            var derivedRoomTypes = GetDerivedRoomTypes();
+            var currentRoomType = serializedObject.FindProperty(nameof(LevelGraph.RoomType)).stringValue;
+            var selectedRoomIndex = derivedRoomTypes.FindIndex(x => x.FullName == currentRoomType);
+            selectedRoomIndex = selectedRoomIndex == -1 ? derivedRoomTypes.IndexOf(typeof(Room)) : selectedRoomIndex;
+            var roomOptions = derivedRoomTypes.Select(x => $"{x.Name} ({x.Namespace})").ToArray();
+            selectedRoomIndex = EditorGUILayout.Popup("Room type", selectedRoomIndex, roomOptions);
+            serializedObject.FindProperty(nameof(LevelGraph.RoomType)).stringValue = derivedRoomTypes[selectedRoomIndex].FullName;
+
+            var derivedConnectionTypes = GetDerivedConnectionTypes();
+            var currentConnectionType = serializedObject.FindProperty(nameof(LevelGraph.ConnectionType)).stringValue;
+            var selectedConnectionIndex = derivedConnectionTypes.FindIndex(x => x.FullName == currentConnectionType);
+            selectedConnectionIndex = selectedConnectionIndex == -1 ? derivedConnectionTypes.IndexOf(typeof(Connection)) : selectedConnectionIndex;
+            var connectionOptions = derivedConnectionTypes.Select(x => $"{x.Name} ({x.Namespace})").ToArray();
+            selectedConnectionIndex = EditorGUILayout.Popup("Connection type", selectedConnectionIndex, connectionOptions);
+            serializedObject.FindProperty(nameof(LevelGraph.ConnectionType)).stringValue = derivedConnectionTypes[selectedConnectionIndex].FullName;
+
+            if (derivedRoomTypes[selectedRoomIndex] == typeof(Room) && derivedConnectionTypes[selectedConnectionIndex] == typeof(Connection))
+            {
+                EditorGUILayout.HelpBox(
+                    "Default room or connection types are selected. It is not possible to change this easily after you add rooms and connections to the graph.",
+                    MessageType.Warning);
+            }
+
+            EditorGUILayout.Space();
+
             if (GUILayout.Button("Open graph editor"))
             {
-                OpenWindow((LevelGraph) target);
+                OpenWindow((LevelGraph)target);
             }
 
             serializedObject.ApplyModifiedProperties();
+        }
+
+        private List<Type> GetDerivedRoomTypes()
+        {
+            if (derivedRoomTypes == null)
+            {
+                derivedRoomTypes = ProUtils.FindDerivedTypes(typeof(RoomBase));
+            }
+
+            return derivedRoomTypes;
+        }
+
+        private List<Type> GetDerivedConnectionTypes()
+        {
+            if (derivedConnectionTypes == null)
+            {
+                derivedConnectionTypes = ProUtils.FindDerivedTypes(typeof(ConnectionBase));
+            }
+
+            return derivedConnectionTypes;
         }
 
         [UnityEditor.Callbacks.OnOpenAsset(1)]
