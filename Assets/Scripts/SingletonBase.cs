@@ -45,11 +45,14 @@ public class SingletonBase<T> where T : class, new()
 
     public virtual void Init()
     {
-        
+        RegisterEvent();
     }
 
     public virtual void Reset()
     {
-
+        UnregisterEvent();
     }
+
+    protected virtual void RegisterEvent(){}
+    protected virtual void UnregisterEvent(){}
 }

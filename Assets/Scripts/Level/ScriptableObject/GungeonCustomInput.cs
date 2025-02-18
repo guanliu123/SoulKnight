@@ -18,37 +18,43 @@ public class GungeonCustomInput : DungeonGeneratorInputBaseGrid2D
     {
         AllRooms = new List<RoomInfo>();
         var levelDescription = new LevelDescriptionGrid2D();
-        if (!roomConfig.UseRandomLevelGraph)
-        {
-            selectLevelGraph = roomConfig.LevelGraph;
-        }
-        else
-        {
-            roomConfig.levelGraphs.Add(roomConfig.LevelGraph);
-            selectLevelGraph = roomConfig.levelGraphs[Random.Next(roomConfig.levelGraphs.Count)];
-        }
-        //这里是处理是否取用boss房，先注释了
-        // if (MemoryModelCommand.Instance.GetSmallStage() == 5)
+        // if (!roomConfig.UseRandomLevelGraph)
         // {
-        //     selectLevelGraph = roomConfig.LevelGraphBoss;
+        //     selectLevelGraph = roomConfig.LevelGraph;
         // }
         // else
         // {
-        //     if (!roomConfig.UseRandomLevelGraph)
-        //     {
-        //         selectLevelGraph = roomConfig.LevelGraph;
-        //     }
-        //     else
-        //     {
-        //         roomConfig.levelGraphs.Add(roomConfig.LevelGraph);
-        //         selectLevelGraph = roomConfig.levelGraphs[Random.Next(roomConfig.levelGraphs.Count)];
-        //     }
+        //     roomConfig.levelGraphs.Add(roomConfig.LevelGraph);
+        //     selectLevelGraph = roomConfig.levelGraphs[Random.Next(roomConfig.levelGraphs.Count)];
         // }
+        //这里是处理是否取用boss房
+        if (LevelManager.Instance.NowStage == 5)
+        {
+            selectLevelGraph = roomConfig.LevelGraphBoss;
+        }
+        else
+        {
+            if (!roomConfig.UseRandomLevelGraph)
+            {
+                selectLevelGraph = roomConfig.LevelGraph;
+            }
+            else
+            {
+                roomConfig.levelGraphs.Add(roomConfig.LevelGraph);
+                selectLevelGraph = roomConfig.levelGraphs[Random.Next(roomConfig.levelGraphs.Count)];
+            }
+        }
 
         // Manually add all the rooms to the level description
         foreach (var room in selectLevelGraph.Rooms.Cast<CustomRoom>())
         {
-            levelDescription.AddRoom(room, roomConfig.RoomTemplates.GetRoomTemplates(room).ToList());
+            var list = roomConfig.RoomTemplates.GetRoomTemplates(room);
+            if (list == null)
+            {
+                LogTool.LogWarning("类型为"+room+"的房间列表为空");
+                list = new();
+            }
+            levelDescription.AddRoom(room, list);
         }
 
         // Go through individual connections between basic rooms to add corridor rooms
@@ -87,7 +93,14 @@ public class GungeonCustomInput : DungeonGeneratorInputBaseGrid2D
             // Create secret room
             var secretRoom = ScriptableObject.CreateInstance<CustomRoom>();
             secretRoom.RoomType = type;
-            levelDescription.AddRoom(secretRoom, roomConfig.RoomTemplates.GetRoomTemplates(secretRoom).ToList());
+            var list = roomConfig.RoomTemplates.GetRoomTemplates(secretRoom);
+            if (list == null)
+            {
+                LogTool.LogWarning("类型为"+secretRoom+"的房间列表为空");
+                list = new();
+                
+            }
+            levelDescription.AddRoom(secretRoom,list);
             RoomInfo roomInfo = new RoomInfo();
             roomInfo.room = secretRoom;
 

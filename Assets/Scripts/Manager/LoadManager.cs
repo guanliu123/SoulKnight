@@ -131,7 +131,7 @@ public class LoadManager : SingletonBase<LoadManager>
         Addressables.InternalIdTransformFunc = Addressables_InternalIdTransformFunc;
     }
     
-    public IAsset Load<T>(string assetName, bool cache = false) where T : Object
+    public T Load<T>(string assetName, bool cache = false) where T : Object
     {
         IAsset _asset;
         if (mAssets.ContainsKey(assetName))
@@ -139,7 +139,7 @@ public class LoadManager : SingletonBase<LoadManager>
             _asset = mAssets[assetName];
             if (_asset != null)
             {
-                return _asset;
+                return _asset.asset() as T;
             }
         }
         
@@ -160,7 +160,7 @@ public class LoadManager : SingletonBase<LoadManager>
             newAsset.Retain();
         }
         
-        return _asset;
+        return _asset.asset()==null?null:_asset.asset() as T;
     }
     
     public void LoadAsync<T>(string assetName, Action<IAsset> callback = null, bool cache = false)
@@ -377,45 +377,45 @@ public class LoadManager : SingletonBase<LoadManager>
         // Resources.UnloadUnusedAssets();
     }
     
-    public static Dictionary<string, IAsset> LoadList(List<LoadResItem> list,
-        UnityAction<int, int> progressCallback = null)
-    {
-        Dictionary<string, IAsset> assetsRet = new();
-        int completedCount = 0;
-        foreach (LoadResItem item in list)
-        {
-            IAsset asset = null;
-            switch (item.Type)
-            {
-                case ResType.PREFAB:
-                    asset = Instance.Load<Object>(item.Path, item.Cache);
-                    break;
-                case ResType.TEXTURE2D:
-                    asset = Instance.Load<Texture2D>(item.Path, item.Cache);
-                    break;
-                case ResType.AUDIOCLIP:
-                    asset = Instance.Load<AudioClip>(item.Path, item.Cache);
-                    break;
-            }
-            
-            if (assetsRet.ContainsKey(item.Path))
-            {
-                assetsRet[item.Path] = asset;
-            }
-            else
-            {
-                assetsRet.Add(item.Path, asset);
-            }
-            
-            completedCount++;
-            if (progressCallback != null)
-            {
-                progressCallback(completedCount, list.Count);
-            }
-        }
-        
-        return assetsRet;
-    }
+    // public static Dictionary<string, IAsset> LoadList(List<LoadResItem> list,
+    //     UnityAction<int, int> progressCallback = null)
+    // {
+    //     Dictionary<string, IAsset> assetsRet = new();
+    //     int completedCount = 0;
+    //     foreach (LoadResItem item in list)
+    //     {
+    //         IAsset asset = null;
+    //         switch (item.Type)
+    //         {
+    //             case ResType.PREFAB:
+    //                 asset = Instance.Load<Object>(item.Path, item.Cache);
+    //                 break;
+    //             case ResType.TEXTURE2D:
+    //                 asset = Instance.Load<Texture2D>(item.Path, item.Cache);
+    //                 break;
+    //             case ResType.AUDIOCLIP:
+    //                 asset = Instance.Load<AudioClip>(item.Path, item.Cache);
+    //                 break;
+    //         }
+    //         
+    //         if (assetsRet.ContainsKey(item.Path))
+    //         {
+    //             assetsRet[item.Path] = asset;
+    //         }
+    //         else
+    //         {
+    //             assetsRet.Add(item.Path, asset);
+    //         }
+    //         
+    //         completedCount++;
+    //         if (progressCallback != null)
+    //         {
+    //             progressCallback(completedCount, list.Count);
+    //         }
+    //     }
+    //     
+    //     return assetsRet;
+    // }
     
     private string Addressables_InternalIdTransformFunc(IResourceLocation location)
     {

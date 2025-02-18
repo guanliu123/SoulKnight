@@ -2,12 +2,19 @@ namespace EnumCenter
 {
     public enum RoomType
     {
-        BirthRoom=0,
-        EnemyRoom = 1,
-        BossRoom=2,
-        TeleportRoom=3,
-        TreasureRoom=4,
-        ShopRoom=5,
-        Corridor=6,
+        BasicRoom=0,
+        BirthRoom=1,
+        EnemyRoom = 2,
+        BossRoom=3,
+        TeleportRoom=4,
+        TreasureRoom=5,
+        ShopRoom=6,
+        Corridor=7,
+    }
+
+    public enum LevelType
+    {
+        Forest=1,
+        
     }
 }

@@ -11,7 +11,8 @@ namespace UIFrameWork
         //private Stack<BasePanel> stackPanel = new Stack<BasePanel>();
         //private BasePanel topPanel;
         //private BasePanel lastPanel;
-        private Dictionary<BasePanel, UIType> panelDic = new Dictionary<BasePanel, UIType>();
+        //键是UIInfo
+        private Dictionary<string, BasePanel> panelDic = new Dictionary<string, BasePanel>();
         
         //添加一个面板到顶部
         // public void Push(BasePanel nextPanel)
@@ -30,13 +31,13 @@ namespace UIFrameWork
         //     nextPanel.OnEnter();//新面板要调用进入方法
         // }
         
-        public void OpenUI(BasePanel nextPanel)
+        public void OpenPanel(BasePanel nextPanel)
         {
             if (nextPanel == null)
                 return;
 
             //if(topPanel!=null) topPanel.OnPause();
-            panelDic.TryAdd(nextPanel,nextPanel.UIType);
+            panelDic.TryAdd(nextPanel.UIType.Path,nextPanel);
             //GameObject panel = UIManager.Instance.GetSingleUI(nextPanel.UIType);
             nextPanel.OnEnter();//新面板要调用进入方法
         }
@@ -55,22 +56,22 @@ namespace UIFrameWork
         //         stackPanel.Pop().OnExit();
         // }
 
-        public void CloseAllUI()
+        public void CloseAllPanel()
         {
             foreach (var item in panelDic)
             {
-                item.Key.OnExit();
+                item.Value.OnExit();
             }
             
             panelDic.Clear();
         }
 
-        public void Close(BasePanel panel)
+        public void ClosePanel(string panelInfo)
         {
-            if (panelDic.ContainsKey(panel))
+            if (panelDic.ContainsKey(panelInfo))
             {
-                panel.OnExit();
-                panelDic.Remove(panel);
+                panelDic[panelInfo].OnExit();
+                panelDic.Remove(panelInfo);
             }
         }
     }

@@ -34,14 +34,17 @@ namespace UIFrameWork
             // }
             // else
             //     Debug.LogError($"在路径:{uIType.Path}中没有找到名为{uIType.Name}的预设，请查询");
-            IAsset asset = LoadManager.Instance.Load<GameObject>(uIType.Path+".prefab");
-            if (asset != null && asset.asset() != null)
-            {
-                GameObject uiPrefab = asset.asset() as GameObject;
-                uiInstance = GameObject.Instantiate(uiPrefab, parent.transform);
-                uiInstance.name = uIType.Name;
-                dicUI.Add(uIType, uiInstance);
-            }
+            var asset = LoadManager.Instance.Load<GameObject>(uIType.Path+".prefab");
+            uiInstance = GameObject.Instantiate(asset, parent.transform);
+            uiInstance.name = uIType.Name;
+            dicUI.Add(uIType, uiInstance);
+            // if (asset != null && asset.asset() != null)
+            // {
+            //     GameObject uiPrefab = asset.asset() as GameObject;
+            //     uiInstance = GameObject.Instantiate(uiPrefab, parent.transform);
+            //     uiInstance.name = uIType.Name;
+            //     dicUI.Add(uIType, uiInstance);
+            // }
             // LoadManager.Instance.Instantiate(uIType.Path, (obj) =>
             // {
             //     if (!obj == null)

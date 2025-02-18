@@ -1,36 +1,37 @@
+using System.Collections.Generic;
 using EnumCenter;
 using UnityEngine;
 [System.Serializable]
 public class RoomTamplatesConfig
 {
-    public GameObject[] BasicRoomTemplates;
+    public List<GameObject> BasicRoomTemplates;
 
-    public GameObject[] BossRoomTemplates;
+    public List<GameObject> BossRoomTemplates;
 
-    public GameObject[] EnemyRoomTemplates;
+    public List<GameObject> EnemyRoomTemplates;
 
-    public GameObject[] EliteEnemyRoomTemplates;
+    public List<GameObject> EliteEnemyRoomTemplates;
 
-    public GameObject[] CorridorRoomTemplates;
+    public List<GameObject> CorridorRoomTemplates;
 
-    public GameObject[] BirthRoomTemplates;
+    public List<GameObject> BirthRoomTemplates;
 
-    public GameObject[] TeleportRoomTemplates;
+    public List<GameObject> TeleportRoomTemplates;
 
-    public GameObject[] HubRoomTemplates;
+    public List<GameObject> HubRoomTemplates;
 
-    public GameObject[] TreasureRoomTemplates;
+    public List<GameObject> TreasureRoomTemplates;
 
-    public GameObject[] ShopRoomTemplates;
+    public List<GameObject> ShopRoomTemplates;
 
-    public GameObject[] SecretRoomTemplates;
+    public List<GameObject> SecretRoomTemplates;
 
     /// <summary>
     /// Get room templates for a given room.
     /// </summary>
     /// <param name="room"></param>
     /// <returns></returns>
-    public GameObject[] GetRoomTemplates(CustomRoom room)
+    public List<GameObject> GetRoomTemplates(CustomRoom room)
     {
         switch (room.RoomType)
         {

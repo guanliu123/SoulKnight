@@ -1,0 +1,8 @@
+[
+  {
+    "id": 101,
+    "levelnumber": 1,
+    "levelGraphPath": "LevelGraph1_1|LevelGraph1_2",
+    "levelBossGraphPath": "LevelGraphBoss1"
+  }
+]

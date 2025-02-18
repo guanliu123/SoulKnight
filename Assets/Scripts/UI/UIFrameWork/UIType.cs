@@ -3,6 +3,7 @@
     public class UIType
     {
         //类型名
+        //public string UIInfo { get; private set; }
         public string Name { get; private set; }
         //路径
         public string Path { get; private set; }

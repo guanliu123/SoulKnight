@@ -57,7 +57,7 @@ namespace Edgar.Unity
         /// <summary>
         /// Whether to generate a level on enter play mode.
         /// </summary>
-        public bool GenerateOnStart = true;
+        public bool GenerateOnStart = false;
 
         public bool ThrowExceptionsImmediately = false;
 

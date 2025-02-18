@@ -38,7 +38,7 @@ public class MonoSingletonBase<T> : MonoBehaviour where T : MonoBehaviour
             //子类 = 父类 as（强转成） 子类
             //泛型约束 Where T ： MonoSingleton<T>
             _instance = this as T;
-            Init();
+            AwakeInit();
         }
         
         DontDestroyOnLoad(_instance);
@@ -48,8 +48,16 @@ public class MonoSingletonBase<T> : MonoBehaviour where T : MonoBehaviour
     /// 因为继承Unity的类不是依靠构造函数实例化的，所以要新建一个Init函数，通过重写Override实现一些单例的初始化。
     /// 后代做初始化，不需要用awake，自行初始化
     /// </summary>
-    public virtual void Init()
+    public virtual void AwakeInit()
     {
            
+    }
+
+    /// <summary>
+    /// 需要手动被调用的Init
+    /// </summary>
+    public virtual void Init()
+    {
+        
     }
 }

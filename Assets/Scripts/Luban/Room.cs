@@ -18,11 +18,9 @@ public sealed partial class Room : Luban.BeanBase
     public Room(JSONNode _buf) 
     {
         { if(!_buf["id"].IsNumber) { throw new SerializationException(); }  Id = _buf["id"]; }
-        { if(!_buf["levelbelong"].IsNumber) { throw new SerializationException(); }  Levelbelong = _buf["levelbelong"]; }
+        { if(!_buf["levelid"].IsNumber) { throw new SerializationException(); }  Levelid = _buf["levelid"]; }
         { if(!_buf["path"].IsString) { throw new SerializationException(); }  Path = _buf["path"]; }
-        { if(!_buf["type"].IsNumber) { throw new SerializationException(); }  Type = _buf["type"]; }
-        { if(!_buf["width"].IsNumber) { throw new SerializationException(); }  Width = _buf["width"]; }
-        { if(!_buf["height"].IsNumber) { throw new SerializationException(); }  Height = _buf["height"]; }
+        { if(!_buf["type"].IsString) { throw new SerializationException(); }  Type = _buf["type"]; }
     }
 
     public static Room DeserializeRoom(JSONNode _buf)
@@ -35,25 +33,17 @@ public sealed partial class Room : Luban.BeanBase
     /// </summary>
     public readonly int Id;
     /// <summary>
-    /// 房间所属大关
+    /// 所属关卡ID
     /// </summary>
-    public readonly int Levelbelong;
+    public readonly int Levelid;
     /// <summary>
     /// 房间tilemap加载路径
     /// </summary>
     public readonly string Path;
     /// <summary>
-    /// 类型
+    /// 房间可用作的类型
     /// </summary>
-    public readonly int Type;
-    /// <summary>
-    /// 房间宽度（必须为奇数）
-    /// </summary>
-    public readonly int Width;
-    /// <summary>
-    /// 房间高度（必须为奇数）
-    /// </summary>
-    public readonly int Height;
+    public readonly string Type;
    
     public const int __ID__ = 2553083;
     public override int GetTypeId() => __ID__;
@@ -66,11 +56,9 @@ public sealed partial class Room : Luban.BeanBase
     {
         return "{ "
         + "id:" + Id + ","
-        + "levelbelong:" + Levelbelong + ","
+        + "levelid:" + Levelid + ","
         + "path:" + Path + ","
         + "type:" + Type + ","
-        + "width:" + Width + ","
-        + "height:" + Height + ","
         + "}";
     }
 }
