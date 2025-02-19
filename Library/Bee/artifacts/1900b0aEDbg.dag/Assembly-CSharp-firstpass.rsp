@@ -345,6 +345,8 @@
 -r:"Library/PackageCache/com.unity.entities@1.3.9/Unity.Entities.CodeGen/Mono.Cecil.Rocks.dll"
 -r:"Library/PackageCache/com.unity.entities@1.3.9/Unity.Entities.CodeGen/Unity.Cecil.Awesome.dll"
 -r:"Library/PackageCache/com.unity.ext.nunit@2.0.3/net40/unity-custom/nunit.framework.dll"
+-r:"Library/Bee/artifacts/1900b0aEDbg.dag/Cinemachine.ref.dll"
+-r:"Library/Bee/artifacts/1900b0aEDbg.dag/com.unity.cinemachine.editor.ref.dll"
 -r:"Library/Bee/artifacts/1900b0aEDbg.dag/Edgar.Unity.Editor.ref.dll"
 -r:"Library/Bee/artifacts/1900b0aEDbg.dag/Edgar.Unity.Examples.ref.dll"
 -r:"Library/Bee/artifacts/1900b0aEDbg.dag/Edgar.Unity.ref.dll"

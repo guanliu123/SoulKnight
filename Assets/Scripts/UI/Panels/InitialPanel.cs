@@ -42,15 +42,16 @@ public class InitialPanel : BasePanel
         GameInit();
         FindComponent<Button>("Btn_SinglePerson").onClick.AddListener(() =>
         {
-            GameManager.SetGameMode(GameModeType.SingleMode);
-            if (UserData.isNew)
-            {
-                GameRoot.Instance.SwitchScene(new LevelScene());
-            }
-            else
-            {
-                GameRoot.Instance.SwitchScene(new HomeScene());
-            }
+            GameManager.Instance.SetGameMode(GameModeType.SingleMode);
+            GameRoot.Instance.SwitchScene(new HomeScene());
+            // if (UserData.isNew)
+            // {
+            //     GameRoot.Instance.SwitchScene(new LevelScene());
+            // }
+            // else
+            // {
+            //     GameRoot.Instance.SwitchScene(new HomeScene());
+            // }
         });
     }
 

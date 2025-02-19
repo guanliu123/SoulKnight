@@ -21,4 +21,9 @@ namespace EnumCenter
     {
         LoadingPanel=1,
     }
+
+    public enum PlayerType
+    {
+        Knight=1,
+    }
 }

@@ -10,17 +10,35 @@ public enum GameModeType
     MultipleMode=1<<1,
 }
 
-public class GameManager : SingletonBase<GameManager>
+public class GameManager : MonoSingletonBase<GameManager>
 {
-    public static GameModeType GameMode { get; private set; }
+    public GameModeType GameMode { get; private set; }
 
-    public void Init(Transform[] rp)
+    // public void Init(Transform[] rp)
+    // {
+    //     
+    // }
+
+    public override void AwakeInit()
     {
-        
+        base.AwakeInit();
+        MonoManager.Instance.AddUpdateAction(() =>
+        {
+            if (Input.GetKeyDown(KeyCode.R))
+            {
+                TestPlayer();
+            }
+        });
     }
 
-    public static void SetGameMode(GameModeType mode)
+    public void SetGameMode(GameModeType mode)
     {
         GameMode = mode;
+    }
+
+    public void TestPlayer()
+    {
+        var playerController = new PlayerController();
+        MonoManager.Instance.AddUpdateAction(playerController.OnUpdate);
     }
 }
