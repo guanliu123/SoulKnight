@@ -5,16 +5,16 @@ m_ProjectFiles:
     m_ContentTrackingEnabled: 1
     m_ModificationDate:
       serializedVersion: 2
-      ticks: 638751229244599455
-    m_Hash: 2364905649
+      ticks: 638755298417631554
+    m_Hash: 3423193054
   m_LockFileStatus:
     m_FilePath: C:/Users/JLTech/Documents/UnityProjects/SKnight/Packages/packages-lock.json
     m_PathExists: 1
     m_ContentTrackingEnabled: 1
     m_ModificationDate:
       serializedVersion: 2
-      ticks: 638751223028981142
-    m_Hash: 729162232
+      ticks: 638755298417671643
+    m_Hash: 2706468071
 m_EmbeddedPackageManifests:
   m_ManifestsStatus:
     C:/Users/JLTech/Documents/UnityProjects/SKnight/Packages/com.code-philosophy.luban/package.json:
@@ -30,6 +30,62 @@ m_LocalPackages:
 m_ProjectPath: C:/Users/JLTech/Documents/UnityProjects/SKnight/Packages
 m_EditorVersion: 2022.3.18f1 (d29bea25151d)
 m_ResolvedPackages:
+- packageId: com.cysharp.unitask@https://github.com/Cysharp/UniTask.git?path=src/UniTask/Assets/Plugins/UniTask
+  testable: 0
+  isDirectDependency: 1
+  version: 2.5.10
+  source: 5
+  resolvedPath: C:\Users\JLTech\Documents\UnityProjects\SKnight\Library\PackageCache\com.cysharp.unitask@8042b29ff8
+  assetPath: Packages/com.cysharp.unitask
+  name: com.cysharp.unitask
+  displayName: UniTask
+  author:
+    name: Cysharp, Inc.
+    email: 
+    url: https://cysharp.co.jp/en/
+  category: Task
+  type: 
+  description: Provides an efficient async/await integration to Unity.
+  status: 0
+  errors: []
+  versions:
+    all: []
+    compatible: []
+    recommended: 
+    deprecated: []
+  dependencies: []
+  resolvedDependencies: []
+  keywords:
+  - async/await
+  - async
+  - Task
+  - UniTask
+  registry:
+    id: main
+    name: 
+    url: https://packages.unity.com
+    scopes: []
+    isDefault: 1
+    capabilities: 7
+    configSource: 0
+  hideInEditor: 1
+  isAssetStorePackage: 0
+  datePublishedTicks: 0
+  documentationUrl: 
+  hasRepository: 0
+  repository:
+    type: 
+    url: 
+    revision: 
+    path: 
+  unityLifecycle:
+    version: 
+    nextVersion: 
+    recommendedVersion: 
+    isDeprecated: 0
+    deprecationMessage: 
+  isDeprecated: 0
+  deprecationMessage: 
 - packageId: com.unity.2d.tilemap@1.0.0
   testable: 0
   isDirectDependency: 1

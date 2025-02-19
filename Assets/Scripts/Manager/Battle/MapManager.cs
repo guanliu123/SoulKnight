@@ -342,12 +342,16 @@
 //     }
 // }
 
+using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using cfg;
+using Cysharp.Threading.Tasks;
 using Edgar.Unity;
 using EnumCenter;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class MapManager : MonoSingletonBase<MapManager>
 {
@@ -361,27 +365,38 @@ public class MapManager : MonoSingletonBase<MapManager>
     public override void Init()
     {
         base.Init();
-         InitGenerator();
-         isInit = true;
+         InitGenerator().Forget();
     }
 
-    private async Task InitGenerator()
+    private async UniTask InitGenerator()
     {
-        if (roomConfig == null || level != LevelManager.Instance.NowLevelNumber)
+        try
         {
-            await UpdateRoomConfig();
-        }
-        dungeonGenerator = gameObject.AddComponent<DungeonGeneratorGrid2D>();
-        gameObject.AddComponent<RoomPostProcessing>();
-
-        var gungeonCustomInput = ScriptableObject.CreateInstance<GungeonCustomInput>();
-        gungeonCustomInput.roomConfig = roomConfig;
-        dungeonGenerator.CustomInputTask = gungeonCustomInput;
+            if (roomConfig == null || level != LevelManager.Instance.NowLevelNumber)
+            {
+                await UpdateRoomConfig();
+            }
+            dungeonGenerator = gameObject.AddComponent<DungeonGeneratorGrid2D>();
+            dungeonGenerator.GeneratorConfig = new();
+            dungeonGenerator.PostProcessConfig = new();
+            gameObject.AddComponent<RoomPostProcessing>();
         
-        EventManager.Instance.Emit(EventId.MAPMANAGER_CONFIG_UPDATE_COMPLETED);
+            dungeonGenerator.InputType=DungeonGeneratorInputTypeGrid2D.CustomInput;
+            var gungeonCustomInput = ScriptableObject.CreateInstance<GungeonCustomInput>();
+            gungeonCustomInput.roomConfig = roomConfig;
+            dungeonGenerator.CustomInputTask = gungeonCustomInput;
+        
+            EventManager.Instance.Emit(EventId.MAPMANAGER_CONFIG_UPDATE_COMPLETED);
+            isInit = true;
+        }
+        catch (Exception e)
+        {
+            LogTool.LogError(e);
+            throw;
+        }
     }
 
-    private async Task UpdateRoomConfig()
+    private async UniTask UpdateRoomConfig()
     {
         roomConfig = ScriptableObject.CreateInstance<IRoomConfig>();
         roomConfig.levelGraphs = new();
@@ -417,7 +432,7 @@ public class MapManager : MonoSingletonBase<MapManager>
         {
             if (item.Levelid == LevelManager.Instance.NowLevelID)
             {
-                GameObject room = LoadManager.Instance.Load<GameObject>("Prefabs/Room/Forest/"+item+".prefab");
+                GameObject room = LoadManager.Instance.Load<GameObject>("Prefabs/Room/Forest/"+item.Path+".prefab");
                 
                 var types = item.Type.Split("|");
                 for (int i = 0; i < types.Length; i++)
