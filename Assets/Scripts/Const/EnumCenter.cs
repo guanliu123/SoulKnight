@@ -15,6 +15,10 @@ namespace EnumCenter
     public enum LevelType
     {
         Forest=1,
-        
+    }
+
+    public enum PreUIType
+    {
+        LoadingPanel=1,
     }
 }

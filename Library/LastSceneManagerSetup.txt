@@ -1,5 +1,5 @@
 sceneSetups:
-- path: Assets/Resources_moved/Prefabs/Scene/InitScene.unity
+- path: Assets/Resources_moved/Prefabs/Scene/HomeScene.unity
   isLoaded: 1
   isActive: 1
   isSubScene: 0

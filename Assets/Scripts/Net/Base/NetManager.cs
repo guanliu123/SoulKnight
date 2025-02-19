@@ -276,7 +276,7 @@ public class NetManager : SingletonBase<NetManager>
             return;
         }
         
-        _autoConnectTimeoutHandler = TimerManager.Register((Fix64)5, Reconnect);
+        _autoConnectTimeoutHandler = TimerManager.Register(5, Reconnect);
     }
     
     private void RemoveAutoConnectTimeout()
@@ -303,7 +303,7 @@ public class NetManager : SingletonBase<NetManager>
             return;
         }
         
-        heartbeatTimerHandler = TimerManager.Register((Fix64)1, SendHeartPack, -1);
+        heartbeatTimerHandler = TimerManager.Register(1, SendHeartPack, -1);
     }
     
     private void StopHeartbeat()

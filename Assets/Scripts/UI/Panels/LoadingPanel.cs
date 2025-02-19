@@ -9,7 +9,8 @@ public class LoadingPanel : BasePanel
     {
     }
 
-    public override void OnEnter()
-    {
-    }
+    // public override void OnEnter()
+    // {
+    //     base.OnEnter();
+    // }
 }

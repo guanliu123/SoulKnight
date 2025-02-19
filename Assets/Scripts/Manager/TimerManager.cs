@@ -117,8 +117,9 @@ public class TimerManager : MonoSingletonBase<TimerManager>
         waitList.Add(timer);
     }
 
-    public static Timer Register(Fix64 _duration,UnityAction _callback,int _loopTimes=1)
+    public static Timer Register(float duration,UnityAction _callback,int _loopTimes=1)
     {
+        Fix64 _duration = (Fix64)duration;
         Timer t = GetTimer(_duration, _callback, _loopTimes);
         AddTimer(t);
         return t;

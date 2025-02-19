@@ -10,7 +10,7 @@ public class LevelScene : SceneBase
         base.Init();
         scenePath = SceneInfo.LevelScene;
         sceneName = "LevelScene";
-        //basePanel = new LoadingPanel();
+        basePanel = new LoadingPanel();
     }
 
     protected override void SceneLoaded(Scene scene, LoadSceneMode mode)

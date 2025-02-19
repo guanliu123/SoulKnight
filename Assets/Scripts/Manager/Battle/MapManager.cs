@@ -385,7 +385,7 @@ public class MapManager : MonoSingletonBase<MapManager>
             var gungeonCustomInput = ScriptableObject.CreateInstance<GungeonCustomInput>();
             gungeonCustomInput.roomConfig = roomConfig;
             dungeonGenerator.CustomInputTask = gungeonCustomInput;
-        
+            
             EventManager.Instance.Emit(EventId.MAPMANAGER_CONFIG_UPDATE_COMPLETED);
             isInit = true;
         }

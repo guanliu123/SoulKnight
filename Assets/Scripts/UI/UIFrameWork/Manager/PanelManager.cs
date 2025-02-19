@@ -37,7 +37,12 @@ namespace UIFrameWork
                 return;
 
             //if(topPanel!=null) topPanel.OnPause();
-            panelDic.TryAdd(nextPanel.UIType.Path,nextPanel);
+            //加入失败说明面板已经打开了不要重复打开
+            if (!panelDic.TryAdd(nextPanel.UIType.Path, nextPanel))
+            {
+                LogTool.Log("面板"+nextPanel.UIType.Name+"已打开，请勿重复打开！");
+                return;
+            }
             //GameObject panel = UIManager.Instance.GetSingleUI(nextPanel.UIType);
             nextPanel.OnEnter();//新面板要调用进入方法
         }
