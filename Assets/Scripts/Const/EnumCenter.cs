@@ -17,13 +17,18 @@ namespace EnumCenter
         Forest=1,
     }
 
-    public enum PreUIType
-    {
-        LoadingPanel=1,
-    }
-
     public enum PlayerType
     {
         Knight=1,
+    }
+
+    public enum PlayerWeaponType
+    {
+        BadPistol=1,
+    }
+    
+    public enum InteractiveObjectType
+    {
+        Weapon=1,
     }
 }
