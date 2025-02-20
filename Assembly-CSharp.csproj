@@ -871,6 +871,7 @@
     <Compile Include="Assets\Plugin\EasyTouchBundle\EasyTouchControls\Examples\Version 1.X\ControlEventInput\ControlUIEvent.cs" />
     <Compile Include="Assets\Best HTTP (Pro)\BestHTTP\SecureProtocol\asn1\DERSetParser.cs" />
     <Compile Include="Assets\Best HTTP (Pro)\BestHTTP\SecureProtocol\crypto\agreement\srp\SRP6Client.cs" />
+    <Compile Include="Assets\Scripts\Battle\Character\InputController.cs" />
     <Compile Include="Assets\Best HTTP (Pro)\BestHTTP\SecureProtocol\asn1\x509\X509Extension.cs" />
     <Compile Include="Assets\Plugin\EasyTouchBundle\EasyTouch\Examples\4.X\GameExemple\RTSExample\CubeSelect.cs" />
     <Compile Include="Assets\Best HTTP (Pro)\BestHTTP\SecureProtocol\crypto\engines\DesEdeWrapEngine.cs" />

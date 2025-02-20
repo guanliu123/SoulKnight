@@ -10,7 +10,32 @@ public class InteractiveObjectRoot : MonoBehaviour
 
     public GameObject itemIndicator;
 
-    public Collider2D collider;
+    private Collider2D collider;
+
+    private bool isInteractable;
+
+    public bool IsInteractable
+    {
+        get
+        {
+            return isInteractable;
+        }
+        set
+        {
+            if (!value)
+            {
+                collider = null;
+            }
+
+            this.enabled = value;
+            isInteractable = value;
+        }
+    }
+
+    private void Awake()
+    {
+        isInteractable=true;
+    }
 
     private void OnEnable()
     {
@@ -24,6 +49,7 @@ public class InteractiveObjectRoot : MonoBehaviour
 
     private void Update()
     {
+        if (!isInteractable) return;
         //todo:改成虚拟摇杆操作ETCInput.xxx
         if (collider!=null&&Input.GetKeyDown(KeyCode.F))
         {
@@ -34,6 +60,8 @@ public class InteractiveObjectRoot : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
+        if (!isInteractable) return;
+
         if (other.CompareTag("Player"))
         {
             collider = other;
@@ -43,6 +71,8 @@ public class InteractiveObjectRoot : MonoBehaviour
     
     private void OnTriggerExit2D(Collider2D other)
     {
+        if (!isInteractable) return;
+
         if (other.CompareTag("Player"))
         {
             collider = null;

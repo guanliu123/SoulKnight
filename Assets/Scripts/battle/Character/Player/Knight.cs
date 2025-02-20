@@ -31,7 +31,7 @@ public class Knight : PlayerBase
         {
             InteractiveObjectRoot root = (InteractiveObjectRoot)info[1];
             playerWeapons.Add(WeaponFactory.Instance.GetPlayerWeapon(root.gameObject,this));
-            root.enabled = false;
+            root.IsInteractable=false;
         }
     }
 }

@@ -31,4 +31,10 @@ namespace EnumCenter
     {
         Weapon=1,
     }
+    
+    public enum GameModeType
+    {
+        SingleMode=1<<0,
+        MultipleMode=1<<1,
+    }
 }

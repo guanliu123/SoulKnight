@@ -14,11 +14,12 @@ public class PlayerController : AbstractController
     {
         base.Init();
         MainPlayer = PlayerFactory.Instance.GetPlayer(PlayerType.Knight);
+        MainPlayer.SetInput(GameManager.Instance.GetController<InputController>().input);
     }
 
     protected override void AlwaysUpdate()
     {
         base.AlwaysUpdate();
-        MainPlayer.OnUpdate();
+        if(MainPlayer!=null) MainPlayer.OnUpdate();
     }
 }

@@ -25,10 +25,11 @@ public class NormalCharacterWalkState : PlayerStateBase
     {
         Fix64 hor =(Fix64)ETCInput.GetAxis("Horizontal");
         Fix64 ver =(Fix64)ETCInput.GetAxis("Vertical");
-        FixVector2 moveDir = new FixVector2(Fix64.Sign(hor), Fix64.Sign(ver));
+        FixVector2 moveDir = new FixVector2(hor, ver);
 
         if (FixVector2.Magnitude(moveDir) > 0)
         {
+            moveDir.Normalize();
             rigidBody.transform.position += (Vector3)(moveDir * (Fix64)6 * (Fix64)Time.deltaTime).ToVector2();
             player.IsLeft = hor < 0;
         }

@@ -8,6 +8,9 @@ public class WeaponBase
     public GameObject gameObject { get; private set; }
     public Transform transform => gameObject.transform;
     protected CharacterBase character;
+    
+    //武器能否被旋转
+    protected bool canRotate;
 
     private bool isInit;
     private bool isEnter;
@@ -16,6 +19,8 @@ public class WeaponBase
     {
         gameObject = _obj;
         character = _character;
+        //一般大部分武器都能旋转
+        canRotate = true;
     }
 
     protected virtual void OnInit()
@@ -34,7 +39,7 @@ public class WeaponBase
 
     protected virtual void OnFire()//发射时执行一次
     {
-        
+        LogTool.Log("武器发射一次");
     }
 
     public virtual void OnExit()

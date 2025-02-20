@@ -6,6 +6,11 @@ public class BadPistol:PlayerWeaponBase
     {
     }
 
+    protected override void OnInit()
+    {
+        base.OnInit();
+    }
+
     protected override void OnFire()
     {
         base.OnFire();

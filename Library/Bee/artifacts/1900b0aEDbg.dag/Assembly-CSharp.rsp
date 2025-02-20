@@ -2060,6 +2060,7 @@
 "Assets/Plugin/EasyTouchBundle/EasyTouchControls/Plugins/ETCTouchPad.cs"
 "Assets/Scripts/Battle/AbstractController.cs"
 "Assets/Scripts/Battle/Character/CharacterBase.cs"
+"Assets/Scripts/Battle/Character/InputController.cs"
 "Assets/Scripts/Battle/Character/Player/Knight.cs"
 "Assets/Scripts/Battle/Character/Player/PlayerBase.cs"
 "Assets/Scripts/Battle/Character/Player/PlayerController.cs"
