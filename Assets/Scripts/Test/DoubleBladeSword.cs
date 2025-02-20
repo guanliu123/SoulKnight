@@ -4,7 +4,6 @@ public class DoubleBladeSword:PlayerWeaponBase
 {
     public DoubleBladeSword(GameObject obj, CharacterBase character) : base(obj, character)
     {
-        canRotate = false;
     }
 
     public override void OnEnter()

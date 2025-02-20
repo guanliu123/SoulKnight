@@ -62,7 +62,7 @@ public class PlayerBase : CharacterBase
 
     protected void ReplaceWeapon(PlayerWeaponBase newWeapon)
     {
-        if(nowPlayerWeapon!=null) nowPlayerWeapon.OnExit();
+        if(nowPlayerWeapon!=null) nowPlayerWeapon.OnReplace();
         playerWeapons[nowWeaponIdx] = newWeapon;
         nowPlayerWeapon = newWeapon;
         nowPlayerWeapon.OnEnter();
