@@ -25,12 +25,11 @@ public class Knight : PlayerBase
 
     private void InteractingObject(object[] info)
     {
-        //LogTool.Log("角色互动物品！物品信息:"+(InteractiveObjectType)info[0]);
         InteractiveObjectType objType = (InteractiveObjectType)info[0];
         if (objType == InteractiveObjectType.Weapon)
         {
             InteractiveObjectRoot root = (InteractiveObjectRoot)info[1];
-            playerWeapons.Add(WeaponFactory.Instance.GetPlayerWeapon(root.gameObject,this));
+            PickUpWeapon(root.gameObject);
             root.IsInteractable=false;
         }
     }

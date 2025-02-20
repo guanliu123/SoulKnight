@@ -12,15 +12,21 @@ public class WeaponFactory:SingletonBase<WeaponFactory>
     public PlayerWeaponBase GetPlayerWeapon(PlayerWeaponType type, CharacterBase character)
     {
         Transform origin = character.characterRoot.GetWeaponOriginPoint();
-        GameObject obj = GameObject.Instantiate(GetWeaponObj(type.ToString()),origin);
-        obj.name = type.ToString();
-        obj.transform.localPosition=Vector3.zero;
+        GameObject weaponObj = GameObject.Instantiate(GetWeaponObj(type.ToString()),origin);
+        weaponObj.name = type.ToString();
+        weaponObj.transform.localPosition=Vector3.zero;
 
         PlayerWeaponBase weapon=null;
         switch (type)
         {
             case PlayerWeaponType.BadPistol:
-                weapon=new BadPistol(obj,character);break;
+                weapon=new BadPistol(weaponObj,character);break;
+            case PlayerWeaponType.AK47:
+                weapon = new AK47(weaponObj, character);
+                break;
+            case PlayerWeaponType.DoubleBladeSword:
+                weapon = new DoubleBladeSword(weaponObj, character);
+                break;
         }
 
         return weapon;
@@ -44,12 +50,20 @@ public class WeaponFactory:SingletonBase<WeaponFactory>
         Transform origin = character.characterRoot.GetWeaponOriginPoint();
         weaponObj.transform.SetParent(origin);
         weaponObj.transform.localPosition=Vector3.zero;
+        weaponObj.transform.localRotation = origin.rotation;
         
         PlayerWeaponBase weapon=null;
         switch (root.weaponType)
         {
             case PlayerWeaponType.BadPistol:
-                weapon=new BadPistol(weaponObj,character);break;
+                weapon=new BadPistol(weaponObj,character);
+                break;
+            case PlayerWeaponType.AK47:
+                weapon = new AK47(weaponObj, character);
+                break;
+            case PlayerWeaponType.DoubleBladeSword:
+                weapon = new DoubleBladeSword(weaponObj, character);
+                break;
         }
 
         return weapon;

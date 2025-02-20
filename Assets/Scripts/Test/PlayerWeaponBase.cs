@@ -1,4 +1,5 @@
 ﻿using cfg;
+using EnumCenter;
 using UnityEngine;
 
 public class PlayerWeaponBase:WeaponBase
@@ -47,6 +48,23 @@ public class PlayerWeaponBase:WeaponBase
                 angle = Vector2.SignedAngle(Vector2.right, dir.ToVector2());
             }
             rotOrigin.localRotation=Quaternion.Euler(0,0,angle);
+        }
+    }
+    
+    public virtual void OnReplace()
+    {
+        //替换武器时重置，放下到场景
+        gameObject.transform.SetParent(null);
+        gameObject.transform.localRotation = Quaternion.identity;
+
+        //放到场景中的武器挂载可互动根
+        var ir = gameObject.GetComponent<InteractiveObjectRoot>();
+        if (ir == null)
+        {
+            ir = gameObject.AddComponent<InteractiveObjectRoot>();
+            ir.type = InteractiveObjectType.Weapon;
+            ir.itemIndicator = GameTool.GetGameObjectFromChildren(gameObject, "ItemIndicator");
+            ir.IsInteractable = true;
         }
     }
 }

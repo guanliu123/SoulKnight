@@ -14,12 +14,14 @@ public class PlayerBase : CharacterBase
     protected PlayerStateMachine stateMachine;
     
     protected List<PlayerWeaponBase> playerWeapons;
+    protected PlayerWeaponBase nowPlayerWeapon;
     protected int nowWeaponIdx;
+    private int maxWeaponCnt;
 
     public PlayerBase(GameObject obj) : base(obj)
     {
         playerWeapons = new List<PlayerWeaponBase>();
-        
+        maxWeaponCnt = 2;
     }
 
     protected override void OnInit()
@@ -35,20 +37,43 @@ public class PlayerBase : CharacterBase
     {
         base.OnCharacterUpdate();
         stateMachine.OnUpdate();
-        if (nowWeaponIdx<playerWeapons.Count&& playerWeapons[nowWeaponIdx] != null)
+        if (nowPlayerWeapon != null)
         {
             var weapon = playerWeapons[nowWeaponIdx];
             weapon.ControlWeapon(input.isAttack);
-            UpdateDir();
             weapon.RotateWeapon(input.WeaponAnimPos);
         }
     }
-
-    protected void UpdateDir()
+    
+    protected virtual void PickUpWeapon(GameObject weaponObj)
     {
-        Fix64 hor =(Fix64)ETCInput.GetAxis("Horizontal");
-        Fix64 ver =(Fix64)ETCInput.GetAxis("Vertical");
-        moveDir = new FixVector2(hor, ver);
+        
+        var weapon = WeaponFactory.Instance.GetPlayerWeapon(weaponObj, this);
+        if (playerWeapons.Count >= maxWeaponCnt)
+        {
+            ReplaceWeapon(weapon);
+        }
+        else
+        {
+            playerWeapons.Add(weapon);
+            SwitchWeapon();
+        }
+    }
+
+    protected void ReplaceWeapon(PlayerWeaponBase newWeapon)
+    {
+        if(nowPlayerWeapon!=null) nowPlayerWeapon.OnExit();
+        playerWeapons[nowWeaponIdx] = newWeapon;
+        nowPlayerWeapon = newWeapon;
+        nowPlayerWeapon.OnEnter();
+    }
+
+    protected void SwitchWeapon()
+    {
+        if(nowPlayerWeapon!=null) nowPlayerWeapon.OnExit();
+        nowWeaponIdx = (nowWeaponIdx + 1) % playerWeapons.Count;
+        nowPlayerWeapon = playerWeapons[nowWeaponIdx];
+        nowPlayerWeapon.OnEnter();
     }
 
     public void SetInput(PlayerControlInput _input)

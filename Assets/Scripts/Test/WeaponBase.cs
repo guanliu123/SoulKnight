@@ -47,6 +47,11 @@ public class WeaponBase
         isEnter = false;
     }
 
+    public virtual void OnDestory()
+    {
+        
+    }
+
     public void OnUpdate()
     {
         if (!isEnter)

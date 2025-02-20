@@ -211,6 +211,25 @@ public static class GameTool
     }
     
     /// <summary>
+    /// 从一个物体上找到某个子物体（慎用尤其是在Update里！）
+    /// </summary>
+    /// <param name="parent">父物体</param>
+    /// <param name="name">要找的子物体名称</param>
+    /// <returns></returns>
+    public static GameObject GetGameObjectFromChildren(GameObject parent, string name)
+    {
+        foreach (Transform obj in parent.GetComponentsInChildren<Transform>())
+        {
+            if (obj.name == name)
+            {
+                return obj.gameObject;
+            }
+        }
+        LogTool.Log("GameTool GetGameObjectFromChildren(" + parent.name + " " + name + ") return null");
+        return null;
+    }
+    
+    /// <summary>
     ///     在设置完UI位置后使用,检测UI是否超出屏幕并设置UI在屏幕内
     /// </summary>
     /// <param name="rectTransform"></param>

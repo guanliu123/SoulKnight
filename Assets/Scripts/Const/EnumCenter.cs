@@ -25,6 +25,8 @@ namespace EnumCenter
     public enum PlayerWeaponType
     {
         BadPistol=1,
+        AK47=2,
+        DoubleBladeSword=3,
     }
     
     public enum InteractiveObjectType

@@ -34,7 +34,7 @@ public class InteractiveObjectRoot : MonoBehaviour
 
     private void Awake()
     {
-        isInteractable=true;
+        IsInteractable=true;
     }
 
     private void OnEnable()

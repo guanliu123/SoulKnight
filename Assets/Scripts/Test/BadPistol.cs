@@ -15,4 +15,15 @@ public class BadPistol:PlayerWeaponBase
     {
         base.OnFire();
     }
+    public override void OnEnter()
+    {
+        base.OnEnter();
+        gameObject.SetActive(true);
+    }
+
+    public override void OnExit()
+    {
+        base.OnExit();
+        gameObject.SetActive(false);
+    }
 }
