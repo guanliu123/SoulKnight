@@ -8,6 +8,7 @@ public class PlayerControlInput
     public Fix64 ver;
     public FixVector2 WeaponAnimPos;
     public bool isAttack;
+    public bool isSwitchWeapon;
 }
 
 public class InputController : AbstractController
@@ -27,6 +28,8 @@ public class InputController : AbstractController
         input.ver = (Fix64)ETCInput.GetAxis("Vertical");
         //todo:改成虚拟按键输入
         input.isAttack = Input.GetMouseButtonDown(0);
+        input.isSwitchWeapon = Input.GetKeyDown(KeyCode.R);
+        
         var moveDir = new FixVector2(input.hor, input.ver);
         moveDir.Normalize();
         dir = moveDir;

@@ -67,6 +67,7 @@
     <Compile Include="Assets\Best HTTP (Pro)\BestHTTP\SecureProtocol\crypto\signers\IDsaKCalculator.cs" />
     <Compile Include="Assets\Best HTTP (Pro)\BestHTTP\SecureProtocol\cms\PasswordRecipientInformation.cs" />
     <Compile Include="Assets\Best HTTP (Pro)\BestHTTP\SecureProtocol\crypto\tls\TlsClientContextImpl.cs" />
+    <Compile Include="Assets\Scripts\Test\AbstractSystem.cs" />
     <Compile Include="Assets\Best HTTP (Pro)\BestHTTP\SecureProtocol\math\ec\ECLookupTable.cs" />
     <Compile Include="Assets\Best HTTP (Pro)\BestHTTP\SecureProtocol\asn1\BerSet.cs" />
     <Compile Include="Assets\Best HTTP (Pro)\BestHTTP\SignalRCore\Transports\WebsocketTransport.cs" />
@@ -145,14 +146,14 @@
     <Compile Include="Assets\Plugin\EasyTouchBundle\EasyTouch\Examples\4.X\SimpleExamples\TwoFingers\TwoTapMe.cs" />
     <Compile Include="Assets\Best HTTP (Pro)\BestHTTP\Connections\ConnectionBase.cs" />
     <Compile Include="Assets\Best HTTP (Pro)\BestHTTP\SecureProtocol\asn1\cms\KEKRecipientInfo.cs" />
-    <Compile Include="Assets\Best HTTP (Pro)\BestHTTP\SecureProtocol\crypto\prng\drbg\CtrSP800Drbg.cs" />
+    <Compile Include="Assets\Scripts\Battle\State\StateMachineBase.cs" />
     <Compile Include="Assets\Best HTTP (Pro)\BestHTTP\Decompression\ZlibCodec.cs" />
     <Compile Include="Assets\Best HTTP (Pro)\BestHTTP\SecureProtocol\asn1\ocsp\Signature.cs" />
     <Compile Include="Assets\Best HTTP (Pro)\BestHTTP\Caching\HTTPCacheFileLock.cs" />
+    <Compile Include="Assets\Best HTTP (Pro)\BestHTTP\SecureProtocol\crypto\prng\drbg\CtrSP800Drbg.cs" />
     <Compile Include="Assets\Scripts\Battle\core\action\DelayDo.cs" />
     <Compile Include="Assets\Best HTTP (Pro)\BestHTTP\SocketIO\Transports\WebSocketTransport.cs" />
     <Compile Include="Assets\Best HTTP (Pro)\BestHTTP\SignalR\Enums.cs" />
-    <Compile Include="Assets\Scripts\Battle\State\StateMachineBase.cs" />
     <Compile Include="Assets\Best HTTP (Pro)\BestHTTP\SecureProtocol\crypto\tls\CertificateType.cs" />
     <Compile Include="Assets\Best HTTP (Pro)\BestHTTP\SecureProtocol\crypto\parameters\AEADParameters.cs" />
     <Compile Include="Assets\Scripts\Battle\core\action\BaseAction.cs" />
@@ -390,9 +391,9 @@
     <Compile Include="Assets\Best HTTP (Pro)\BestHTTP\SecureProtocol\security\cert\CertificateParsingException.cs" />
     <Compile Include="Assets\Scripts\Manager\TableManager.cs" />
     <Compile Include="Assets\Best HTTP (Pro)\BestHTTP\SecureProtocol\math\field\GenericPolynomialExtensionField.cs" />
-    <Compile Include="Assets\Best HTTP (Pro)\BestHTTP\SecureProtocol\crypto\tls\ProtocolVersion.cs" />
-    <Compile Include="Assets\Best HTTP (Pro)\BestHTTP\SignalRCore\HelperClasses.cs" />
     <Compile Include="Assets\Scripts\Factory\PlayerFactory.cs" />
+    <Compile Include="Assets\Best HTTP (Pro)\BestHTTP\SignalRCore\HelperClasses.cs" />
+    <Compile Include="Assets\Best HTTP (Pro)\BestHTTP\SecureProtocol\crypto\tls\ProtocolVersion.cs" />
     <Compile Include="Assets\Best HTTP (Pro)\BestHTTP\SecureProtocol\asn1\x9\X9FieldElement.cs" />
     <Compile Include="Assets\Best HTTP (Pro)\BestHTTP\SecureProtocol\util\encoders\HexEncoder.cs" />
     <Compile Include="Assets\Best HTTP (Pro)\BestHTTP\SecureProtocol\asn1\DERExternalParser.cs" />
@@ -414,6 +415,7 @@
     <Compile Include="Assets\Best HTTP (Pro)\BestHTTP\SecureProtocol\asn1\nist\NISTNamedCurves.cs" />
     <Compile Include="Assets\Best HTTP (Pro)\BestHTTP\SecureProtocol\math\ec\multiplier\PreCompInfo.cs" />
     <Compile Include="Assets\Best HTTP (Pro)\BestHTTP\SecureProtocol\asn1\ocsp\CrlID.cs" />
+    <Compile Include="Assets\Scripts\Manager\AbstractManager.cs" />
     <Compile Include="Assets\Best HTTP (Pro)\BestHTTP\SecureProtocol\asn1\x509\qualified\SemanticsInformation.cs" />
     <Compile Include="Assets\Best HTTP (Pro)\BestHTTP\SecureProtocol\crypto\tls\BasicTlsPskIdentity.cs" />
     <Compile Include="Assets\Plugin\EasyTouchBundle\EasyTouch\Plugins\Components\QuickTwist.cs" />
@@ -434,6 +436,7 @@
     <Compile Include="Assets\Best HTTP (Pro)\BestHTTP\SecureProtocol\asn1\DerOutputStream.cs" />
     <Compile Include="Assets\Best HTTP (Pro)\BestHTTP\SecureProtocol\cms\CMSSignedDataGenerator.cs" />
     <Compile Include="Assets\Best HTTP (Pro)\BestHTTP\SecureProtocol\asn1\smime\SMIMECapabilities.cs" />
+    <Compile Include="Assets\Scripts\Test\CameraSystem.cs" />
     <Compile Include="Assets\Best HTTP (Pro)\BestHTTP\SecureProtocol\util\zlib\ZDeflaterOutputStream.cs" />
     <Compile Include="Assets\Best HTTP (Pro)\BestHTTP\SecureProtocol\math\ec\custom\sec\SecP521R1Point.cs" />
     <Compile Include="Assets\Best HTTP (Pro)\BestHTTP\SecureProtocol\math\field\FiniteFields.cs" />
@@ -717,8 +720,8 @@
     <Compile Include="Assets\Best HTTP (Pro)\BestHTTP\SecureProtocol\asn1\pkcs\EncryptionScheme.cs" />
     <Compile Include="Assets\Best HTTP (Pro)\BestHTTP\SecureProtocol\crypto\prng\ThreadedSeedGenerator.cs" />
     <Compile Include="Assets\Best HTTP (Pro)\BestHTTP\SecureProtocol\math\ec\custom\sec\SecP160R2Curve.cs" />
-    <Compile Include="Assets\Best HTTP (Pro)\BestHTTP\SecureProtocol\crypto\engines\Salsa20Engine.cs" />
     <Compile Include="Assets\Scripts\Battle\Character\CharacterBase.cs" />
+    <Compile Include="Assets\Best HTTP (Pro)\BestHTTP\SecureProtocol\crypto\engines\Salsa20Engine.cs" />
     <Compile Include="Assets\Best HTTP (Pro)\BestHTTP\SecureProtocol\asn1\x509\GeneralSubtree.cs" />
     <Compile Include="Assets\Best HTTP (Pro)\BestHTTP\SecureProtocol\crypto\engines\RSACoreEngine.cs" />
     <Compile Include="Assets\Best HTTP (Pro)\BestHTTP\SecureProtocol\math\ec\custom\sec\SecP256K1Field.cs" />
@@ -1120,8 +1123,8 @@
     <Compile Include="Assets\Scripts\Level\ScriptableObject\ForestRoomConfig.cs" />
     <Compile Include="Assets\Best HTTP (Pro)\BestHTTP\SecureProtocol\crypto\tls\AlertDescription.cs" />
     <Compile Include="Assets\Best HTTP (Pro)\BestHTTP\SocketIO\SocketOptions.cs" />
-    <Compile Include="Assets\Best HTTP (Pro)\BestHTTP\SecureProtocol\crypto\prng\DigestRandomGenerator.cs" />
     <Compile Include="Assets\Scripts\Battle\State\Player\PlayerStateBase.cs" />
+    <Compile Include="Assets\Best HTTP (Pro)\BestHTTP\SecureProtocol\crypto\prng\DigestRandomGenerator.cs" />
     <Compile Include="Assets\Plugin\EasyTouchBundle\EasyTouch\Examples\4.X\SimpleExamples\TwoFingers\TwoLongTapMe.cs" />
     <Compile Include="Assets\Best HTTP (Pro)\BestHTTP\SecureProtocol\crypto\generators\X448KeyPairGenerator.cs" />
     <Compile Include="Assets\Best HTTP (Pro)\BestHTTP\SecureProtocol\crypto\tls\DtlsEpoch.cs" />
@@ -1324,9 +1327,9 @@
     <Compile Include="Assets\Best HTTP (Pro)\BestHTTP\SecureProtocol\pkcs\EncryptedPrivateKeyInfoFactory.cs" />
     <Compile Include="Assets\Best HTTP (Pro)\BestHTTP\SecureProtocol\crypto\parameters\HKDFParameters.cs" />
     <Compile Include="Assets\Best HTTP (Pro)\BestHTTP\SecureProtocol\crypto\tls\DtlsRecordLayer.cs" />
+    <Compile Include="Assets\Scripts\Battle\Root\InteractiveObjectsRoot.cs" />
     <Compile Include="Assets\Best HTTP (Pro)\BestHTTP\SecureProtocol\math\ec\custom\djb\Curve25519Field.cs" />
     <Compile Include="Assets\Plugin\EasyTouchBundle\EasyTouchControls\Plugins\ETCAxis.cs" />
-    <Compile Include="Assets\Scripts\Battle\Root\InteractiveObjectsRoot.cs" />
     <Compile Include="Assets\Best HTTP (Pro)\Examples\SignalR\ConnectionAPISample.cs" />
     <Compile Include="Assets\Best HTTP (Pro)\BestHTTP\SecureProtocol\security\ParameterUtilities.cs" />
     <Compile Include="Assets\Plugin\EasyTouchBundle\EasyTouchControls\Plugins\ETCDPad.cs" />
@@ -1373,6 +1376,7 @@
     <Compile Include="Assets\Best HTTP (Pro)\BestHTTP\PlatformSupport\FileSystem\IIOService.cs" />
     <Compile Include="Assets\Best HTTP (Pro)\BestHTTP\SignalR\Transports\PollingTransport.cs" />
     <Compile Include="Assets\Best HTTP (Pro)\BestHTTP\SecureProtocol\crypto\tls\UrlAndHash.cs" />
+    <Compile Include="Assets\Scripts\Battle\Abstract\AbstractController.cs" />
     <Compile Include="Assets\Best HTTP (Pro)\BestHTTP\WebSocket\Frames\WebSocketFrame.cs" />
     <Compile Include="Assets\Best HTTP (Pro)\BestHTTP\SecureProtocol\crypto\BufferedStreamCipher.cs" />
     <Compile Include="Assets\Best HTTP (Pro)\BestHTTP\SecureProtocol\asn1\cms\AttributeTable.cs" />
@@ -1506,7 +1510,6 @@
     <Compile Include="Assets\Best HTTP (Pro)\BestHTTP\SecureProtocol\cms\CMSTypedStream.cs" />
     <Compile Include="Assets\Best HTTP (Pro)\BestHTTP\Connections\WebGLConnection.cs" />
     <Compile Include="Assets\Scripts\UI\UIFrameWork\UiTools\UITool.cs" />
-    <Compile Include="Assets\Scripts\Battle\AbstractController.cs" />
     <Compile Include="Assets\Best HTTP (Pro)\BestHTTP\SecureProtocol\asn1\ess\OtherCertID.cs" />
     <Compile Include="Assets\Best HTTP (Pro)\BestHTTP\SecureProtocol\crypto\parameters\KeyParameter.cs" />
     <Compile Include="Assets\Best HTTP (Pro)\BestHTTP\SecureProtocol\asn1\DERSequenceGenerator.cs" />

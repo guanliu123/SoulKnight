@@ -12,9 +12,11 @@ namespace EnumCenter
         Corridor=7,
     }
 
-    public enum LevelType
+    public enum CameraType
     {
-        Forest=1,
+        StaticCamera=0,
+        SelectCamera=1,
+        FollowCamera=2,
     }
 
     public enum PlayerType

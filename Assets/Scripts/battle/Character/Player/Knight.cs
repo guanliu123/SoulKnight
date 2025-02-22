@@ -16,13 +16,6 @@ public class Knight : PlayerBase
         stateMachine.ChangeState<NormalCharacterIdleState>();
     }
 
-    protected override void OnCharacterUpdate()
-    {
-        base.OnCharacterUpdate();
-        //ETCInput.GetAxis("Vertical")==0 && ETCInput.GetAxis("Horizontal")==0
-        
-    }
-
     private void InteractingObject(object[] info)
     {
         InteractiveObjectType objType = (InteractiveObjectType)info[0];

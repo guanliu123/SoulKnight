@@ -10,11 +10,10 @@ public class PlayerBase : CharacterBase
     
     public Rigidbody2D rigidBody{ get; protected set; }
     public PlayerControlInput input { get; protected set; }
+    public PlayerWeaponBase NowPlayerWeapon { get; protected set; }
     
     protected PlayerStateMachine stateMachine;
-    
     protected List<PlayerWeaponBase> playerWeapons;
-    protected PlayerWeaponBase nowPlayerWeapon;
     protected int nowWeaponIdx;
     private int maxWeaponCnt;
 
@@ -37,17 +36,20 @@ public class PlayerBase : CharacterBase
     {
         base.OnCharacterUpdate();
         stateMachine.OnUpdate();
-        if (nowPlayerWeapon != null)
+        if (NowPlayerWeapon != null)
         {
             var weapon = playerWeapons[nowWeaponIdx];
             weapon.ControlWeapon(input.isAttack);
             weapon.RotateWeapon(input.WeaponAnimPos);
+            if (input.isSwitchWeapon)
+            {
+                SwitchWeapon();
+            }
         }
     }
     
     protected virtual void PickUpWeapon(GameObject weaponObj)
     {
-        
         var weapon = WeaponFactory.Instance.GetPlayerWeapon(weaponObj, this);
         if (playerWeapons.Count >= maxWeaponCnt)
         {
@@ -62,18 +64,20 @@ public class PlayerBase : CharacterBase
 
     protected void ReplaceWeapon(PlayerWeaponBase newWeapon)
     {
-        if(nowPlayerWeapon!=null) nowPlayerWeapon.OnReplace();
+        if(NowPlayerWeapon!=null) NowPlayerWeapon.OnReplace();
         playerWeapons[nowWeaponIdx] = newWeapon;
-        nowPlayerWeapon = newWeapon;
-        nowPlayerWeapon.OnEnter();
+        NowPlayerWeapon = newWeapon;
+        NowPlayerWeapon.OnEnter();
     }
 
     protected void SwitchWeapon()
     {
-        if(nowPlayerWeapon!=null) nowPlayerWeapon.OnExit();
+        if(NowPlayerWeapon!=null) NowPlayerWeapon.OnExit();
         nowWeaponIdx = (nowWeaponIdx + 1) % playerWeapons.Count;
-        nowPlayerWeapon = playerWeapons[nowWeaponIdx];
-        nowPlayerWeapon.OnEnter();
+        NowPlayerWeapon = playerWeapons[nowWeaponIdx];
+        NowPlayerWeapon.OnEnter();
+
+        input.isSwitchWeapon = false;
     }
 
     public void SetInput(PlayerControlInput _input)
