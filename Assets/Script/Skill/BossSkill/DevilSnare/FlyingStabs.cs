@@ -19,7 +19,7 @@ public class FlyingStabs : IBossSkill
         base.OnSkillStart();
         for (int i = 0; i < 6; i++)
         {
-            ItemPool.Instance.GetEnemyBullet(EnemyBulletType.EnemyBullet6, m_Attr, m_Character.transform.position, Quaternion.Euler(0, 0, i * 60)).AddToController();
+            EffectFactory.Instance.GetEnemyBullet(EnemyBulletType.EnemyBullet6, m_Attr, m_Character.transform.position, Quaternion.Euler(0, 0, i * 60)).AddToController();
         }
     }
 }

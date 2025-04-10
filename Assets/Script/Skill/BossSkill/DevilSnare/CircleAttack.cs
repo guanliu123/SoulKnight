@@ -31,7 +31,9 @@ public class CircleAttack : IBossSkill
         {
             for (int i = 0; i < 4; i++)
             {
-                ItemPool.Instance.GetEnemyBullet(EnemyBulletType.EnemyBullet1, m_Attr, m_Character.transform.position, Quaternion.Euler(0, 0, 240 * Timer + i * 90)).AddToController();
+                //ItemPool.Instance.GetEnemyBullet(EnemyBulletType.EnemyBullet1, m_Attr, m_Character.transform.position, Quaternion.Euler(0, 0, 240 * Timer + i * 90)).AddToController();
+                EffectFactory.Instance.GetEnemyBullet(EnemyBulletType.EnemyBullet1, m_Attr,
+                    m_Character.transform.position, Quaternion.Euler(0, 0, 240 * Timer + i * 90)).AddToController();
             }
             yield return new WaitForSeconds(0.1f);
         }
