@@ -40,7 +40,7 @@ public abstract class IPanel
         }
     }
 
-    protected virtual void OnInit()//½«ËùÓÐÃæ°åÔÝÍ£.²»ÄÜÔÚOnInitÖÐÊ¹ÓÃEnterPanel,ÒòÎªµÝ¹é»áµ¼ÖÂpanelÔÝÍ£´Ó¶øÎÞ·¨Ö´ÐÐOnUpdate
+    protected virtual void OnInit()//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í£.ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½OnInitï¿½ï¿½Ê¹ï¿½ï¿½EnterPanel,ï¿½ï¿½Îªï¿½Ý¹ï¿½áµ¼ï¿½ï¿½panelï¿½ï¿½Í£ï¿½Ó¶ï¿½ï¿½Þ·ï¿½Ö´ï¿½ï¿½OnUpdate
     {
         OnSuspend();
         if (m_GameObject == null)
@@ -79,7 +79,7 @@ public abstract class IPanel
     {
         m_isSuspend = false;
     }
-    public virtual void OnExit()//¼ì²âÍË³öµÄ´úÂë±ØÐë·ÅÔÚ×îºó
+    public virtual void OnExit()//ï¿½ï¿½ï¿½ï¿½Ë³ï¿½ï¿½Ä´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
     {
         if (!isShowPanelAfterExit)
         {
@@ -101,7 +101,7 @@ public abstract class IPanel
         }
         else
         {
-            Debug.Log("´æÔÚ¶à¸öÏàÍ¬ÀàÐÍµÄPanel£¬ÕâÊÇ²»ÔÊÐíµÄ");
+            Debug.Log("ï¿½ï¿½ï¿½Ú¶ï¿½ï¿½ï¿½ï¿½Í¬ï¿½ï¿½ï¿½Íµï¿½Panelï¿½ï¿½ï¿½ï¿½ï¿½Ç²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½");
         }
     }
     protected T GetPanel<T>() where T : IPanel

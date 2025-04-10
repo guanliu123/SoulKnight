@@ -27,6 +27,7 @@ namespace BattleScene
 
             GameMediator.Instance.RegisterSystem(new AudioSystem());
             GameMediator.Instance.RegisterSystem(new TalentSystem());
+            GameMediator.Instance.RegisterSystem(new QuadTreeSystem());
 
             EventCenter.Instance.RegisterObserver(EventType.OnFinishRoomGenerate, () =>
             {
