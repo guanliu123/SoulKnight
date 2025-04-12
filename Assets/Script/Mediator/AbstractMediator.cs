@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using UnityEngine;
 
 public class AbstractMediator
 {
@@ -16,13 +17,25 @@ public class AbstractMediator
     }
     public T GetController<T>() where T : AbstractController
     {
-        AbstractController controller = controllers.Where(controller => controller is T).ToArray()[0];
+        var t = controllers.Where(controller => controller is T).ToArray();
+        if (t == null || t.Length <= 0)
+        {
+            Debug.Log("找不到Controller!");
+            return null;
+        }
+        var controller = t[0];
         if (controller != null) return controller as T;
         return default(T);
     }
     public T GetSystem<T>() where T : AbstractSystem
     {
-        AbstractSystem system = systems.Where(system => system is T).ToArray()[0];
+        var t = systems.Where(system => system is T).ToArray();
+        if (t == null || t.Length <= 0)
+        {
+            Debug.Log("找不到System！");
+            return null;
+        }
+        AbstractSystem system = t[0];
         if (system != null) return system as T;
         return default(T);
     }

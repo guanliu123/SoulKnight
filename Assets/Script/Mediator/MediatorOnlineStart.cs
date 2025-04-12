@@ -6,13 +6,22 @@
     public MediatorOnlineStart()
     {
         m_ItemController = new ItemController();
-        m_PlayerSystem = new PlayerController();
+        m_PlayerSystem = GameMediator.Instance.GetController<PlayerController>();
+        if (m_PlayerSystem == null)
+        {
+            m_PlayerSystem=new PlayerController();
+            GameMediator.Instance.RegisterController(m_PlayerSystem);
+        }
 
+        GameMediator.Instance.RegisterController(m_ItemController);
+        
+        m_ItemController.TurnOnController();
     }
     protected override void Init()
     {
         base.Init();
         m_ItemController.TurnOnController();
+        m_PlayerSystem.TurnOnController();
     }
     public override void GameUpdate()
     {
