@@ -1,36 +1,32 @@
 {
   "format": 1,
   "restore": {
-    "D:\\10910\\Documents\\Unity Project\\Vigorous Knight\\Server\\Server.csproj": {}
+    "D:\\GameDevelopment\\Unity\\Project\\SKDemo\\Server\\Server.csproj": {}
   },
   "projects": {
-    "D:\\10910\\Documents\\Unity Project\\Vigorous Knight\\Server\\Server.csproj": {
+    "D:\\GameDevelopment\\Unity\\Project\\SKDemo\\Server\\Server.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\10910\\Documents\\Unity Project\\Vigorous Knight\\Server\\Server.csproj",
+        "projectUniqueName": "D:\\GameDevelopment\\Unity\\Project\\SKDemo\\Server\\Server.csproj",
         "projectName": "Server",
-        "projectPath": "D:\\10910\\Documents\\Unity Project\\Vigorous Knight\\Server\\Server.csproj",
-        "packagesPath": "C:\\Users\\10910\\.nuget\\packages\\",
-        "outputPath": "D:\\10910\\Documents\\Unity Project\\Vigorous Knight\\Server\\obj\\",
+        "projectPath": "D:\\GameDevelopment\\Unity\\Project\\SKDemo\\Server\\Server.csproj",
+        "packagesPath": "C:\\Users\\GuanLiu\\.nuget\\packages\\",
+        "outputPath": "D:\\GameDevelopment\\Unity\\Project\\SKDemo\\Server\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "D:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-        ],
         "configFilePaths": [
-          "C:\\Users\\10910\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Users\\GuanLiu\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
-          "net6.0"
+          "net7.0"
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
-          "net6.0": {
-            "targetAlias": "net6.0",
+          "net7.0": {
+            "targetAlias": "net7.0",
             "projectReferences": {}
           }
         },
@@ -41,12 +37,22 @@
         }
       },
       "frameworks": {
-        "net6.0": {
-          "targetAlias": "net6.0",
+        "net7.0": {
+          "targetAlias": "net7.0",
           "dependencies": {
+            "Google.Protobuf": {
+              "target": "Package",
+              "version": "[3.30.2, )"
+            },
+            "Grpc.Tools": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[2.71.0, )"
+            },
             "MySql.Data": {
               "target": "Package",
-              "version": "[8.1.0, )"
+              "version": "[9.2.0, )"
             }
           },
           "imports": [
