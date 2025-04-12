@@ -54,7 +54,6 @@ public class PanelCreateRoom : IPanel
         {
             isCreateRoomResponse = false;
             MemoryModelCommand.Instance.EnterOnlineMode();
-            SceneModelCommand.Instance.LoadScene(SceneName.MiddleScene);
         }
     }
 }

@@ -12,6 +12,7 @@
     public void EnterOnlineMode()
     {
         model.isOnlineMode.Value = true;
+        SceneModelCommand.Instance.LoadScene(SceneName.MiddleScene);
     }
     public void ExitOnlineMode()
     {
