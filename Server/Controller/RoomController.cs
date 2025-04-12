@@ -13,9 +13,21 @@ namespace KnightServer
         {
             try
             {
-                // 先检查是否在房间然，不在就创建，否则返回失败
-                Room room = new Room(client, pack.RoomPacks[0]);
-                client.Server.Rooms.Add(room);
+                // 检查数据库中是否有相同名字的房间
+                if (RoomManager.Instance.RoomExists(pack.RoomPacks[0].RoomName)){
+                    pack.ReturnCode = ReturnCode.Fail;
+                    return pack;
+                }
+                // 先检查是否在房间，不在就创建，否则返回失败
+                if (client.Room != null)
+                {
+                    pack.ReturnCode = ReturnCode.Fail;
+                    return pack;
+                }
+                
+                Room room = RoomManager.Instance.CreateRoom(pack.RoomPacks[0].RoomName, pack.RoomPacks[0].MaxNum);
+                room.AddPlayer(client);
+                Console.WriteLine("创建房间成功");
                 pack.ReturnCode = ReturnCode.Success;
                 pack.ActionCode = ActionCode.CreateRoom;
             }
@@ -32,26 +44,27 @@ namespace KnightServer
             pack.ActionCode = ActionCode.FindRoom;
             try
             {
-                if (client.Server.Rooms.Count == 0 || !client.Server.Rooms.Any(room => room.hostCode == HostCode.SelectCharacter))
+                if (RoomManager.Instance.GetRoomCount() == 0)
                 {
                     pack.ReturnCode = ReturnCode.NoRoom;
-                    Console.WriteLine("没有房间");
                 }
                 else
                 {
-                    foreach (Room room in client.Server.Rooms)
+                    foreach (Room room in RoomManager.Instance.GetAllRooms())
                     {
-                        if (room.hostCode != HostCode.SelectCharacter)
+                        if (room.hostCode == HostCode.SelectCharacter)
                         {
                             pack.RoomPacks.Add(room.GetRoomPack());
                         }
                     }
+                    Console.WriteLine("查询房间成功" + pack.RoomPacks.Count);
                     pack.ReturnCode = ReturnCode.Success;
                 }
             }
-            catch (Exception)
+            catch (Exception e)
             {
-                Console.WriteLine("查询房间失败");
+                Console.WriteLine("查询房间失败" + e.Message);
+                Console.WriteLine(e.StackTrace);
                 pack.ReturnCode = ReturnCode.Fail;
             }
             return pack;
@@ -60,7 +73,7 @@ namespace KnightServer
         {
             bool isFind = false;
             Room findRoom = null;
-            foreach (Room room in client.Server.Rooms)
+            foreach (Room room in RoomManager.Instance.GetAllRooms())
             {
                 if (room.m_RoomName == pack.RoomPacks[0].RoomName)
                 {

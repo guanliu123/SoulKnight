@@ -17,11 +17,9 @@ namespace KnightServer
         }
         public void HandleRequest(MainPack pack, Client client, bool isUDP = false)
         {
-            //Console.WriteLine(pack.RequestCode+" "+pack.ActionCode);
             if (controllerDic.TryGetValue(pack.RequestCode, out BaseController controller))
             {
                 string methodName = pack.ActionCode.ToString();
-                Console.WriteLine( "methodNamer is " + methodName);
                 MethodInfo methodInfo = controller.GetType().GetMethod(methodName);
                 if (methodInfo == null)
                 {

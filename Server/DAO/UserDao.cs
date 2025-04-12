@@ -9,7 +9,10 @@ public class UserDao
     public UserDao()
     {
         ConnectDatabase();
+        // 连接成功后检查并创建表
+        CheckAndCreateTables();
     }
+    
     private void ConnectDatabase()
     {
         try
@@ -22,24 +25,55 @@ public class UserDao
             Console.WriteLine("连接数据库失败");
         }
     }
+    
+    // 添加检查和创建表的方法
+    private void CheckAndCreateTables()
+    {
+        try
+        {
+            // 检查user表是否存在
+            string checkTableSql = "SHOW TABLES LIKE 'user'";
+            MySqlCommand checkCmd = new MySqlCommand(checkTableSql, conn);
+            object result = checkCmd.ExecuteScalar();
+            
+            // 如果表不存在，则创建
+            if (result == null)
+            {
+                string createTableSql = @"CREATE TABLE user (
+                    id INT AUTO_INCREMENT PRIMARY KEY,
+                    UserName VARCHAR(50) NOT NULL UNIQUE,
+                    Password VARCHAR(50) NOT NULL
+                )";
+                
+                MySqlCommand createCmd = new MySqlCommand(createTableSql, conn);
+                createCmd.ExecuteNonQuery();
+                Console.WriteLine("user表创建成功");
+            }
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"检查或创建表失败: {ex.Message}");
+        }
+    }
+    
     public bool Register(MainPack pack)
     {
         string userName = pack.LoginPack.UserName;
         string password = pack.LoginPack.Password;
         string sql = "Insert into user(UserName,Password) values(@userName,@password)";
         MySqlCommand cmd = new MySqlCommand(sql, conn);
-        cmd.Parameters.Add(new MySqlParameter("@userName", SqlDbType.NVarChar));
-        cmd.Parameters.Add(new MySqlParameter("@password", SqlDbType.NVarChar));
-        cmd.Parameters["@userName"].Value = userName;
-        cmd.Parameters["@password"].Value = password;
+        // 修改参数类型，使用 MySqlDbType.VarChar 替代 SqlDbType.NVarChar
+        cmd.Parameters.Add("@userName", MySqlDbType.VarChar).Value = userName;
+        cmd.Parameters.Add("@password", MySqlDbType.VarChar).Value = password;
         try
         {
             cmd.ExecuteNonQuery();
             Console.WriteLine("数据库成功写入了一条数据");
         }
-        catch (Exception)
+        catch (Exception ex)
         {
-            Console.WriteLine("数据库插入数据失败");
+            Console.WriteLine($"数据库插入数据失败: {ex.Message}");
+            Console.WriteLine($"异常详情: {ex.StackTrace}");
             return false;
         }
         return true;
@@ -49,10 +83,9 @@ public class UserDao
         bool isFind = false;
         string sql = "Select * from user where UserName=@username and Password=@password";
         MySqlCommand cmd = new MySqlCommand(sql, conn);
-        cmd.Parameters.Add(new MySqlParameter("@username", SqlDbType.NVarChar));
-        cmd.Parameters.Add(new MySqlParameter("@password", SqlDbType.NVarChar));
-        cmd.Parameters["@username"].Value = pack.LoginPack.UserName;
-        cmd.Parameters["@password"].Value = pack.LoginPack.Password;
+        // 修改参数类型，使用 MySqlDbType.VarChar 替代 SqlDbType.NVarChar
+        cmd.Parameters.Add("@username", MySqlDbType.VarChar).Value = pack.LoginPack.UserName;
+        cmd.Parameters.Add("@password", MySqlDbType.VarChar).Value = pack.LoginPack.Password;
         try
         {
             MySqlDataReader reader = cmd.ExecuteReader();
@@ -62,9 +95,10 @@ public class UserDao
             }
             reader.Close();
         }
-        catch (Exception)
+        catch (Exception ex)
         {
-            Console.WriteLine("数据库查询数据失败");
+            Console.WriteLine($"数据库查询数据失败: {ex.Message}");
+            Console.WriteLine($"异常详情: {ex.StackTrace}");
         }
 
         return isFind;
