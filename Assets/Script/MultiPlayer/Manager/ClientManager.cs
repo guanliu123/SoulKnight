@@ -84,12 +84,12 @@ public class ClientManager : BaseManager
             });
             BeginReceive();
         }
-        catch
+        catch(Exception e)
         {
+            Debug.Log(e);
             Debug.Log("TCP服务器连接失败");
             return;
         }
-
     }
 
 

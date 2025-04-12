@@ -35,11 +35,13 @@ public class PanelRoomList : IPanel
             {
                 if (pack.ReturnCode == ReturnCode.Fail)
                 {
-                    EventCenter.Instance.NotisfyObserver(EventType.OnWantShowNotice, "查询房间失败");
+                    //EventCenter.Instance.NotisfyObserver(EventType.OnWantShowNotice, "查询房间失败");
+                    Debug.Log("查询房间失败");
                 }
                 if (pack.ReturnCode == ReturnCode.NoRoom)
                 {
-                    EventCenter.Instance.NotisfyObserver(EventType.OnWantShowNotice, "当前没有房间");
+                    //EventCenter.Instance.NotisfyObserver(EventType.OnWantShowNotice, "当前没有房间");
+                    Debug.Log("当前没有房间");
                 }
                 if (pack.ReturnCode == ReturnCode.Success)
                 {

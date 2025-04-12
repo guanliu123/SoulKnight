@@ -28,12 +28,13 @@ public class UIController : AbstractController
             Notice.GetComponent<CanvasGroup>().alpha = 0;
             EventCenter.Instance.RegisterObserver<string>(EventType.OnWantShowNotice, (s) =>
             {
-                Notice.GetComponent<CanvasGroup>().DOFade(1, 0.3f);
+                Debug.Log("EventType.OnWantShowNotice提示事件："+s);
+                /*Notice.GetComponent<CanvasGroup>().DOFade(1, 0.3f);
                 if (coroutine != null)
                 {
                     CoroutinePool.Instance.StopCoroutine(coroutine);
                 }
-                coroutine = CoroutinePool.Instance.StartCoroutine(WaitForCloseNotice());
+                coroutine = CoroutinePool.Instance.StartCoroutine(WaitForCloseNotice());*/
             });
         }
     }
