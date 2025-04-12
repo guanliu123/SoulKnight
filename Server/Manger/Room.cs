@@ -11,13 +11,11 @@ public class Room
     private List<Client> clients = new List<Client>();
     public List<Client> Clients => clients;
     public HostCode hostCode = HostCode.SelectCharacter;
-    public Room(Client client, RoomPack pack)
+    public Room(string RoomName, int  maxNum)
     {
-        RoomName = pack.RoomName;
-        MaxNum = pack.MaxNum;
-        clients.Add(client);
-        client.SetRoom(this);
-        CurrentNum += 1;
+        this.RoomName = RoomName;
+        this.MaxNum = maxNum;
+        this.CurrentNum = 0;
     }
     public RoomPack GetRoomPack()
     {
