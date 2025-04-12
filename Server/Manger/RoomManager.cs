@@ -26,14 +26,14 @@ public class RoomManager
     }
 
     // 创建新房间
-    public Room CreateRoom(string roomName)
+    public Room CreateRoom(string roomName, int maxNum = 4)
     {
         if (roomDict.ContainsKey(roomName))
         {
             throw new Exception($"房间 {roomName} 已存在");
         }
 
-        Room newRoom = new Room(roomName);
+        Room newRoom = new Room(roomName,   maxNum);
         roomDict.Add(roomName, newRoom);
         return newRoom;
     }

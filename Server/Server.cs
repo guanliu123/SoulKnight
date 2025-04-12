@@ -9,8 +9,6 @@ namespace KnightServer
         public UDPServer UDPServer => us;
         private Thread ausThread;
         private List<Client> clients = new List<Client>();
-        private List<Room> rooms = new List<Room>();
-        public List<Room> Rooms => rooms;
         private ControllerManager controllerManager;
         public ControllerManager m_ControllerManager => controllerManager;
         public Server(int port)
