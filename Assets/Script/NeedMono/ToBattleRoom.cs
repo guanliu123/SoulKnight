@@ -14,7 +14,8 @@ public class ToBattleRoom : MonoBehaviour
         {
             if (collision.tag == "Player")
             {
-                m_MemoryModel.PlayerAttr = collision.transform.parent.GetComponent<Symbol>().GetCharacter().m_Attr as PlayerAttribute;
+                //m_MemoryModel.PlayerAttr = collision.transform.parent.GetComponent<Symbol>().GetCharacter().m_Attr as PlayerAttribute;
+                m_MemoryModel.PlayerAttr = collision.GetComponent<Symbol>().GetCharacter().m_Attr as PlayerAttribute;
 
                 SceneModelCommand.Instance.LoadScene(SceneName.OnlineStartScene).completed += (op) =>
                 {

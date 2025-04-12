@@ -154,7 +154,8 @@ public class PlayerController : AbstractController
     public void AddPlayer(PlayerAttribute attr, CharacterPack p)
     {
         players.Add(PlayerFactory.Instance.GetPlayer(attr.m_ShareAttr.Type, attr));
-        players[players.Count - 1].gameObject.GetComponent<CapsuleCollider2D>().isTrigger = false;
+        UnityTool.Instance.GetComponentFromChild<CapsuleCollider2D>(players[players.Count - 1].gameObject, "Collider").isTrigger = false;
+        //players[players.Count - 1].gameObject.GetComponent<CapsuleCollider2D>().isTrigger = false;
         players[players.Count - 1].UserName = p.CharacterName;
         if (ModelContainer.Instance.GetModel<SceneModel>().sceneName == SceneName.OnlineStartScene)
         {

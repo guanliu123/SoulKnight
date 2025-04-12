@@ -5,7 +5,7 @@ using System.Data;
 public class UserDao
 {
     private MySqlConnection conn;
-    private string s = "database=soulknight; data source=localhost;user=root;password=123456;pooling=false;charset=utf8;port=3306";
+    private string s = "database=soulknight; data source=localhost;user=root;password=20121221;pooling=false;charset=utf8;port=3306";
     public UserDao()
     {
         ConnectDatabase();
