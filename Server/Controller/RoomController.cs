@@ -1,4 +1,5 @@
 ﻿
+using Internal;
 using SoulKnightProtocol;
 namespace KnightServer
 {
@@ -12,6 +13,7 @@ namespace KnightServer
         {
             try
             {
+                // 先检查是否在房间然，不在就创建，否则返回失败
                 Room room = new Room(client, pack.RoomPacks[0]);
                 client.Server.Rooms.Add(room);
                 pack.ReturnCode = ReturnCode.Success;
@@ -30,9 +32,10 @@ namespace KnightServer
             pack.ActionCode = ActionCode.FindRoom;
             try
             {
-                if (client.Server.Rooms.Count == 0 || !client.Server.Rooms.Any(room => room.hostCode != HostCode.SelectCharacter))
+                if (client.Server.Rooms.Count == 0 || !client.Server.Rooms.Any(room => room.hostCode == HostCode.SelectCharacter))
                 {
                     pack.ReturnCode = ReturnCode.NoRoom;
+                    Console.WriteLine("没有房间");
                 }
                 else
                 {
