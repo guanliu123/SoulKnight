@@ -13,7 +13,7 @@ public class PiosoningNeedle : IBossSkill
             attr.Speed = 8f;
             attr.DebuffType = BuffType.Poisoning;
 
-            IEnemyBullet bullet = ItemPool.Instance.GetEnemyBullet(EnemyBulletType.EnemyBullet4, attr, m_Character.transform.position, Quaternion.Euler(0, 0, i * 15)) as IEnemyBullet;
+            IEnemyBullet bullet = EffectFactory.Instance.GetEnemyBullet(EnemyBulletType.EnemyBullet4, attr, m_Character.transform.position, Quaternion.Euler(0, 0, i * 15)) as IEnemyBullet;
             bullet.AddToController();
         }
         StopSkill();

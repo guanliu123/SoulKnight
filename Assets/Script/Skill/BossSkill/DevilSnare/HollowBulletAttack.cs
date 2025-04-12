@@ -17,7 +17,7 @@ public class HollowBulletAttack : IBossSkill
         base.OnSkillStart();
         for (int i = 0; i < 24; i++)
         {
-            ItemPool.Instance.GetEnemyBullet(EnemyBulletType.EnemyBullet2, m_Attr, m_Character.transform.position, Quaternion.Euler(0, 0, i * 15)).AddToController();
+            EffectFactory.Instance.GetEnemyBullet(EnemyBulletType.EnemyBullet2, m_Attr, m_Character.transform.position, Quaternion.Euler(0, 0, i * 15)).AddToController();
         }
     }
 

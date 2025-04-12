@@ -81,8 +81,8 @@ namespace MainMenuScene
             });
             ButtonMultiPlayer.onClick.AddListener(() =>
             {
-                Debug.Log("多人游戏开发中");
-                //EnterPanel(typeof(PanelOnlineAlert));
+                //Debug.Log("多人游戏开发中");
+                EnterPanel(typeof(PanelOnlineAlert));
             });
             ButtonLogin.onClick.AddListener(() =>
             {

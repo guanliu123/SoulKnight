@@ -7,6 +7,7 @@ namespace MiddleScene
         private ItemController m_ItemController;
         private EnemyController m_EnemyController;
         private BuffController m_BuffController;
+        private QuadTreeSystem m_QuadTreeSystem;
         public GameMediator m_Mediator { get; private set; }
         public GameFacade() : base()
         {
@@ -27,6 +28,8 @@ namespace MiddleScene
             GameMediator.Instance.RegisterSystem(new AudioSystem());
             GameMediator.Instance.RegisterSystem(new TalentSystem());
             GameMediator.Instance.RegisterSystem(new BackpackSystem());
+            m_QuadTreeSystem = new QuadTreeSystem();
+            GameMediator.Instance.RegisterSystem(m_QuadTreeSystem);
 
             EventCenter.Instance.RegisterObserver(EventType.OnFinishSelectPlayer, () =>
             {
@@ -48,8 +51,10 @@ namespace MiddleScene
             m_ItemController.GameUpdate();
             m_PlayerController.GameUpdate();
             m_EnemyController.GameUpdate();
+            
+            //更新四叉树
+            m_QuadTreeSystem.GameUpdate();
         }
-
     }
 }
 
