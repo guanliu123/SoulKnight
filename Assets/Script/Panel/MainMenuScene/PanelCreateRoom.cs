@@ -36,7 +36,7 @@ public class PanelCreateRoom : IPanel
                     }
                     if (pack.ReturnCode == ReturnCode.Success)
                     {
-                        EventCenter.Instance.NotisfyObserver(EventType.OnWantShowNotice, "创建房间成功");
+                        //EventCenter.Instance.NotisfyObserver(EventType.OnWantShowNotice, "创建房间成功");
                         isCreateRoomResponse = true;
                     }
                 });
