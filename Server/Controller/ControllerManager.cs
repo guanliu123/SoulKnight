@@ -1,4 +1,5 @@
-﻿using SoulKnightProtocol;
+﻿using Internal;
+using SoulKnightProtocol;
 using System.Reflection;
 namespace KnightServer
 {
@@ -20,6 +21,7 @@ namespace KnightServer
             if (controllerDic.TryGetValue(pack.RequestCode, out BaseController controller))
             {
                 string methodName = pack.ActionCode.ToString();
+                Console.WriteLine( "methodNamer is " + methodName);
                 MethodInfo methodInfo = controller.GetType().GetMethod(methodName);
                 if (methodInfo == null)
                 {
