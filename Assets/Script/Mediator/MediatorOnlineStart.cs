@@ -2,11 +2,13 @@
 {
     private ItemController m_ItemController;
     private PlayerController m_PlayerSystem;
+    private TalentSystem m_TalentSystem;
     public PlayerController PlayerSystem => m_PlayerSystem;
     public MediatorOnlineStart()
     {
         m_ItemController = new ItemController();
         m_PlayerSystem = GameMediator.Instance.GetController<PlayerController>();
+        m_TalentSystem = new TalentSystem();
         if (m_PlayerSystem == null)
         {
             m_PlayerSystem=new PlayerController();
@@ -15,7 +17,7 @@
 
         GameMediator.Instance.RegisterController(m_ItemController);
         
-        m_ItemController.TurnOnController();
+        GameMediator.Instance.RegisterSystem(m_TalentSystem);
     }
     protected override void Init()
     {
