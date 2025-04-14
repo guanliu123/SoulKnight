@@ -1,4 +1,5 @@
-﻿using Google.Protobuf.Collections;
+﻿using System;
+using Google.Protobuf.Collections;
 using KnightServer;
 using SoulKnightProtocol;
 
@@ -45,6 +46,9 @@ public class Room
     }
     public ReturnCode AddPlayer(Client client)
     {
+        if (this.hostCode == HostCode.GameStart){
+            return ReturnCode.Fail;
+        }
         if (clients.Count < MaxNum)
         {
             client.SetRoom(this);
@@ -85,6 +89,11 @@ public class Room
             client.Send(pack);
         }
     }
+    public void EnterGameStart()
+    {
+        this.hostCode = HostCode.GameStart;
+    }
+
     public void BroadcastTo(Client except, MainPack pack)
     {
         foreach (Client client in clients)

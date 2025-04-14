@@ -1,9 +1,15 @@
-﻿using KnightServer;
-public class Program
+﻿using System;
+using KnightServer; // 使用正确的命名空间
+
+namespace SoulKnight.Server
 {
-    static void Main(string[] args)
+    class Program
     {
-        Server server = new Server(9999);
-        Console.ReadKey();
+        static void Main(string[] args)
+        {
+            KnightServer.Server server = new KnightServer.Server(9999);
+            Console.WriteLine("服务器启动成功...");
+            Console.ReadKey();
+        }
     }
 }
