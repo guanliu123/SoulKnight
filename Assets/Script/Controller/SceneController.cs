@@ -13,7 +13,7 @@
         m_MemoryModel = ModelContainer.Instance.GetModel<MemoryModel>();
         m_MemoryModel.isOnlineMode.Register((val) =>
         {
-            SceneModelCommand.Instance.LoadScene(SceneName.MiddleScene);
+            if(val) SceneModelCommand.Instance.LoadScene(SceneName.MiddleScene);
         });
     }
     private void OnSceneChange()
