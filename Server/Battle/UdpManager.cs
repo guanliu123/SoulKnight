@@ -51,12 +51,13 @@ namespace Battle
         {
             try
             {
-                byte[] data = udpClient.EndReceive(ar, ref remoteEndPoint);
-                
+                IPEndPoint remoteEP = new IPEndPoint(IPAddress.Any, 0);
+                byte[] data = udpClient.EndReceive(ar, ref remoteEP);
                 // 处理接收到的数据
                 if (data.Length > 0 && messageHandler != null)
                 {
                     MainPack pack = MainPack.Parser.ParseFrom(data);
+                    pack.Str = remoteEP.ToString();
                     messageHandler(pack);
                 }
                 

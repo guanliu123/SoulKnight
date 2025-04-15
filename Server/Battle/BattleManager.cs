@@ -118,7 +118,7 @@ namespace Battle
         /// 开始一场新战斗
         /// </summary>
         /// <param name="_battleUser">参战玩家列表</param>
-        public void BeginBattle(List<BattlePlayerPack> _battleUser)
+        public int BeginBattle(List<BattlePlayerPack> _battleUser)
         {
             battleID++;
             
@@ -138,6 +138,7 @@ namespace Battle
             dic_battleUserInfo[battleID] = _battleUser;
             
             Console.WriteLine($"开始战斗。。。。。BattleID：{battleID}");
+            return battleID;
         }
 
         /// <summary>
@@ -204,8 +205,6 @@ namespace Battle
             // 根据 ActionCode 分发到不同的战斗控制器
             switch (pack.ActionCode)
             {
-                case ActionCode.BattleReady:
-                case ActionCode.BattlePushDowmPlayerOpeartions:
                 case ActionCode.ClientSendGameOver:
                     // 查找对应的战斗控制器
                     int battleId = GetBattleIdFromPack(pack);

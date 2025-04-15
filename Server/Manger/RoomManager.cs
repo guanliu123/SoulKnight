@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using KnightServer;
 
 public class RoomManager
 {
@@ -74,5 +75,12 @@ public class RoomManager
     public int GetRoomCount()
     {
         return roomDict.Count;
+    }
+
+    public List<Client> GetRoomPlayers(string roomName){
+        if(RoomExists(roomName)){
+            return GetRoom(roomName).Clients;
+        }
+        return null;
     }
 }

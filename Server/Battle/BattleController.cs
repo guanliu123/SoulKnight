@@ -102,7 +102,7 @@ namespace Battle
                     playerPack.Battleid = userBattleID;
                     playerPack.Playername = battleUsers[i].Playername; // 修改为 Playername 而不是 userName
                     playerPack.Hero = battleUsers[i].Hero; // 修改为 Hero 而不是 hero
-                    playerPack.Teamid = battleUsers[i].Teamid; // 修改为 Teamid 而不是 teamid
+                    playerPack.Teamid = battleUsers[i].Teamid; 
                     
                     battleInfo.BattleUserInfo.Add(playerPack);
                 }
