@@ -198,30 +198,6 @@ namespace Battle
             
             Console.WriteLine($"战斗结束。。。。。BattleID：{_battleID}");
         }
-        
-        // 处理 UDP 消息
-        public void HandleUdpMessage(MainPack pack)
-        {
-            // 根据 ActionCode 分发到不同的战斗控制器
-            switch (pack.ActionCode)
-            {
-                case ActionCode.ClientSendGameOver:
-                    // 查找对应的战斗控制器
-                    int battleId = GetBattleIdFromPack(pack);
-                    if (battleId > 0 && dic_battles.TryGetValue(battleId, out BattleController controller))
-                    {
-                        controller.Handle(pack);
-                    }
-                    else
-                    {
-                        Console.WriteLine($"找不到对应的战斗控制器，战斗ID: {battleId}");
-                    }
-                    break;
-                default:
-                    Console.WriteLine($"未知的战斗操作: {pack.ActionCode}");
-                    break;
-            }
-        }
 
         // 从消息包中获取战斗ID
         private int GetBattleIdFromPack(MainPack pack)
