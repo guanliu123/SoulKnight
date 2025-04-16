@@ -8,6 +8,7 @@ enum RequestCode {
   User = 1;
   Room = 2;
   Game = 3;
+  Battle = 4; // 添加战斗请求码
 }
 
 enum ActionCode {
@@ -21,6 +22,16 @@ enum ActionCode {
   ExitRoom = 7;
   EnterOnlineStartRoom = 8;
   UpdatePlayerState = 9;
+  
+  // 战斗相关的动作码
+  StartEnterBattle = 100; // 开始进入战斗
+  BattleReady = 101;      // 战斗准备就绪
+  BattleStart = 102;      // 战斗开始
+  BattlePushDowmPlayerOpeartions = 103; // 推送玩家操作
+  BattlePushDowmAllFrameOpeartions = 104; // 推送所有帧操作
+  ClientSendGameOver = 105; // 客户端发送游戏结束
+  BattlePushDowmGameOver = 106; // 服务器推送游戏结束
+  BattleReview = 107;     // 战斗回放
 }
 
 enum ReturnCode {
@@ -74,6 +85,42 @@ message InputPack {
   float CharacterPosX = 5;
   float CharacterPosY = 6;
   bool IsAttackKeyDown = 7;
+  
+  // 战斗系统扩展字段
+  int32 BattleId = 8;      // 战斗内ID
+  bool IsSkillKeyDown = 9; // 是否使用技能
+  bool IsSwitchKeyDown = 10; // 是否切换武器
+  bool IsInteractKeyDown = 11; // 是否交互
+  int32 FrameId = 12;      // 帧ID，用于帧同步
+}
+
+
+message AllPlayerOperation {
+  int32 Frameid = 1;                 // 帧ID
+  repeated InputPack Operations = 2; // 玩家操作列表，使用 InputPack 替代 PlayerOperation
+}
+
+// 添加战斗初始化信息
+message BattleInitInfo {
+  int32 RandSeed = 1;                      // 随机种子
+  repeated BattlePlayerPack BattleUserInfo = 2; // 战斗玩家信息
+}
+
+message BattleInfo {
+  int32 OperationID = 1;                   // 操作ID/帧ID
+  repeated BattlePlayerPack BattleUserInfo = 2; // 战斗玩家信息
+  repeated AllPlayerOperation AllPlayerOperation = 3; // 所有玩家操作
+  InputPack SelfOperation = 4;             // 自己的操作，使用 InputPack 替代 PlayerOperation
+}
+
+// 修改 BattlePlayerPack，确保包含所有必要字段
+message BattlePlayerPack {
+  int32 Id = 1;           // 玩家ID
+  int32 Battleid = 2;     // 战斗内ID
+  string Playername = 3;  // 玩家名称
+  int32 Hero = 4;         // 英雄类型
+  int32 Teamid = 5;       // 队伍ID
+  string SocketIP = 6;    // 玩家Socket IP地址，用于UDP通信
 }
 
 message MainPack {
@@ -85,4 +132,10 @@ message MainPack {
   repeated RoomPack RoomPacks = 6;
   repeated CharacterPack CharacterPacks = 7;
   bool IsBroadcastMessage = 8;
+  
+  // 战斗相关字段
+  string Str = 9;                         // 通用字符串字段，用于传递IP:端口等信息
+  BattleInfo BattleInfo = 10;             // 战斗信息
+  repeated BattlePlayerPack BattlePlayerPack = 11; // 战斗玩家包
+  BattleInitInfo BattleInitInfo = 12;     // 战斗初始化信息
 }

@@ -7,6 +7,35 @@ public class GameController : BaseController
     {
         requestCode = RequestCode.Game;
     }
+    public MainPack StartGame(Client client, MainPack pack)
+    {
+        Room room = client.Room;
+        if (room!= null)
+        {
+            pack.ReturnCode = ReturnCode.Success;
+            room.Broadcast(pack);
+        }
+        else
+        {
+            pack.ReturnCode = ReturnCode.Fail;
+        }
+        return pack;
+    }
+
+    public MainPack EndGame(Client client, MainPack pack)
+    {
+        Room room = client.Room;
+        if (room!= null)
+        {
+            pack.ReturnCode = ReturnCode.Success;
+            room.Broadcast(pack);
+        }
+        else
+        {
+            pack.ReturnCode = ReturnCode.Fail;
+        }
+        return pack;
+    }
     public MainPack UpdatePlayerState(Client client, MainPack pack)
     {
         Room room = client.Room;

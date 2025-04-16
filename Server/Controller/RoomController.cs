@@ -52,10 +52,7 @@ namespace KnightServer
                 {
                     foreach (Room room in RoomManager.Instance.GetAllRooms())
                     {
-                        if (room.hostCode == HostCode.SelectCharacter)
-                        {
-                            pack.RoomPacks.Add(room.GetRoomPack());
-                        }
+                         pack.RoomPacks.Add(room.GetRoomPack());
                     }
                     Console.WriteLine("查询房间成功" + pack.RoomPacks.Count);
                     pack.ReturnCode = ReturnCode.Success;
@@ -84,7 +81,6 @@ namespace KnightServer
             }
             if (isFind)
             {
-                Console.WriteLine("加入的房间被找到");
                 pack.ReturnCode = findRoom.AddPlayer(client);
                 if (pack.ReturnCode == ReturnCode.Success)
                 {

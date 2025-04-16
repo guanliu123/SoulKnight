@@ -124,7 +124,7 @@ public class ClientManager : BaseManager
         {
             int len = udpClient.ReceiveFrom(buffer, ref endPoint);
             MainPack pack = (MainPack)MainPack.Descriptor.Parser.ParseFrom(buffer, 0, len);
-            //Debug.Log("")
+
             requestManager.HandleResponse(pack);
         }
     }
