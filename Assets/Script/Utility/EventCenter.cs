@@ -13,7 +13,8 @@ public enum EventType
     OnPlayerEnterBossRoom,
     OnCameraArriveAtPlayer,
     OnPlayerEnterBattleRoom,
-
+    OnEnemyBeginTrackPlayer,
+    OnEnemyStopTrackPlayer,
 
     OnFindRoomResponse,
     OnFinishSelectPlayer,

@@ -5,7 +5,7 @@ using UnityEngine;
 public class Room
 {
     public RoomInstanceGrid2D roomInstanceGrid2D;
-    public int CurrentEnemyNum;//ÓÉÓÚenemysÑÓ³Ù¼ÓÈë,ÐèÒªÕâ¸ö±äÁ¿»ñÈ¡¼ÓÈëºóµÄÊýÁ¿
+    public int CurrentEnemyNum;//ï¿½ï¿½ï¿½ï¿½enemysï¿½Ó³Ù¼ï¿½ï¿½ï¿½,ï¿½ï¿½Òªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
     public int WaveNum = Random.Range(2, 4);
     private int m_SpawnEnemyNum = Random.Range(3, 6);
     public int SpawnEnemyNum => m_SpawnEnemyNum + WaveNum;
@@ -21,6 +21,7 @@ public class RoomController : AbstractController
     private bool isEnterEnemyFloor;
     private bool isEnterEnemyFloorStart;
     private bool isClearEnemyStart;
+    
     public RoomController()
     {
         m_FinishAnim = UnityTool.Instance.GetGameObjectFromCanvas("Finish").GetComponent<Animator>();
