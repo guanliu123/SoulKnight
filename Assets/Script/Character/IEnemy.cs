@@ -9,6 +9,8 @@ public class IEnemy : ICharacter
     private GameObject FootCircle;
     protected MaterialPropertyBlock block;
     private Vector2 weaponDir;
+    public FixVector2 Velocity;
+    protected IPlayer targetPlayer;
 
     public IEnemy(GameObject obj) : base(obj)
     {
@@ -38,9 +40,17 @@ public class IEnemy : ICharacter
     protected override void OnCharacterUpdate()
     {
         base.OnCharacterUpdate();
-        if (m_Weapon != null)//ÓÐÎäÆ÷Ê±³¯ÏòµÐÈË
+        if (!ModelContainer.Instance.GetModel<MemoryModel>().isOnlineMode)
         {
-            weaponDir = (Vector2)GameMediator.Instance.GetController<PlayerController>().Player.gameObject.transform.position - m_Weapon.GetRotOriginPos();
+            if(targetPlayer==null) targetPlayer =GameMediator.Instance.GetController<PlayerController>().Player;
+        }
+        else
+        {
+            //todo å¤šäººæ¨¡å¼éšæœºé€‰æ‹©ä¸€ä¸ªçŽ©å®¶
+        }
+        if (m_Weapon != null)//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+        {
+            weaponDir = (Vector2)targetPlayer.gameObject.transform.position - m_Weapon.GetRotOriginPos();
             if (weaponDir.normalized.x > 0.02f)
             {
                 isLeft = false;
@@ -51,7 +61,15 @@ public class IEnemy : ICharacter
             }
             m_Weapon.RotateWeapon(weaponDir);
             m_Weapon.OnUpdate();
-
+        }
+        
+        if (targetPlayer != null)
+        {
+            Velocity=new FixVector2(targetPlayer.transform.position - this.transform.position).GetNormalized();
+        }
+        else
+        {
+            Velocity=FixVector2.Zero;
         }
     }
     protected override void OnCharacterDieStart()

@@ -812,12 +812,12 @@ public struct FixVector2
         return string.Format("x:{0} y:{1}", x, y);
     }
 
-	#if _CLIENTLOGIC_
+	//#if _CLIENTLOGIC_
     public UnityEngine.Vector2 ToVector2()
     {
         return new UnityEngine.Vector2((float)x, (float)y);
     }
-	#endif
+	//#endif
 }
 
 public struct NormalVector2
