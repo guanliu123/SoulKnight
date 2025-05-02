@@ -11,6 +11,7 @@ public class IEnemy : ICharacter
     private Vector2 weaponDir;
     public FixVector2 Velocity;
     protected IPlayer targetPlayer;
+    public RectCollider rectCollider;
 
     public IEnemy(GameObject obj) : base(obj)
     {
@@ -20,6 +21,7 @@ public class IEnemy : ICharacter
         DecHpPoint = gameObject.transform.Find("DecHpPoint")?.gameObject;
         Exclamation = gameObject.transform.Find("Exclamation")?.gameObject;
         FootCircle = gameObject.transform.Find("FootCircle")?.gameObject;
+        rectCollider = gameObject.GetComponent<RectCollider>();
         EventCenter.Instance.RegisterObserver<Room>(EventType.OnPlayerEnterBattleRoom, (room) =>
         {
             if (m_Room == room)

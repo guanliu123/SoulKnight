@@ -1,11 +1,16 @@
 ﻿
+using System;
 using System.Collections;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class IEmployeeEnemy : IEnemy
 {
     public new EnemyAttribute m_Attr { get => base.m_Attr as EnemyAttribute; protected set => base.m_Attr = value; }
     protected EnemyStateController m_StateController;
+
+    //给追踪状态机用的判断下一个状态机是啥
+    public Type attackState;
     public IEmployeeEnemy(GameObject obj) : base(obj)
     {
         m_StateController = new EnemyStateController(this);

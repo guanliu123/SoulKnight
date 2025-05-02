@@ -50,9 +50,9 @@ public class EliteGoblinGuardAttackState : EnemyState
 
                 break;
         }
-        if (Timer > 7)
+        if (Timer > 4)
         {
-            m_Controller.SetOtherState(typeof(EliteGoblinGuardIdleState));
+            m_Controller.SetOtherState(typeof(EnemyTrackState));
             return;
         }
     }

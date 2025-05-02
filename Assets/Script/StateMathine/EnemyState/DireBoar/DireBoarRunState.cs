@@ -24,6 +24,7 @@ public class DireBoarRunState : EnemyState
     public override void GameUpdate()
     {
         base.GameUpdate();
+        Timer += Time.deltaTime;
         switch (m_State)
         {
             case EnemyCondition.Roaming:
@@ -56,9 +57,9 @@ public class DireBoarRunState : EnemyState
                 MoveToTarget(TargetPos);
                 break;
         }
-        if (Timer > 5)
+        if (Timer > 3)
         {
-            m_Controller.SetOtherState(typeof(DireBoarIdleState));
+            m_Controller.SetOtherState(typeof(EnemyTrackState));
             return;
         }
     }

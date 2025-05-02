@@ -61,9 +61,9 @@ public class EliteGoblinGuardMeleeAttackState : EnemyState
                 }), this);
                 break;
         }
-        if (Timer > 6)
+        if (Timer > 3.5)
         {
-            m_Controller.SetOtherState(typeof(EliteGoblinGuardIdleState));
+            m_Controller.SetOtherState(typeof(EnemyTrackState));
             return;
         }
     }

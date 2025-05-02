@@ -131,6 +131,7 @@ public class EnemyFactory
                 }
             }
         }
+        //return GetEnemy(EnemyType.DireBoar, isElite);
     }
     public IEnemy GetEliteEnemy()
     {

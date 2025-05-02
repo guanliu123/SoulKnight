@@ -54,9 +54,9 @@ public class BoarAttackState : EnemyState
                 MoveToTarget(TargetPos);
                 break;
         }
-        if (Timer > 7)
+        if (Timer > 4)
         {
-            m_Controller.SetOtherState(typeof(BoarIdleState));
+            m_Controller.SetOtherState(typeof(EnemyTrackState));
             return;
         }
     }

@@ -9,11 +9,13 @@ public class EliteGoblinGuard : IEmployeeEnemy
 
         if (m_Weapon.m_Attr.Type != EnemyWeaponType.Hoe)
         {
-            m_StateController.SetOtherState(typeof(EliteGoblinGuardIdleState));
+            attackState =typeof(EliteGoblinGuardAttackState);
+            m_StateController.SetOtherState(typeof(EnemyTrackState));
         }
         else
         {
-            m_StateController.SetOtherState(typeof(EliteGoblinGuardMeleeIdleState));
+            attackState =typeof(EliteGoblinGuardMeleeAttackState);
+            m_StateController.SetOtherState(typeof(EnemyTrackState));
         }
     }
     protected override void OnCharacterUpdate()

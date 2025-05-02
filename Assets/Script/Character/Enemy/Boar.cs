@@ -6,7 +6,8 @@ public class Boar : IEmployeeEnemy
     protected override void OnCharacterStart()
     {
         base.OnCharacterStart();
-        m_StateController.SetOtherState(typeof(BoarIdleState));
+        attackState = typeof(BoarAttackState);
+        m_StateController.SetOtherState(typeof(EnemyTrackState));
     }
     protected override void OnCharacterUpdate()
     {

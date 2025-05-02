@@ -6,7 +6,8 @@ public class GoblinGiant : IEmployeeEnemy
     protected override void OnCharacterStart()
     {
         base.OnCharacterStart();
-        m_StateController.SetOtherState(typeof(GoblinGiantIdleState));
+        attackState =typeof(GoblinGiantAttackState);
+        m_StateController.SetOtherState(typeof(EnemyTrackState));
     }
     protected override void OnCharacterUpdate()
     {

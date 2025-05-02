@@ -7,20 +7,21 @@ public class EnemyController : AbstractController
     private List<IEnemy> enemies;
     public List<IBoss> bosses { get; private set; }
     
-    public List<IEnemy> enemyInRooms;
+    public List<IEmployeeEnemy> enemysInRoom;
     public EnemyController()
     {
         enemies = new List<IEnemy>();
         bosses = new List<IBoss>();
         
         //为集群算法设立的房间内敌人列表
-        EventCenter.Instance.RegisterObserver<IEnemy>(EventType.OnEnemyBeginTrackPlayer, (enemy) =>
+        enemysInRoom = new();
+        EventCenter.Instance.RegisterObserver<IEmployeeEnemy>(EventType.OnEnemyBeginTrackPlayer, (enemy) =>
         {
-            enemyInRooms.Add(enemy);
+            enemysInRoom.Add(enemy);
         });
-        EventCenter.Instance.RegisterObserver<IEnemy>(EventType.OnEnemyStopTrackPlayer, (enemy) =>
+        EventCenter.Instance.RegisterObserver<IEmployeeEnemy>(EventType.OnEnemyStopTrackPlayer, (enemy) =>
         {
-            enemyInRooms.Remove(enemy);
+            enemysInRoom.Remove(enemy);
         });
     }
     protected override void Init()

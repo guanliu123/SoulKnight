@@ -6,7 +6,8 @@ public class DireBoar : IEmployeeEnemy
     protected override void OnCharacterStart()
     {
         base.OnCharacterStart();
-        m_StateController.SetOtherState(typeof(DireBoarIdleState));
+        attackState =typeof(DireBoarRunState);
+        m_StateController.SetOtherState(typeof(EnemyTrackState));
     }
     protected override void OnCharacterUpdate()
     {

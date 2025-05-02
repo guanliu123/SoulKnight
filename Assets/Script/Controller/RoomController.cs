@@ -7,7 +7,7 @@ public class Room
     public RoomInstanceGrid2D roomInstanceGrid2D;
     public int CurrentEnemyNum;//����enemys�ӳټ���,��Ҫ���������ȡ����������
     public int WaveNum = Random.Range(2, 4);
-    private int m_SpawnEnemyNum = Random.Range(3, 6);
+    private int m_SpawnEnemyNum = Random.Range(5, 14);
     public int SpawnEnemyNum => m_SpawnEnemyNum + WaveNum;
 }
 public class RoomController : AbstractController

@@ -49,9 +49,9 @@ public class GoblinGiantAttackState : EnemyState
                 }), this);
                 break;
         }
-        if (Timer > 7)
+        if (Timer > 4)
         {
-            m_Controller.SetOtherState(typeof(GoblinGiantIdleState));
+            m_Controller.SetOtherState(typeof(EnemyTrackState));
             return;
         }
     }
