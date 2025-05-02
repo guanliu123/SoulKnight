@@ -46,6 +46,7 @@ namespace Battle
         private const int FRAME_RATE = 15; // 15FPS
         private const int FRAME_INTERVAL = 1000 / FRAME_RATE; // 66.67ms
 
+        private int seedValue;
         /// <summary>
         /// 构造函数
         /// </summary>
@@ -128,6 +129,7 @@ namespace Battle
         /// <summary>
         /// 处理UDP消息
         /// </summary>
+        // server -> udpManger->battleController->Handle
         public void Handle(MainPack pack)
         {
             if (pack == null) return;
@@ -185,7 +187,7 @@ namespace Battle
             
             // 生成随机种子
             Random random = new Random();
-            int randSeed = random.Next(0, 10000);
+            seedValue = random.Next(0, 10000);
             
             // 初始化帧操作数据
             dic_match_frames = new Dictionary<int, AllPlayerOperation>();
@@ -214,7 +216,7 @@ namespace Battle
             
             // 使用 BattleInitInfo 而不是 BattleInfo
             BattleInitInfo battleInitInfo = new BattleInitInfo();
-            battleInitInfo.RandSeed = randSeed;
+            battleInitInfo.RandSeed = seedValue;
             pack.BattleInitInfo = battleInitInfo;
             
             foreach (var item in dic_battleid_ip_port)
