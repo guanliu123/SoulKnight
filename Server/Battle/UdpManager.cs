@@ -29,7 +29,7 @@ namespace Battle
         
         private UdpManager()
         {
-            udpClient = new UdpClient(8889); // 使用固定端口
+            udpClient = new UdpClient(9998); // 使用固定端口
             remoteEndPoint = new IPEndPoint(IPAddress.Any, 0);
             isRunning = true;
             
