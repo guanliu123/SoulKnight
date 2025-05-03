@@ -66,9 +66,36 @@ namespace KnightServer
         
         public void Send(MainPack pack)
         {
+            // 检查 socket 是否为 null 或已断开连接
+            if (socket == null || !socket.Connected)
+            {
+                Console.WriteLine($"尝试向已断开或未初始化的客户端 {userName ?? Id.ToString()} 发送消息，已跳过。");
+                return;
+            }
+        
             if (pack != null)
             {
-                socket.Send(Message.ConvertToByteArray(pack));
+                try
+                {
+                    socket.Send(Message.ConvertToByteArray(pack));
+                }
+                catch (ObjectDisposedException ode) // 捕获 Socket 已关闭的异常
+                {
+                    Console.WriteLine($"发送消息给客户端 {userName ?? Id.ToString()} 时出错：Socket已被释放。\n{ode}");
+                    // 可以考虑在这里再次调用 Close() 确保资源清理，但要小心循环调用
+                    // Close();
+                }
+                catch (SocketException se) // 捕获其他 Socket 相关异常
+                {
+                    Console.WriteLine($"发送消息给客户端 {userName ?? Id.ToString()} 时发生 Socket 异常：\n{se}");
+                    // 根据 SocketException 的错误码可以判断具体原因，例如连接重置
+                    Close(); // 通常发生 SocketException 也意味着连接有问题，可以关闭
+                }
+                catch (Exception ex) // 捕获其他未知异常
+                {
+                    Console.WriteLine($"发送消息给客户端 {userName ?? Id.ToString()} 时发生未知异常：\n{ex}");
+                    Close(); // 发生未知异常，也关闭连接以防万一
+                }
             }
         }
         

@@ -25,66 +25,66 @@ namespace SoulKnightProtocol {
       byte[] descriptorData = global::System.Convert.FromBase64String(
           string.Concat(
             "ChBTb3VsS25pZ2h0LnByb3RvEhJTb3VsS25pZ2h0UHJvdG9jb2wiLwoJTG9n",
-            "aW5QYWNrEhAKCFVzZXJOYW1lGAEgASgJEhAKCFBhc3N3b3JkGAIgASgJIqUB",
-            "CghSb29tUGFjaxIQCghSb29tTmFtZRgBIAEoCRISCgpDdXJyZW50TnVtGAIg",
-            "ASgFEg4KBk1heE51bRgDIAEoBRIuCghSb29tQ29kZRgEIAEoDjIcLlNvdWxL",
-            "bmlnaHRQcm90b2NvbC5Sb29tQ29kZRIzCgtQbGF5ZXJQYWNrcxgFIAMoCzIe",
-            "LlNvdWxLbmlnaHRQcm90b2NvbC5QbGF5ZXJQYWNrIiAKClBsYXllclBhY2sS",
-            "EgoKUGxheWVyTmFtZRgBIAEoCSJsCg1DaGFyYWN0ZXJQYWNrEhUKDUNoYXJh",
-            "Y3Rlck5hbWUYASABKAkSEgoKUGxheWVyVHlwZRgCIAEoCRIwCglJbnB1dFBh",
-            "Y2sYAyABKAsyHS5Tb3VsS25pZ2h0UHJvdG9jb2wuSW5wdXRQYWNrIo0CCglJ",
-            "bnB1dFBhY2sSEgoKSG9yaXpvbnRhbBgBIAEoAhIQCghWZXJ0aWNhbBgCIAEo",
-            "AhIRCglNb3VzZVBvc1gYAyABKAISEQoJTW91c2VQb3NZGAQgASgCEhUKDUNo",
-            "YXJhY3RlclBvc1gYBSABKAISFQoNQ2hhcmFjdGVyUG9zWRgGIAEoAhIXCg9J",
-            "c0F0dGFja0tleURvd24YByABKAgSEAoIQmF0dGxlSWQYCCABKAUSFgoOSXNT",
-            "a2lsbEtleURvd24YCSABKAgSFwoPSXNTd2l0Y2hLZXlEb3duGAogASgIEhkK",
-            "EUlzSW50ZXJhY3RLZXlEb3duGAsgASgIEg8KB0ZyYW1lSWQYDCABKAUiWAoS",
-            "QWxsUGxheWVyT3BlcmF0aW9uEg8KB0ZyYW1laWQYASABKAUSMQoKT3BlcmF0",
-            "aW9ucxgCIAMoCzIdLlNvdWxLbmlnaHRQcm90b2NvbC5JbnB1dFBhY2siYAoO",
-            "QmF0dGxlSW5pdEluZm8SEAoIUmFuZFNlZWQYASABKAUSPAoOQmF0dGxlVXNl",
-            "ckluZm8YAiADKAsyJC5Tb3VsS25pZ2h0UHJvdG9jb2wuQmF0dGxlUGxheWVy",
-            "UGFjayLZAQoKQmF0dGxlSW5mbxITCgtPcGVyYXRpb25JRBgBIAEoBRI8Cg5C",
-            "YXR0bGVVc2VySW5mbxgCIAMoCzIkLlNvdWxLbmlnaHRQcm90b2NvbC5CYXR0",
-            "bGVQbGF5ZXJQYWNrEkIKEkFsbFBsYXllck9wZXJhdGlvbhgDIAMoCzImLlNv",
-            "dWxLbmlnaHRQcm90b2NvbC5BbGxQbGF5ZXJPcGVyYXRpb24SNAoNU2VsZk9w",
-            "ZXJhdGlvbhgEIAEoCzIdLlNvdWxLbmlnaHRQcm90b2NvbC5JbnB1dFBhY2si",
-            "dAoQQmF0dGxlUGxheWVyUGFjaxIKCgJJZBgBIAEoBRIQCghCYXR0bGVpZBgC",
-            "IAEoBRISCgpQbGF5ZXJuYW1lGAMgASgJEgwKBEhlcm8YBCABKAUSDgoGVGVh",
-            "bWlkGAUgASgFEhAKCFNvY2tldElQGAYgASgJIs8ECghNYWluUGFjaxI0CgtS",
-            "ZXF1ZXN0Q29kZRgBIAEoDjIfLlNvdWxLbmlnaHRQcm90b2NvbC5SZXF1ZXN0",
-            "Q29kZRIyCgpBY3Rpb25Db2RlGAIgASgOMh4uU291bEtuaWdodFByb3RvY29s",
-            "LkFjdGlvbkNvZGUSMgoKUmV0dXJuQ29kZRgDIAEoDjIeLlNvdWxLbmlnaHRQ",
-            "cm90b2NvbC5SZXR1cm5Db2RlEi4KCEhvc3RDb2RlGAQgASgOMhwuU291bEtu",
-            "aWdodFByb3RvY29sLkhvc3RDb2RlEjAKCUxvZ2luUGFjaxgFIAEoCzIdLlNv",
-            "dWxLbmlnaHRQcm90b2NvbC5Mb2dpblBhY2sSLwoJUm9vbVBhY2tzGAYgAygL",
-            "MhwuU291bEtuaWdodFByb3RvY29sLlJvb21QYWNrEjkKDkNoYXJhY3RlclBh",
-            "Y2tzGAcgAygLMiEuU291bEtuaWdodFByb3RvY29sLkNoYXJhY3RlclBhY2sS",
-            "GgoSSXNCcm9hZGNhc3RNZXNzYWdlGAggASgIEgsKA1N0chgJIAEoCRIyCgpC",
-            "YXR0bGVJbmZvGAogASgLMh4uU291bEtuaWdodFByb3RvY29sLkJhdHRsZUlu",
-            "Zm8SPgoQQmF0dGxlUGxheWVyUGFjaxgLIAMoCzIkLlNvdWxLbmlnaHRQcm90",
-            "b2NvbC5CYXR0bGVQbGF5ZXJQYWNrEjoKDkJhdHRsZUluaXRJbmZvGAwgASgL",
-            "MiIuU291bEtuaWdodFByb3RvY29sLkJhdHRsZUluaXRJbmZvKkgKC1JlcXVl",
-            "c3RDb2RlEg8KC1JlcXVlc3ROb25lEAASCAoEVXNlchABEggKBFJvb20QAhII",
-            "CgRHYW1lEAMSCgoGQmF0dGxlEAQq+AIKCkFjdGlvbkNvZGUSDgoKQWN0aW9u",
-            "Tm9uZRAAEgwKCFJlZ2lzdGVyEAESCQoFTG9naW4QAhIOCgpDcmVhdGVSb29t",
-            "EAMSDAoISm9pblJvb20QBBIMCghGaW5kUm9vbRAFEg4KCkZpbmRQbGF5ZXIQ",
-            "BhIMCghFeGl0Um9vbRAHEhgKFEVudGVyT25saW5lU3RhcnRSb29tEAgSFQoR",
-            "VXBkYXRlUGxheWVyU3RhdGUQCRIUChBTdGFydEVudGVyQmF0dGxlEGQSDwoL",
-            "QmF0dGxlUmVhZHkQZRIPCgtCYXR0bGVTdGFydBBmEiIKHkJhdHRsZVB1c2hE",
-            "b3dtUGxheWVyT3BlYXJ0aW9ucxBnEiQKIEJhdHRsZVB1c2hEb3dtQWxsRnJh",
-            "bWVPcGVhcnRpb25zEGgSFgoSQ2xpZW50U2VuZEdhbWVPdmVyEGkSGgoWQmF0",
-            "dGxlUHVzaERvd21HYW1lT3ZlchBqEhAKDEJhdHRsZVJldmlldxBrKj8KClJl",
-            "dHVybkNvZGUSDgoKUmV0dXJuTm9uZRAAEgsKB1N1Y2Nlc3MQARIICgRGYWls",
-            "EAISCgoGTm9Sb29tEAMqMgoIUm9vbUNvZGUSDwoLV2FpdEZvckpvaW4QABIL",
-            "CgdQbGF5aW5nEAESCAoERnVsbBACKkQKCEhvc3RDb2RlEhMKD1NlbGVjdENo",
-            "YXJhY3RlchAAEhQKEFdhaXRGb3JTdGFydEdhbWUQARINCglHYW1lU3RhcnQQ",
-            "AmIGcHJvdG8z"));
+            "aW5QYWNrEhAKCFVzZXJOYW1lGAEgASgJEhAKCFBhc3N3b3JkGAIgASgJIrUB",
+            "CghSb29tUGFjaxIOCgZSb29tSUQYASABKAUSEAoIUm9vbU5hbWUYAiABKAkS",
+            "EgoKQ3VycmVudE51bRgDIAEoBRIOCgZNYXhOdW0YBCABKAUSLgoIUm9vbUNv",
+            "ZGUYBSABKA4yHC5Tb3VsS25pZ2h0UHJvdG9jb2wuUm9vbUNvZGUSMwoLUGxh",
+            "eWVyUGFja3MYBiADKAsyHi5Tb3VsS25pZ2h0UHJvdG9jb2wuUGxheWVyUGFj",
+            "ayIyCgpQbGF5ZXJQYWNrEhAKCFBsYXllcklEGAEgASgFEhIKClBsYXllck5h",
+            "bWUYAiABKAkibAoNQ2hhcmFjdGVyUGFjaxIVCg1DaGFyYWN0ZXJOYW1lGAEg",
+            "ASgJEhIKClBsYXllclR5cGUYAiABKAkSMAoJSW5wdXRQYWNrGAMgASgLMh0u",
+            "U291bEtuaWdodFByb3RvY29sLklucHV0UGFjayKNAgoJSW5wdXRQYWNrEhIK",
+            "Ckhvcml6b250YWwYASABKAISEAoIVmVydGljYWwYAiABKAISEQoJTW91c2VQ",
+            "b3NYGAMgASgCEhEKCU1vdXNlUG9zWRgEIAEoAhIVCg1DaGFyYWN0ZXJQb3NY",
+            "GAUgASgCEhUKDUNoYXJhY3RlclBvc1kYBiABKAISFwoPSXNBdHRhY2tLZXlE",
+            "b3duGAcgASgIEhAKCEJhdHRsZUlkGAggASgFEhYKDklzU2tpbGxLZXlEb3du",
+            "GAkgASgIEhcKD0lzU3dpdGNoS2V5RG93bhgKIAEoCBIZChFJc0ludGVyYWN0",
+            "S2V5RG93bhgLIAEoCBIPCgdGcmFtZUlkGAwgASgFIlgKEkFsbFBsYXllck9w",
+            "ZXJhdGlvbhIPCgdGcmFtZWlkGAEgASgFEjEKCk9wZXJhdGlvbnMYAiADKAsy",
+            "HS5Tb3VsS25pZ2h0UHJvdG9jb2wuSW5wdXRQYWNrImAKDkJhdHRsZUluaXRJ",
+            "bmZvEhAKCFJhbmRTZWVkGAEgASgFEjwKDkJhdHRsZVVzZXJJbmZvGAIgAygL",
+            "MiQuU291bEtuaWdodFByb3RvY29sLkJhdHRsZVBsYXllclBhY2si2QEKCkJh",
+            "dHRsZUluZm8SEwoLT3BlcmF0aW9uSUQYASABKAUSPAoOQmF0dGxlVXNlcklu",
+            "Zm8YAiADKAsyJC5Tb3VsS25pZ2h0UHJvdG9jb2wuQmF0dGxlUGxheWVyUGFj",
+            "axJCChJBbGxQbGF5ZXJPcGVyYXRpb24YAyADKAsyJi5Tb3VsS25pZ2h0UHJv",
+            "dG9jb2wuQWxsUGxheWVyT3BlcmF0aW9uEjQKDVNlbGZPcGVyYXRpb24YBCAB",
+            "KAsyHS5Tb3VsS25pZ2h0UHJvdG9jb2wuSW5wdXRQYWNrInQKEEJhdHRsZVBs",
+            "YXllclBhY2sSCgoCSWQYASABKAUSEAoIQmF0dGxlaWQYAiABKAUSEgoKUGxh",
+            "eWVybmFtZRgDIAEoCRIMCgRIZXJvGAQgASgFEg4KBlRlYW1pZBgFIAEoBRIQ",
+            "CghTb2NrZXRJUBgGIAEoCSLPBAoITWFpblBhY2sSNAoLUmVxdWVzdENvZGUY",
+            "ASABKA4yHy5Tb3VsS25pZ2h0UHJvdG9jb2wuUmVxdWVzdENvZGUSMgoKQWN0",
+            "aW9uQ29kZRgCIAEoDjIeLlNvdWxLbmlnaHRQcm90b2NvbC5BY3Rpb25Db2Rl",
+            "EjIKClJldHVybkNvZGUYAyABKA4yHi5Tb3VsS25pZ2h0UHJvdG9jb2wuUmV0",
+            "dXJuQ29kZRIuCghIb3N0Q29kZRgEIAEoDjIcLlNvdWxLbmlnaHRQcm90b2Nv",
+            "bC5Ib3N0Q29kZRIwCglMb2dpblBhY2sYBSABKAsyHS5Tb3VsS25pZ2h0UHJv",
+            "dG9jb2wuTG9naW5QYWNrEi8KCVJvb21QYWNrcxgGIAMoCzIcLlNvdWxLbmln",
+            "aHRQcm90b2NvbC5Sb29tUGFjaxI5Cg5DaGFyYWN0ZXJQYWNrcxgHIAMoCzIh",
+            "LlNvdWxLbmlnaHRQcm90b2NvbC5DaGFyYWN0ZXJQYWNrEhoKEklzQnJvYWRj",
+            "YXN0TWVzc2FnZRgIIAEoCBILCgNTdHIYCSABKAkSMgoKQmF0dGxlSW5mbxgK",
+            "IAEoCzIeLlNvdWxLbmlnaHRQcm90b2NvbC5CYXR0bGVJbmZvEj4KEEJhdHRs",
+            "ZVBsYXllclBhY2sYCyADKAsyJC5Tb3VsS25pZ2h0UHJvdG9jb2wuQmF0dGxl",
+            "UGxheWVyUGFjaxI6Cg5CYXR0bGVJbml0SW5mbxgMIAEoCzIiLlNvdWxLbmln",
+            "aHRQcm90b2NvbC5CYXR0bGVJbml0SW5mbypICgtSZXF1ZXN0Q29kZRIPCgtS",
+            "ZXF1ZXN0Tm9uZRAAEggKBFVzZXIQARIICgRSb29tEAISCAoER2FtZRADEgoK",
+            "BkJhdHRsZRAEKvgCCgpBY3Rpb25Db2RlEg4KCkFjdGlvbk5vbmUQABIMCghS",
+            "ZWdpc3RlchABEgkKBUxvZ2luEAISDgoKQ3JlYXRlUm9vbRADEgwKCEpvaW5S",
+            "b29tEAQSDAoIRmluZFJvb20QBRIOCgpGaW5kUGxheWVyEAYSDAoIRXhpdFJv",
+            "b20QBxIYChRFbnRlck9ubGluZVN0YXJ0Um9vbRAIEhUKEVVwZGF0ZVBsYXll",
+            "clN0YXRlEAkSFAoQU3RhcnRFbnRlckJhdHRsZRBkEg8KC0JhdHRsZVJlYWR5",
+            "EGUSDwoLQmF0dGxlU3RhcnQQZhIiCh5CYXR0bGVQdXNoRG93bVBsYXllck9w",
+            "ZWFydGlvbnMQZxIkCiBCYXR0bGVQdXNoRG93bUFsbEZyYW1lT3BlYXJ0aW9u",
+            "cxBoEhYKEkNsaWVudFNlbmRHYW1lT3ZlchBpEhoKFkJhdHRsZVB1c2hEb3dt",
+            "R2FtZU92ZXIQahIQCgxCYXR0bGVSZXZpZXcQayo/CgpSZXR1cm5Db2RlEg4K",
+            "ClJldHVybk5vbmUQABILCgdTdWNjZXNzEAESCAoERmFpbBACEgoKBk5vUm9v",
+            "bRADKjIKCFJvb21Db2RlEg8KC1dhaXRGb3JKb2luEAASCwoHUGxheWluZxAB",
+            "EggKBEZ1bGwQAipECghIb3N0Q29kZRITCg9TZWxlY3RDaGFyYWN0ZXIQABIU",
+            "ChBXYWl0Rm9yU3RhcnRHYW1lEAESDQoJR2FtZVN0YXJ0EAJiBnByb3RvMw=="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { },
           new pbr::GeneratedClrTypeInfo(new[] {typeof(global::SoulKnightProtocol.RequestCode), typeof(global::SoulKnightProtocol.ActionCode), typeof(global::SoulKnightProtocol.ReturnCode), typeof(global::SoulKnightProtocol.RoomCode), typeof(global::SoulKnightProtocol.HostCode), }, null, new pbr::GeneratedClrTypeInfo[] {
             new pbr::GeneratedClrTypeInfo(typeof(global::SoulKnightProtocol.LoginPack), global::SoulKnightProtocol.LoginPack.Parser, new[]{ "UserName", "Password" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::SoulKnightProtocol.RoomPack), global::SoulKnightProtocol.RoomPack.Parser, new[]{ "RoomName", "CurrentNum", "MaxNum", "RoomCode", "PlayerPacks" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::SoulKnightProtocol.PlayerPack), global::SoulKnightProtocol.PlayerPack.Parser, new[]{ "PlayerName" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::SoulKnightProtocol.RoomPack), global::SoulKnightProtocol.RoomPack.Parser, new[]{ "RoomID", "RoomName", "CurrentNum", "MaxNum", "RoomCode", "PlayerPacks" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::SoulKnightProtocol.PlayerPack), global::SoulKnightProtocol.PlayerPack.Parser, new[]{ "PlayerID", "PlayerName" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::SoulKnightProtocol.CharacterPack), global::SoulKnightProtocol.CharacterPack.Parser, new[]{ "CharacterName", "PlayerType", "InputPack" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::SoulKnightProtocol.InputPack), global::SoulKnightProtocol.InputPack.Parser, new[]{ "Horizontal", "Vertical", "MousePosX", "MousePosY", "CharacterPosX", "CharacterPosY", "IsAttackKeyDown", "BattleId", "IsSkillKeyDown", "IsSwitchKeyDown", "IsInteractKeyDown", "FrameId" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::SoulKnightProtocol.AllPlayerOperation), global::SoulKnightProtocol.AllPlayerOperation.Parser, new[]{ "Frameid", "Operations" }, null, null, null, null),
@@ -364,6 +364,7 @@ namespace SoulKnightProtocol {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public RoomPack(RoomPack other) : this() {
+      roomID_ = other.roomID_;
       roomName_ = other.roomName_;
       currentNum_ = other.currentNum_;
       maxNum_ = other.maxNum_;
@@ -377,8 +378,19 @@ namespace SoulKnightProtocol {
       return new RoomPack(this);
     }
 
+    /// <summary>Field number for the "RoomID" field.</summary>
+    public const int RoomIDFieldNumber = 1;
+    private int roomID_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public int RoomID {
+      get { return roomID_; }
+      set {
+        roomID_ = value;
+      }
+    }
+
     /// <summary>Field number for the "RoomName" field.</summary>
-    public const int RoomNameFieldNumber = 1;
+    public const int RoomNameFieldNumber = 2;
     private string roomName_ = "";
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public string RoomName {
@@ -389,7 +401,7 @@ namespace SoulKnightProtocol {
     }
 
     /// <summary>Field number for the "CurrentNum" field.</summary>
-    public const int CurrentNumFieldNumber = 2;
+    public const int CurrentNumFieldNumber = 3;
     private int currentNum_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public int CurrentNum {
@@ -400,7 +412,7 @@ namespace SoulKnightProtocol {
     }
 
     /// <summary>Field number for the "MaxNum" field.</summary>
-    public const int MaxNumFieldNumber = 3;
+    public const int MaxNumFieldNumber = 4;
     private int maxNum_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public int MaxNum {
@@ -411,7 +423,7 @@ namespace SoulKnightProtocol {
     }
 
     /// <summary>Field number for the "RoomCode" field.</summary>
-    public const int RoomCodeFieldNumber = 4;
+    public const int RoomCodeFieldNumber = 5;
     private global::SoulKnightProtocol.RoomCode roomCode_ = global::SoulKnightProtocol.RoomCode.WaitForJoin;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public global::SoulKnightProtocol.RoomCode RoomCode {
@@ -422,9 +434,9 @@ namespace SoulKnightProtocol {
     }
 
     /// <summary>Field number for the "PlayerPacks" field.</summary>
-    public const int PlayerPacksFieldNumber = 5;
+    public const int PlayerPacksFieldNumber = 6;
     private static readonly pb::FieldCodec<global::SoulKnightProtocol.PlayerPack> _repeated_playerPacks_codec
-        = pb::FieldCodec.ForMessage(42, global::SoulKnightProtocol.PlayerPack.Parser);
+        = pb::FieldCodec.ForMessage(50, global::SoulKnightProtocol.PlayerPack.Parser);
     private readonly pbc::RepeatedField<global::SoulKnightProtocol.PlayerPack> playerPacks_ = new pbc::RepeatedField<global::SoulKnightProtocol.PlayerPack>();
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public pbc::RepeatedField<global::SoulKnightProtocol.PlayerPack> PlayerPacks {
@@ -444,6 +456,7 @@ namespace SoulKnightProtocol {
       if (ReferenceEquals(other, this)) {
         return true;
       }
+      if (RoomID != other.RoomID) return false;
       if (RoomName != other.RoomName) return false;
       if (CurrentNum != other.CurrentNum) return false;
       if (MaxNum != other.MaxNum) return false;
@@ -455,6 +468,7 @@ namespace SoulKnightProtocol {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public override int GetHashCode() {
       int hash = 1;
+      if (RoomID != 0) hash ^= RoomID.GetHashCode();
       if (RoomName.Length != 0) hash ^= RoomName.GetHashCode();
       if (CurrentNum != 0) hash ^= CurrentNum.GetHashCode();
       if (MaxNum != 0) hash ^= MaxNum.GetHashCode();
@@ -473,20 +487,24 @@ namespace SoulKnightProtocol {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public void WriteTo(pb::CodedOutputStream output) {
+      if (RoomID != 0) {
+        output.WriteRawTag(8);
+        output.WriteInt32(RoomID);
+      }
       if (RoomName.Length != 0) {
-        output.WriteRawTag(10);
+        output.WriteRawTag(18);
         output.WriteString(RoomName);
       }
       if (CurrentNum != 0) {
-        output.WriteRawTag(16);
+        output.WriteRawTag(24);
         output.WriteInt32(CurrentNum);
       }
       if (MaxNum != 0) {
-        output.WriteRawTag(24);
+        output.WriteRawTag(32);
         output.WriteInt32(MaxNum);
       }
       if (RoomCode != global::SoulKnightProtocol.RoomCode.WaitForJoin) {
-        output.WriteRawTag(32);
+        output.WriteRawTag(40);
         output.WriteEnum((int) RoomCode);
       }
       playerPacks_.WriteTo(output, _repeated_playerPacks_codec);
@@ -498,6 +516,9 @@ namespace SoulKnightProtocol {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public int CalculateSize() {
       int size = 0;
+      if (RoomID != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeInt32Size(RoomID);
+      }
       if (RoomName.Length != 0) {
         size += 1 + pb::CodedOutputStream.ComputeStringSize(RoomName);
       }
@@ -521,6 +542,9 @@ namespace SoulKnightProtocol {
     public void MergeFrom(RoomPack other) {
       if (other == null) {
         return;
+      }
+      if (other.RoomID != 0) {
+        RoomID = other.RoomID;
       }
       if (other.RoomName.Length != 0) {
         RoomName = other.RoomName;
@@ -546,23 +570,27 @@ namespace SoulKnightProtocol {
           default:
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
             break;
-          case 10: {
+          case 8: {
+            RoomID = input.ReadInt32();
+            break;
+          }
+          case 18: {
             RoomName = input.ReadString();
             break;
           }
-          case 16: {
+          case 24: {
             CurrentNum = input.ReadInt32();
             break;
           }
-          case 24: {
+          case 32: {
             MaxNum = input.ReadInt32();
             break;
           }
-          case 32: {
+          case 40: {
             RoomCode = (global::SoulKnightProtocol.RoomCode) input.ReadEnum();
             break;
           }
-          case 42: {
+          case 50: {
             playerPacks_.AddEntriesFrom(input, _repeated_playerPacks_codec);
             break;
           }
@@ -597,6 +625,7 @@ namespace SoulKnightProtocol {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public PlayerPack(PlayerPack other) : this() {
+      playerID_ = other.playerID_;
       playerName_ = other.playerName_;
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
@@ -606,8 +635,19 @@ namespace SoulKnightProtocol {
       return new PlayerPack(this);
     }
 
+    /// <summary>Field number for the "PlayerID" field.</summary>
+    public const int PlayerIDFieldNumber = 1;
+    private int playerID_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public int PlayerID {
+      get { return playerID_; }
+      set {
+        playerID_ = value;
+      }
+    }
+
     /// <summary>Field number for the "PlayerName" field.</summary>
-    public const int PlayerNameFieldNumber = 1;
+    public const int PlayerNameFieldNumber = 2;
     private string playerName_ = "";
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public string PlayerName {
@@ -630,6 +670,7 @@ namespace SoulKnightProtocol {
       if (ReferenceEquals(other, this)) {
         return true;
       }
+      if (PlayerID != other.PlayerID) return false;
       if (PlayerName != other.PlayerName) return false;
       return Equals(_unknownFields, other._unknownFields);
     }
@@ -637,6 +678,7 @@ namespace SoulKnightProtocol {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public override int GetHashCode() {
       int hash = 1;
+      if (PlayerID != 0) hash ^= PlayerID.GetHashCode();
       if (PlayerName.Length != 0) hash ^= PlayerName.GetHashCode();
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
@@ -651,8 +693,12 @@ namespace SoulKnightProtocol {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public void WriteTo(pb::CodedOutputStream output) {
+      if (PlayerID != 0) {
+        output.WriteRawTag(8);
+        output.WriteInt32(PlayerID);
+      }
       if (PlayerName.Length != 0) {
-        output.WriteRawTag(10);
+        output.WriteRawTag(18);
         output.WriteString(PlayerName);
       }
       if (_unknownFields != null) {
@@ -663,6 +709,9 @@ namespace SoulKnightProtocol {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public int CalculateSize() {
       int size = 0;
+      if (PlayerID != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeInt32Size(PlayerID);
+      }
       if (PlayerName.Length != 0) {
         size += 1 + pb::CodedOutputStream.ComputeStringSize(PlayerName);
       }
@@ -676,6 +725,9 @@ namespace SoulKnightProtocol {
     public void MergeFrom(PlayerPack other) {
       if (other == null) {
         return;
+      }
+      if (other.PlayerID != 0) {
+        PlayerID = other.PlayerID;
       }
       if (other.PlayerName.Length != 0) {
         PlayerName = other.PlayerName;
@@ -691,7 +743,11 @@ namespace SoulKnightProtocol {
           default:
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
             break;
-          case 10: {
+          case 8: {
+            PlayerID = input.ReadInt32();
+            break;
+          }
+          case 18: {
             PlayerName = input.ReadString();
             break;
           }
