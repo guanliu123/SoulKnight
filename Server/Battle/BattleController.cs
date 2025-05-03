@@ -101,8 +101,8 @@ namespace Battle
                     BattlePlayerPack playerPack = new BattlePlayerPack();
                     playerPack.Id = _userUid;
                     playerPack.Battleid = userBattleID;
-                    playerPack.Playername = battleUsers[i].Playername; // 修改为 Playername 而不是 userName
-                    playerPack.Hero = battleUsers[i].Hero; // 修改为 Hero 而不是 hero
+                    playerPack.Playername = battleUsers[i].Playername; 
+                    playerPack.Hero = battleUsers[i].Hero; 
                     playerPack.Teamid = battleUsers[i].Teamid; 
                     
                     battleInfo.BattleUserInfo.Add(playerPack);
@@ -320,7 +320,7 @@ namespace Battle
         }
 
         /// <summary>
-        /// 发送服务器认为玩家还没同步的帧
+        /// 发送服务器认为玩家还没同步的帧 
         /// </summary>
         /// <param name="ipPort">IP:端口</param>
         /// <param name="battleId">战斗内玩家ID</param>

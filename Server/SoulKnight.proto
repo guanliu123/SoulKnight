@@ -60,15 +60,17 @@ message LoginPack {
 }
 
 message RoomPack {
-  string RoomName = 1;
-  int32 CurrentNum = 2;
-  int32 MaxNum = 3;
-  RoomCode RoomCode = 4;
-  repeated PlayerPack PlayerPacks = 5;
+  int32 RoomID = 1;
+  string RoomName = 2;
+  int32 CurrentNum = 3;
+  int32 MaxNum = 4;
+  RoomCode RoomCode = 5;
+  repeated PlayerPack PlayerPacks = 6;
 }
 
 message PlayerPack {
-  string PlayerName = 1;
+  int32 PlayerID = 1;
+  string PlayerName = 2;
 }
 
 message CharacterPack {

@@ -13,11 +13,22 @@ namespace KnightServer
         {
             try
             {
+                // 检查RoomPacks是否为空
+                if (pack.RoomPacks == null || pack.RoomPacks.Count == 0)
+                {
+                    // 如果为空，创建一个默认的房间
+                    RoomPack roomPack = new RoomPack();
+                    roomPack.RoomName = $"{client.userName}的房间";
+                    roomPack.MaxNum = 4; // 默认最大人数
+                    pack.RoomPacks.Add(roomPack);
+                }
+
                 // 检查数据库中是否有相同名字的房间
                 if (RoomManager.Instance.RoomExists(pack.RoomPacks[0].RoomName)){
                     pack.ReturnCode = ReturnCode.Fail;
                     return pack;
                 }
+                
                 // 先检查是否在房间，不在就创建，否则返回失败
                 if (client.Room != null)
                 {
@@ -27,14 +38,13 @@ namespace KnightServer
                 
                 Room room = RoomManager.Instance.CreateRoom(pack.RoomPacks[0].RoomName, pack.RoomPacks[0].MaxNum);
                 room.AddPlayer(client);
-                Console.WriteLine("创建房间成功");
+                Console.WriteLine("创建房间成功" + pack.RoomPacks[0].RoomName);
                 pack.ReturnCode = ReturnCode.Success;
                 pack.ActionCode = ActionCode.CreateRoom;
             }
-            catch
-            (Exception)
+            catch (Exception e)
             {
-                Console.WriteLine("创建房间失败");
+                Console.WriteLine("创建房间失败" + e.Message);
                 pack.ReturnCode = ReturnCode.Fail;
             }
             return pack;
@@ -70,6 +80,7 @@ namespace KnightServer
         {
             bool isFind = false;
             Room findRoom = null;
+            Console.WriteLine("加入房间" + pack.RoomPacks[0].RoomName);
             foreach (Room room in RoomManager.Instance.GetAllRooms())
             {
                 if (room.m_RoomName == pack.RoomPacks[0].RoomName)
@@ -89,10 +100,13 @@ namespace KnightServer
                     pack.ActionCode = ActionCode.FindPlayer;
                     findRoom.Broadcast(pack);
                     pack.ActionCode = ActionCode.JoinRoom;
+                }else{
+                    Console.WriteLine("加入房间失败" + pack.ReturnCode);
                 }
             }
             else
             {
+                Console.WriteLine("房间不存在");
                 pack.ReturnCode = ReturnCode.Fail;
             }
             return pack;

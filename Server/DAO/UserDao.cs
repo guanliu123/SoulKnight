@@ -5,12 +5,18 @@ using System.Data;
 public class UserDao
 {
     private MySqlConnection conn;
-    private string s = "database=soulknight; data source=localhost;user=root;password=20121221;pooling=false;charset=utf8;port=3306";
+    private string s = "database=soulknight; data source=localhost;user=root;password=123456;pooling=false;charset=utf8;port=3306";
+    private static bool isTableChecked = false; // 静态变量，所有实例共享
+
     public UserDao()
     {
         ConnectDatabase();
-        // 连接成功后检查并创建表
-        CheckAndCreateTables();
+        // 只在第一次创建UserDao时检查和创建表
+        if (!isTableChecked)
+        {
+            CheckAndCreateTables();
+            isTableChecked = true;
+        }
     }
     
     private void ConnectDatabase()
@@ -31,24 +37,22 @@ public class UserDao
     {
         try
         {
-            // 检查user表是否存在
-            string checkTableSql = "SHOW TABLES LIKE 'user'";
-            MySqlCommand checkCmd = new MySqlCommand(checkTableSql, conn);
-            object result = checkCmd.ExecuteScalar();
+            // 先尝试删除已存在的user表
+            string dropTableSql = "DROP TABLE IF EXISTS user";
+            MySqlCommand dropCmd = new MySqlCommand(dropTableSql, conn);
+            dropCmd.ExecuteNonQuery();
+            Console.WriteLine("已删除旧的user表");
             
-            // 如果表不存在，则创建
-            if (result == null)
-            {
-                string createTableSql = @"CREATE TABLE user (
-                    id INT AUTO_INCREMENT PRIMARY KEY,
-                    UserName VARCHAR(50) NOT NULL UNIQUE,
-                    Password VARCHAR(50) NOT NULL
-                )";
-                
-                MySqlCommand createCmd = new MySqlCommand(createTableSql, conn);
-                createCmd.ExecuteNonQuery();
-                Console.WriteLine("user表创建成功");
-            }
+            // 创建新的user表
+            string createTableSql = @"CREATE TABLE user (
+                id INT AUTO_INCREMENT PRIMARY KEY,
+                UserName VARCHAR(50) NOT NULL UNIQUE,
+                Password VARCHAR(255) NOT NULL
+            )";
+            
+            MySqlCommand createCmd = new MySqlCommand(createTableSql, conn);
+            createCmd.ExecuteNonQuery();
+            Console.WriteLine("user表创建成功");
         }
         catch (Exception ex)
         {
@@ -106,5 +110,24 @@ public class UserDao
     public void CloseConn()
     {
         conn.Close();
+    }
+    
+    // 修复 IsUserExist 方法
+    public bool IsUserExist(string userName)
+    {
+        try
+        {
+            MySqlCommand cmd = new MySqlCommand("select * from user where UserName = @username", conn);
+            cmd.Parameters.AddWithValue("@username", userName);
+            MySqlDataReader reader = cmd.ExecuteReader();
+            bool exist = reader.HasRows;
+            reader.Close();
+            return exist;
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine("在检查用户是否存在时出现异常: " + e.Message);
+            return false;
+        }
     }
 }
