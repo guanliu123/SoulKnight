@@ -33,6 +33,8 @@ public enum EventType
     OnPause,
     OnResume,
     OnWantShowNotice,
+    
+    OnStartEnterBattleResponse,
 }
 public interface IEventInfo { }
 public class EventInfo<T> : IEventInfo
