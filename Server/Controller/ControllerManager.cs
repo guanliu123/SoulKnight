@@ -76,7 +76,8 @@ namespace KnightServer
                     Console.WriteLine("没有找到对应的Action: " + methodName + " 来处理UDP请求");
                     return;
                 }
-                
+                string userName = pack.LoginPack.UserName;
+                client  = server.GetClientByUserName(userName);
                 // 如果找到了客户端，则调用对应的方法
                 if (client != null)
                 {
@@ -85,7 +86,7 @@ namespace KnightServer
                 else
                 {
                     // 如果没有找到客户端，可能需要特殊处理
-                    Console.WriteLine($"未找到对应IP:端口的客户端: {ipPort}");
+                    Console.WriteLine($"未找到对应IP:端口的客户端: {ipPort} {methodName}");
                 }
             }
             else
