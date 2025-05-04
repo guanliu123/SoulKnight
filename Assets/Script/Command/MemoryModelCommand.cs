@@ -9,14 +9,19 @@
     {
         model.Money += addition;
     }
-    public void EnterOnlineMode()
+    public void EnterOnlineMode(string roomName,bool isHomeOwner=false)
     {
         model.isOnlineMode.Value = true;
+        model.RoomName=roomName;
+        model.isHomeOwner = isHomeOwner;
         SceneModelCommand.Instance.LoadScene(SceneName.MiddleScene);
     }
+    
     public void ExitOnlineMode()
     {
         model.isOnlineMode.Value = false;
+        model.isHomeOwner = false;
+        model.RoomName=string.Empty;
     }
     public void InitMemoryModel()
     {

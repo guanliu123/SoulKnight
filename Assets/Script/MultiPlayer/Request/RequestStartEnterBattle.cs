@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using SoulKnightProtocol;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class RequestStartEnterBattle : BaseRequest
 {
@@ -19,9 +20,9 @@ public class RequestStartEnterBattle : BaseRequest
         {
             Debug.Log("房主发送进入战斗失败");
         }
-        EventCenter.Instance.NotisfyObserver(EventType.OnStartEnterBattleResponse, pack);
+        //EventCenter.Instance.NotisfyObserver(EventType.OnStartEnterBattleResponse, pack);
     }
-    public void SendRequest(string roomName)
+    public void SendRequest(string roomName,UnityAction<MainPack> receiveAction = null)
     {
         /*MainPack pack = new MainPack();
         pack.RequestCode = requestCode;

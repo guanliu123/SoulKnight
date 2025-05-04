@@ -7,6 +7,7 @@ public class UIController : AbstractController
     public IPanel RootPanel => rootPanel;
     private GameObject Notice;
     private Coroutine coroutine;
+    
     public UIController()
     {
         switch (SceneModelCommand.Instance.GetActiveSceneName())
@@ -19,6 +20,9 @@ public class UIController : AbstractController
                 break;
             case SceneName.BattleScene:
                 rootPanel = new BattleScene.PanelRoot();
+                break;
+            case SceneName.OnlineStartScene:
+                rootPanel = new OnlineStartScene.PanelRoot();
                 break;
         }
         Notice = UnityTool.Instance.GetGameObjectFromCanvas("Notice");

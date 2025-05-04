@@ -35,6 +35,8 @@ public enum EventType
     OnWantShowNotice,
     
     OnStartEnterBattleResponse,
+    OnPlayerEnterOnlineRoom,//每当有玩家加入连机房
+    PlayerExitOnline,//玩家离开联机房
 }
 public interface IEventInfo { }
 public class EventInfo<T> : IEventInfo

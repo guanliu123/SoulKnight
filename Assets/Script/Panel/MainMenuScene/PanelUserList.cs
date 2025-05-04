@@ -34,7 +34,8 @@ public class PanelUserList : IPanel
         });
         ButtonStart.onClick.AddListener(() =>
         {
-            MemoryModelCommand.Instance.EnterOnlineMode();
+            //todo 怎么有通过user加入房间的？这样加入房间的roomName暂时没处理，是null
+            MemoryModelCommand.Instance.EnterOnlineMode(null);
         });
         ButtonExit.onClick.AddListener(() =>
         {
@@ -46,7 +47,7 @@ public class PanelUserList : IPanel
                 }
                 if (pack.ReturnCode == ReturnCode.Fail)
                 {
-                    EventCenter.Instance.NotisfyObserver(EventType.OnWantShowNotice, "�˳�����ʧ��");
+                    EventCenter.Instance.NotisfyObserver(EventType.OnWantShowNotice, "�˳�����ʧ��");
                 }
             });
         });
