@@ -57,6 +57,7 @@ namespace Battle
                 if (data.Length > 0 && messageHandler != null)
                 {
                     MainPack pack = MainPack.Parser.ParseFrom(data);
+                    
                     pack.Str = remoteEP.ToString();
                     messageHandler(pack);
                 }
@@ -67,14 +68,27 @@ namespace Battle
                     StartReceive();
                 }
             }
+            catch (ObjectDisposedException) // UdpClient 可能已被关闭
+            {
+                Console.WriteLine("UDP接收错误: UdpClient已被关闭。");
+                isRunning = false; // 停止后续接收尝试
+            }
             catch (Exception ex)
             {
                 Console.WriteLine($"UDP接收错误: {ex.Message}");
                 
-                // 继续接收
-                if (isRunning)
+                // 发生其他错误时，也尝试继续接收（除非 UdpClient 已关闭）
+                if (isRunning && udpClient != null)
                 {
-                    StartReceive();
+                    try
+                    {
+                        StartReceive();
+                    }
+                    catch (ObjectDisposedException) // 再次检查，以防在异常处理期间关闭
+                    {
+                         Console.WriteLine("UDP接收错误: UdpClient已被关闭。");
+                         isRunning = false;
+                    }
                 }
             }
         }
