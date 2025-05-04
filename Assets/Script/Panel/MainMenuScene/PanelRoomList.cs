@@ -78,7 +78,7 @@ public class PanelRoomList : IPanel
                     {
                         if (UnityTool.Instance.GetComponentFromChild<TextMeshProUGUI>(ButtonRoomItem.gameObject, "TextState").text.CompareTo("等待加入") == 0)
                         {
-                            (ClientFacade.Instance.GetRequest(ActionCode.JoinRoom) as RequestJoinRoom).SendRequest(RoomName, (pack) =>
+                            (ClientFacade.Instance.GetRequest(ActionCode.JoinRoom) as RequestJoinRoom).SendRequest(ButtonRoomItem.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text, (pack) =>
                             {
                                 if (pack.ReturnCode == ReturnCode.Success)
                                 {
@@ -96,7 +96,7 @@ public class PanelRoomList : IPanel
                     {
                         if (UnityTool.Instance.GetComponentFromChild<TextMeshProUGUI>(obj, "TextState").text.CompareTo("等待加入") == 0)
                         {
-                            (ClientFacade.Instance.GetRequest(ActionCode.JoinRoom) as RequestJoinRoom).SendRequest(RoomName, (pack) =>
+                            (ClientFacade.Instance.GetRequest(ActionCode.JoinRoom) as RequestJoinRoom).SendRequest(obj.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text, (pack) =>
                             {
                                 if (pack.ReturnCode == ReturnCode.Success)
                                 {
