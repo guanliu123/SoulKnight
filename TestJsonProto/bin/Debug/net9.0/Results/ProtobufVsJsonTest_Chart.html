@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Protobuf vs JSON 性能对比</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        .chart-container {
+            width: 800px;
+            height: 400px;
+            margin: 20px auto;
+        }
+        h1, h2 {
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <h1>Protobuf vs JSON 性能对比</h1>
+    <div class="chart-container">
+        <h2>序列化性能</h2>
+        <canvas id="serializationChart"></canvas>
+    </div>
+    <div class="chart-container">
+        <h2>反序列化性能</h2>
+        <canvas id="deserializationChart"></canvas>
+    </div>
+    <div class="chart-container">
+        <h2>数据大小</h2>
+        <canvas id="sizeChart"></canvas>
+    </div>
+    <div class="chart-container">
+        <h2>网络传输性能</h2>
+        <canvas id="transmissionChart"></canvas>
+    </div>
+    <script>
+        // 数据
+    <script>
+        // 数据
+        const dataSizes = [1, 10, 50, 100, 500, 1000];
+        
+        const serializationData = {
+            protobuf: [0.018, 0.113, 0.453, 0.375, 11.698, 4.361],
+            json: [0.017, 0.189, 0.410, 0.902, 4.557, 8.399]
+        };
+        
+        const deserializationData = {
+            protobuf: [0.015, 0.109, 0.157, 0.389, 1.155, 2.017],
+            json: [0.049, 0.315, 0.372, 1.056, 2.117, 4.114]
+        };
+        
+        const sizeData = {
+            protobuf: [
+                218,
+                2803,
+                11375,
+                22100,
+                110481,
+                221174
+            ],
+            json: [
+                1297,
+                15444,
+                67481,
+                132923,
+                663371,
+                1330831
+            ]
+        };
+        
+        const transmissionData = {
+            protobuf: [0.200, 0.100, 0.100, 0.200, 0.100, 0.300],
+            json: [0.100, 0.200, 0.200, 1.100, 0.700, 0.900]
+        };
+        
+        // 序列化性能图表
+        const serializationCtx = document.getElementById('serializationChart').getContext('2d');
+        new Chart(serializationCtx, {
+            type: 'line',
+            data: {
+                labels: dataSizes,
+                datasets: [
+                    {
+                        label: 'Protobuf',
+                        data: serializationData.protobuf,
+                        borderColor: 'rgba(75, 192, 192, 1)',
+                        backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                        tension: 0.1
+                    },
+                    {
+                        label: 'JSON',
+                        data: serializationData.json,
+                        borderColor: 'rgba(255, 99, 132, 1)',
+                        backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                        tension: 0.1
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                scales: {
+                    x: {
+                        title: {
+                            display: true,
+                            text: '数据大小 (条目数)'
+                        }
+                    },
+                    y: {
+                        title: {
+                            display: true,
+                            text: '序列化时间 (ms)'
+                        }
+                    }
+                }
+            }
+        });
+        
+        // 反序列化性能图表
+        const deserializationCtx = document.getElementById('deserializationChart').getContext('2d');
+        new Chart(deserializationCtx, {
+            type: 'line',
+            data: {
+                labels: dataSizes,
+                datasets: [
+                    {
+                        label: 'Protobuf',
+                        data: deserializationData.protobuf,
+                        borderColor: 'rgba(75, 192, 192, 1)',
+                        backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                        tension: 0.1
+                    },
+                    {
+                        label: 'JSON',
+                        data: deserializationData.json,
+                        borderColor: 'rgba(255, 99, 132, 1)',
+                        backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                        tension: 0.1
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                scales: {
+                    x: {
+                        title: {
+                            display: true,
+                            text: '数据大小 (条目数)'
+                        }
+                    },
+                    y: {
+                        title: {
+                            display: true,
+                            text: '反序列化时间 (ms)'
+                        }
+                    }
+                }
+            }
+        });
+        
+        // 数据大小图表
+        const sizeCtx = document.getElementById('sizeChart').getContext('2d');
+        new Chart(sizeCtx, {
+            type: 'bar',
+            data: {
+                labels: dataSizes,
+                datasets: [
+                    {
+                        label: 'Protobuf',
+                        data: sizeData.protobuf,
+                        backgroundColor: 'rgba(75, 192, 192, 0.6)'
+                    },
+                    {
+                        label: 'JSON',
+                        data: sizeData.json,
+                        backgroundColor: 'rgba(255, 99, 132, 0.6)'
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                scales: {
+                    x: {
+                        title: {
+                            display: true,
+                            text: '数据大小 (条目数)'
+                        }
+                    },
+                    y: {
+                        title: {
+                            display: true,
+                            text: '字节数'
+                        }
+                    }
+                }
+            }
+        });
+        
+        // 网络传输性能图表
+        const transmissionCtx = document.getElementById('transmissionChart').getContext('2d');
+        new Chart(transmissionCtx, {
+            type: 'line',
+            data: {
+                labels: dataSizes,
+                datasets: [
+                    {
+                        label: 'Protobuf',
+                        data: transmissionData.protobuf,
+                        borderColor: 'rgba(75, 192, 192, 1)',
+                        backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                        tension: 0.1
+                    },
+                    {
+                        label: 'JSON',
+                        data: transmissionData.json,
+                        borderColor: 'rgba(255, 99, 132, 1)',
+                        backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                        tension: 0.1
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                scales: {
+                    x: {
+                        title: {
+                            display: true,
+                            text: '数据大小 (条目数)'
+                        }
+                    },
+                    y: {
+                        title: {
+                            display: true,
+                            text: '传输时间 (ms)'
+                        }
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html>
