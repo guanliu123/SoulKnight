@@ -113,32 +113,24 @@ namespace Battle
                 battleToPlayers.Remove(battleId);
             }
         }
+        private int GenerateBattleId()
+        {
+            return Interlocked.Increment(ref battleID);
+        }
 
         /// <summary>
         /// 开始一场新战斗
         /// </summary>
         /// <param name="_battleUser">参战玩家列表</param>
-        public int BeginBattle(List<BattlePlayerPack> _battleUser)
+        // 修改 BeginBattle 签名以接受 seedValue
+        public int BeginBattle(List<BattlePlayerPack> battleUsers, int seedValue)
         {
-            battleID++;
-            
-            // 记录玩家与战斗的关联
-            List<int> uids = new List<int>();
-            foreach (var info in _battleUser)
-            {
-                uids.Add(info.Id);
-                AddPlayerToBattle(info.Id, battleID);
-            }
-            
-            // 创建战斗控制器
-            BattleController _battle = new BattleController(server, battleID, _battleUser);
-            
-            // 保存战斗信息
-            dic_battles[battleID] = _battle;
-            dic_battleUserInfo[battleID] = _battleUser;
-            
-            Console.WriteLine($"开始战斗。。。。。BattleID：{battleID}");
-            return battleID;
+            int battleId = GenerateBattleId(); // 生成唯一的战斗 ID
+            // 将 server 实例和 seedValue 传递给 BattleController 构造函数
+            BattleController newBattle = new BattleController(this.server, battleId, battleUsers, seedValue);
+            dic_battles.TryAdd(battleId, newBattle); // 使用 TryAdd 保证线程安全
+            Console.WriteLine($"BattleManager: 创建了新的战斗，ID: {battleId}, Seed: {seedValue}");
+            return battleId;
         }
 
         /// <summary>

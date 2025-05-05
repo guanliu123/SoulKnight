@@ -78,10 +78,15 @@ namespace KnightServer
                 }
                 string userName = pack.LoginPack.UserName;
                 client  = server.GetClientByUserName(userName);
+                HandleRequest(pack, client, false);
                 // 如果找到了客户端，则调用对应的方法
                 if (client != null)
                 {
-                    methodInfo.Invoke(controller, new object[] { client, pack });
+                    object ret = methodInfo.Invoke(controller, new object[] { client, pack });
+                    if (ret != null)
+                    {
+                        client.Send(ret as MainPack);
+                    }
                 }
                 else
                 {

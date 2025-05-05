@@ -55,60 +55,91 @@ namespace KnightServer
                     roomName = pack.RoomPacks[0].RoomName;
                 }
 
-
-                // 创建返回包
+                // 创建用于最终返回给请求者的包（通常是确认成功或失败）
                 MainPack returnPack = new MainPack();
                 returnPack.RequestCode = RequestCode.Battle;
-                returnPack.ActionCode = ActionCode.StartEnterBattle;
+                returnPack.ActionCode = ActionCode.StartEnterBattle; // 保持 ActionCode 一致
 
                 // 检查房间是否存在
-                if (string.IsNullOrEmpty(roomName))
+                if (string.IsNullOrEmpty(roomName) || !RoomManager.Instance.RoomExists(roomName)) // 增加存在性检查
                 {
+                    Console.WriteLine($"StartEnterBattle: 房间 '{roomName}' 不存在或名称为空。");
                     returnPack.ReturnCode = ReturnCode.Fail;
                     return returnPack;
                 }
 
                 // 从 RoomManager 获取房间内的所有玩家
-                List<Client> players = RoomManager.Instance.GetRoomPlayers(roomName);
-                returnPack.ReturnCode = ReturnCode.Success;
-                // 如果是房间内第一个请求进入战斗的玩家，创建战斗
+                Room room = RoomManager.Instance.GetRoom(roomName); // 获取 Room 对象
+                if (room == null) // 再次检查 Room 对象
+                {
+                     Console.WriteLine($"StartEnterBattle: 获取房间 '{roomName}' 失败。");
+                     returnPack.ReturnCode = ReturnCode.Fail;
+                     return returnPack;
+                }
+                List<Client> players = room.Clients; // 直接从 Room 获取客户端列表
+
+                // 如果是房间内第一个请求进入战斗的玩家，创建战斗并发送初始化信息
                 if (!roomToBattleId.ContainsKey(roomName))
                 {
+                    Console.WriteLine($"StartEnterBattle: 房间 '{roomName}' 尚未创建战斗，开始创建...");
                     // 准备战斗玩家信息
-                    Room room = RoomManager.Instance.GetRoom(roomName);
                     List<BattlePlayerPack> battlePlayers = new List<BattlePlayerPack>();
-                    // 为每个玩家创建战斗信息
                     int battlePlayerId = 1;
                     foreach (Client playerClient in players)
                     {
                         if (playerClient != null)
                         {
                             BattlePlayerPack playerPack = new BattlePlayerPack();
-                            playerPack.Id = playerClient.Id;
-                            playerPack.Battleid = battlePlayerId++;
+                            playerPack.Id = playerClient.Id; // 客户端唯一ID
+                            playerPack.Battleid = battlePlayerId++; // 战斗内ID
                             playerPack.Playername = playerClient.userName;
                             battlePlayers.Add(playerPack);
                         }
                     }
 
-                    // 创建战斗
-                    int battleId = BattleManager.Instance.BeginBattle(battlePlayers);
-                    room.BroadcastTo(client, pack);
-                    // 记录房间与战斗的关联
-                    roomToBattleId[roomName] = battleId;
+                    // --- 移动随机种子生成到这里 ---
+                    Random random = new Random();
+                    int seedValue = random.Next(0, 10000);
+                    Console.WriteLine($"StartEnterBattle: 为房间 '{roomName}' 生成随机种子: {seedValue}");
 
-                    Console.WriteLine($"为房间 {roomName} 创建了战斗 {battleId}");
+                    // --- 修改 BeginBattle 调用以传递种子 (假设 BattleManager 已修改) ---
+                    // 注意：你需要修改 BattleManager.BeginBattle 方法签名以接受 seedValue
+                    int battleId = BattleManager.Instance.BeginBattle(battlePlayers, seedValue);
+                    roomToBattleId[roomName] = battleId; // 记录房间与战斗的关联
+                    Console.WriteLine($"StartEnterBattle: 为房间 '{roomName}' 创建了战斗 {battleId}");
+
+                    // --- 移动发送 BattleInitInfo 的逻辑到这里 ---
+                    Console.WriteLine($"StartEnterBattle: 向房间 '{roomName}' 的所有客户端发送 BattleInitInfo (TCP)...");
+                    MainPack initPack = new MainPack();
+                    initPack.RequestCode = RequestCode.Battle;
+                    initPack.ActionCode = ActionCode.BattleStart;
+                    initPack.ReturnCode = ReturnCode.Success; 
+
+                    BattleInitInfo battleInitInfo = new BattleInitInfo();
+                    battleInitInfo.RandSeed = seedValue;
+                    initPack.BattleInitInfo = battleInitInfo; 
+                    returnPack.BattleInitInfo = battleInitInfo; 
+                    room.Broadcast(client, initPack); 
+                    Console.WriteLine($"StartEnterBattle: 向房间 '{roomName}' 的所有客户端发送 BattleInitInfo (TCP)...");
+    
                 }
-
+                else
+                {
+                     Console.WriteLine($"StartEnterBattle: 房间 '{roomName}' 的战斗已存在 (ID: {roomToBattleId[roomName]})。");
+                     // 如果战斗已存在，可能需要向后加入的玩家发送不同的信息或直接返回成功
+                }
+                returnPack.ReturnCode = ReturnCode.Success;
                 return returnPack;
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"StartEnterBattle 错误: {ex.Message}");
+                Console.WriteLine($"StartEnterBattle 发生严重错误: {ex}");
                 MainPack returnPack = new MainPack();
                 returnPack.RequestCode = RequestCode.Battle;
                 returnPack.ActionCode = ActionCode.StartEnterBattle;
                 returnPack.ReturnCode = ReturnCode.Fail;
+                // 可以在这里添加错误信息到 returnPack
+                // returnPack.Str = ex.Message;
                 return returnPack;
             }
         }

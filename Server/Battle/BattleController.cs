@@ -46,18 +46,20 @@ namespace Battle
         private const int FRAME_RATE = 15; // 15FPS
         private const int FRAME_INTERVAL = 1000 / FRAME_RATE; // 66.67ms
 
-        private int seedValue;
+        private int seedValue; // 添加字段存储种子
         /// <summary>
         /// 构造函数
         /// </summary>
         /// <param name="server">服务器实例</param>
         /// <param name="_battleID">战斗ID</param>
         /// <param name="_battleUser">参战玩家</param>
-        public BattleController(KnightServer.Server server, int battleID, List<BattlePlayerPack> battleUsers)
+        // 修改构造函数以接受 seedValue
+        public BattleController(KnightServer.Server server, int battleID, List<BattlePlayerPack> battleUsers, int seedValue) // 添加 seedValue 参数
         {
             this.server = server;
             this.battleID = battleID;
-            
+            this.seedValue = seedValue; // 存储种子
+
             // 初始化字段，避免 null 引用
             dic_battleUserUid = new Dictionary<int, int>();
             dic_battleid_ip_port = new Dictionary<int, string>();
@@ -185,9 +187,9 @@ namespace Battle
             oneGameOver = false;
             allGameOver = false;
             
-            // 生成随机种子
-            Random random = new Random();
-            seedValue = random.Next(0, 10000);
+            // --- 移除随机种子生成 ---
+            // Random random = new Random();
+            // seedValue = random.Next(0, 10000);
             
             // 初始化帧操作数据
             dic_match_frames = new Dictionary<int, AllPlayerOperation>();
@@ -198,7 +200,7 @@ namespace Battle
             // 初始化玩家状态
             foreach (int id in dic_battleUserUid.Values)
             {
-                dic_next_frame_opts[id] = null;
+                dic_next_frame_opts[id] = null; // 使用 null 或默认 InputPack
                 dic_next_opts_frameid[id] = 0;
                 dic_playerGameOver[id] = false;
             }
@@ -207,22 +209,6 @@ namespace Battle
             Thread frameThread = new Thread(Thread_SendFrameData);
             frameThread.Start();
             
-            Console.WriteLine("开始战斗");
-            
-            // 向所有玩家发送战斗开始消息，包含随机种子
-            MainPack pack = new MainPack();
-            pack.RequestCode = RequestCode.Battle;
-            pack.ActionCode = ActionCode.BattleStart;
-            
-            // 使用 BattleInitInfo 而不是 BattleInfo
-            BattleInitInfo battleInitInfo = new BattleInitInfo();
-            battleInitInfo.RandSeed = seedValue;
-            pack.BattleInitInfo = battleInitInfo;
-            
-            foreach (var item in dic_battleid_ip_port)
-            {
-                UdpManager.Instance.Send(pack, item.Value);
-            }
         }
 
         /// <summary>
