@@ -9,6 +9,7 @@
     public string RoomName;
     public bool isHomeOwner;//是否是房主
     public int PlayerNum;//联机玩家数量
+    public int RandomSeed=-1;//这局游戏的种子
     
     protected override void OnInit()
     {
