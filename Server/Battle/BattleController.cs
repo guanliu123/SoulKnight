@@ -235,11 +235,6 @@ namespace Battle
             _isRun = true;
             oneGameOver = false;
             allGameOver = false;
-            
-            // --- 移除随机种子生成 ---
-            // Random random = new Random();
-            // seedValue = random.Next(0, 10000);
-            
             // 初始化帧操作数据
             dic_match_frames = new Dictionary<int, AllPlayerOperation>();
             dic_next_frame_opts = new Dictionary<int, InputPack>();

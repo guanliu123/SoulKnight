@@ -72,9 +72,9 @@ namespace KnightServer
                 Room room = RoomManager.Instance.GetRoom(roomName); // 获取 Room 对象
                 if (room == null) // 再次检查 Room 对象
                 {
-                     Console.WriteLine($"StartEnterBattle: 获取房间 '{roomName}' 失败。");
-                     returnPack.ReturnCode = ReturnCode.Fail;
-                     return returnPack;
+                    Console.WriteLine($"StartEnterBattle: 获取房间 '{roomName}' 失败。");
+                    returnPack.ReturnCode = ReturnCode.Fail;
+                    return returnPack;
                 }
                 List<Client> players = room.Clients; // 直接从 Room 获取客户端列表
 
@@ -94,7 +94,9 @@ namespace KnightServer
                             playerPack.Battleid = battlePlayerId++; // 战斗内ID
                             playerPack.Playername = playerClient.userName;
                             battlePlayers.Add(playerPack);
-                        }else{
+                        }
+                        else
+                        {
                             Console.WriteLine($"StartEnterBattle: 玩家客户端为空，跳过...");
                         }
                     }
@@ -112,20 +114,30 @@ namespace KnightServer
                     MainPack initPack = new MainPack();
                     initPack.RequestCode = RequestCode.Battle;
                     initPack.ActionCode = ActionCode.StartEnterBattle;
-                    initPack.ReturnCode = ReturnCode.Success; 
-
+                    initPack.ReturnCode = ReturnCode.Success;
+                    initPack.CharacterPacks.Clear();
+                    foreach (Client c in room.Clients)
+                    {
+                        if (c.PlayerType != null && c.PlayerType.Length != 0)
+                        {
+                            CharacterPack p = new CharacterPack();
+                            p.CharacterName = c.userName;
+                            p.PlayerType = c.PlayerType;
+                            initPack.CharacterPacks.Add(p);
+                        }
+                    }
                     BattleInitInfo battleInitInfo = new BattleInitInfo();
                     battleInitInfo.RandSeed = seedValue;
-                    initPack.BattleInitInfo = battleInitInfo; 
-                    returnPack.BattleInitInfo = battleInitInfo; 
-                    room.Broadcast(client, initPack); 
+                    initPack.BattleInitInfo = battleInitInfo;
+                    returnPack.BattleInitInfo = battleInitInfo;
+                    room.Broadcast(client, initPack);
                     Console.WriteLine($"StartEnterBattle: 向房间 '{roomName}' 的所有客户端发送 BattleInitInfo (TCP)...");
-    
+
                 }
                 else
                 {
-                     Console.WriteLine($"StartEnterBattle: 房间 '{roomName}' 的战斗已存在 (ID: {roomToBattleId[roomName]})。");
-                     // 如果战斗已存在，可能需要向后加入的玩家发送不同的信息或直接返回成功
+                    Console.WriteLine($"StartEnterBattle: 房间 '{roomName}' 的战斗已存在 (ID: {roomToBattleId[roomName]})。");
+                    // 如果战斗已存在，可能需要向后加入的玩家发送不同的信息或直接返回成功
                 }
                 returnPack.ReturnCode = ReturnCode.Success;
                 return returnPack;
