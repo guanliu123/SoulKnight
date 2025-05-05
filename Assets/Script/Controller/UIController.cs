@@ -25,7 +25,7 @@ public class UIController : AbstractController
                 rootPanel = new OnlineStartScene.PanelRoot();
                 break;
         }
-        Notice = UnityTool.Instance.GetGameObjectFromCanvas("Notice");
+        //Notice = UnityTool.Instance.GetGameObjectFromCanvas("Notice");
         if (Notice != null)
         {
             Notice.SetActive(true);

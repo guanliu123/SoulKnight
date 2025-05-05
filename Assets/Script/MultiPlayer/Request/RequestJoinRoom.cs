@@ -14,13 +14,13 @@ public class RequestJoinRoom : BaseRequest
         if (pack.ReturnCode == ReturnCode.Success)
         {
             Debug.Log("成功加入房间");
+            //ModelContainer.Instance.GetModel<MemoryModel>().PlayerNum++;
         }
         if (pack.ReturnCode == ReturnCode.Fail)
         {
             Debug.Log("加入房间失败");
         }
         ReceiveAction?.Invoke(pack);
-        ModelContainer.Instance.GetModel<MemoryModel>().PlayerNum++;
     }
     public void SendRequest(string roomName, UnityAction<MainPack> receiveAction)
     {

@@ -15,6 +15,7 @@ public class RequestCreateRoom : BaseRequest
         if (pack.ReturnCode == ReturnCode.Success)
         {
             Debug.Log("成功创建房间");
+            ModelContainer.Instance.GetModel<MemoryModel>().PlayerNum++;
         }
         if (pack.ReturnCode == ReturnCode.Fail)
         {
