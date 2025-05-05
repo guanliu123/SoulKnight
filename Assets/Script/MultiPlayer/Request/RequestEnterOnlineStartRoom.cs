@@ -20,7 +20,7 @@ public class RequestEnterOnlineStartRoom : BaseRequest
         }
 
         ModelContainer.Instance.GetModel<MemoryModel>().PlayerNum = pack.RoomPacks[0].CurrentNum;
-        EventCenter.Instance.NotisfyObserver(EventType.OnEnterOnlineStartRoomResponse, pack);
+        EventCenter.Instance.NotisfyObserver(EventType.OnSwitchOnlineSceneResponse, pack);
         EventCenter.Instance.NotisfyObserver(EventType.OnPlayerEnterOnlineRoom);
     }
     public void SendRequest(PlayerAttribute attr)

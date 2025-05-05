@@ -22,7 +22,7 @@ public class RequestStartEnterBattle : BaseRequest
         }
         //EventCenter.Instance.NotisfyObserver(EventType.OnStartEnterBattleResponse, pack);
         ModelContainer.Instance.GetModel<MemoryModel>().RandomSeed = pack.BattleInitInfo.RandSeed;
-        SceneModelCommand.Instance.LoadScene(SceneName.BattleScene);
+        EventCenter.Instance.NotisfyObserver(EventType.OnNeedToBattleScene,pack);
     }
     public void SendRequest(string roomName,UnityAction<MainPack> receiveAction = null)
     {
