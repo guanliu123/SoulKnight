@@ -112,7 +112,7 @@ namespace KnightServer
                     Console.WriteLine($"StartEnterBattle: 向房间 '{roomName}' 的所有客户端发送 BattleInitInfo (TCP)...");
                     MainPack initPack = new MainPack();
                     initPack.RequestCode = RequestCode.Battle;
-                    initPack.ActionCode = ActionCode.BattleStart;
+                    initPack.ActionCode = ActionCode.StartEnterBattle;
                     initPack.ReturnCode = ReturnCode.Success; 
 
                     BattleInitInfo battleInitInfo = new BattleInitInfo();
