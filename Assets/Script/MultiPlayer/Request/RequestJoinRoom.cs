@@ -14,7 +14,7 @@ public class RequestJoinRoom : BaseRequest
         if (pack.ReturnCode == ReturnCode.Success)
         {
             Debug.Log("成功加入房间");
-            ModelContainer.Instance.GetModel<MemoryModel>().PlayerNum++;
+            //ModelContainer.Instance.GetModel<MemoryModel>().PlayerNum++;
         }
         if (pack.ReturnCode == ReturnCode.Fail)
         {
