@@ -10,9 +10,9 @@ public class ToBattleRoom : MonoBehaviour
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (m_MemoryModel.isOnlineMode)
+        if (collision.tag == "Player")
         {
-            if (collision.tag == "Player")
+            if (m_MemoryModel.isOnlineMode)
             {
                 //m_MemoryModel.PlayerAttr = collision.transform.parent.GetComponent<Symbol>().GetCharacter().m_Attr as PlayerAttribute;
                 m_MemoryModel.PlayerAttr = collision.GetComponent<Symbol>().GetCharacter().m_Attr as PlayerAttribute;
@@ -22,10 +22,7 @@ public class ToBattleRoom : MonoBehaviour
                     (ClientFacade.Instance.GetRequest(ActionCode.EnterOnlineStartRoom) as RequestEnterOnlineStartRoom).SendRequest(m_MemoryModel.PlayerAttr);
                 };
             }
-        }
-        else
-        {
-            if (collision.tag == "Player")
+            else
             {
                 m_MemoryModel.PlayerAttr = collision.GetComponent<Symbol>().GetCharacter().m_Attr as PlayerAttribute;
                 SceneModelCommand.Instance.LoadScene(SceneName.BattleScene);

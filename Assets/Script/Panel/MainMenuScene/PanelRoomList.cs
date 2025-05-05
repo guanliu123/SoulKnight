@@ -12,6 +12,8 @@ public class PanelRoomList : IPanel
     private bool isFindRoomResponse;
     private bool isJoinRoomResponse;
     private MainPack pack;
+    private string joinRoomName;
+    
     public PanelRoomList(IPanel parent) : base(parent)
     {
         isShowPanelAfterExit = true;
@@ -78,11 +80,12 @@ public class PanelRoomList : IPanel
                     {
                         if (UnityTool.Instance.GetComponentFromChild<TextMeshProUGUI>(ButtonRoomItem.gameObject, "TextState").text.CompareTo("等待加入") == 0)
                         {
-                            (ClientFacade.Instance.GetRequest(ActionCode.JoinRoom) as RequestJoinRoom).SendRequest(RoomName, (pack) =>
+                            (ClientFacade.Instance.GetRequest(ActionCode.JoinRoom) as RequestJoinRoom).SendRequest(ButtonRoomItem.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text, (pack) =>
                             {
                                 if (pack.ReturnCode == ReturnCode.Success)
                                 {
                                     isJoinRoomResponse = true;
+                                    //joinRoomName = ButtonRoomItem.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text;
                                 }
                             });
                         }
@@ -96,13 +99,13 @@ public class PanelRoomList : IPanel
                     {
                         if (UnityTool.Instance.GetComponentFromChild<TextMeshProUGUI>(obj, "TextState").text.CompareTo("等待加入") == 0)
                         {
-                            (ClientFacade.Instance.GetRequest(ActionCode.JoinRoom) as RequestJoinRoom).SendRequest(RoomName, (pack) =>
+                            (ClientFacade.Instance.GetRequest(ActionCode.JoinRoom) as RequestJoinRoom).SendRequest(obj.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text, (pack) =>
                             {
                                 if (pack.ReturnCode == ReturnCode.Success)
                                 {
                                     isJoinRoomResponse = true;
+                                    joinRoomName = obj.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text;
                                 }
-
                             });
                         }
                     });
@@ -113,7 +116,7 @@ public class PanelRoomList : IPanel
         if (isJoinRoomResponse)
         {
             isJoinRoomResponse = false;
-            MemoryModelCommand.Instance.EnterOnlineMode();
+            MemoryModelCommand.Instance.EnterOnlineMode(joinRoomName);
         }
     }
     public override void OnExit()

@@ -6,6 +6,10 @@
     public int Stage;
     public int Money;
     public BindableProperty<bool> isOnlineMode = new BindableProperty<bool>(false);
+    public string RoomName;
+    public bool isHomeOwner;//是否是房主
+    public int PlayerNum;//联机玩家数量
+    
     protected override void OnInit()
     {
         PetType = PetType.LittleCool;

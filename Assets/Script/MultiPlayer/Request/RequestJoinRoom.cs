@@ -20,6 +20,7 @@ public class RequestJoinRoom : BaseRequest
             Debug.Log("加入房间失败");
         }
         ReceiveAction?.Invoke(pack);
+        ModelContainer.Instance.GetModel<MemoryModel>().PlayerNum++;
     }
     public void SendRequest(string roomName, UnityAction<MainPack> receiveAction)
     {

@@ -22,7 +22,9 @@ public class RequestExitRoom : BaseRequest
             Debug.Log("退出房间失败");
         }
         (ClientFacade.Instance.GetRequest(ActionCode.FindRoom) as RequestFindRoom).SendRequest();
+        EventCenter.Instance.NotisfyObserver(EventType.OnStartEnterBattleResponse, pack);
         ReceiveAction?.Invoke(pack);
+        ModelContainer.Instance.GetModel<MemoryModel>().PlayerNum--;
     }
     public void SendRequest(UnityAction<MainPack> receiveAction = null)
     {

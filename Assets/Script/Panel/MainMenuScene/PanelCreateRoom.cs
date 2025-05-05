@@ -53,7 +53,7 @@ public class PanelCreateRoom : IPanel
         if (isCreateRoomResponse)
         {
             isCreateRoomResponse = false;
-            MemoryModelCommand.Instance.EnterOnlineMode();
+            MemoryModelCommand.Instance.EnterOnlineMode(InputName.text,true);
         }
     }
 }
