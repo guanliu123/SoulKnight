@@ -132,6 +132,21 @@ namespace Battle
         /// 处理UDP消息
         /// </summary>
         // server -> udpManger->battleController->Handle
+        // 新增帧同步模式枚举
+        private enum FrameSyncMode
+        {
+            Optimistic,  // 乐观帧模式
+            RealTime      // 实时转发模式
+        }
+        
+        // 新增模式控制字段（可通过配置或命令动态切换）
+        private FrameSyncMode frameSyncMode = FrameSyncMode.RealTime; // 默认实时模式
+        
+        // 新增实时模式需要的字典
+        private List<InputPack> realTimeOperations = new List<InputPack>();
+        private static object realTimeLock = new object();
+
+        // 修改 Handle 方法中的 BattlePushDowmPlayerOpeartions 处理
         public void Handle(MainPack pack)
         {
             if (pack == null) return;
@@ -168,12 +183,46 @@ namespace Battle
                     InputPack operation = battleInfo.SelfOperation; // 玩家操作，使用 InputPack
                     
                     UpdatePlayerOperation(operation, syncFrameId);
+                    
+                    // 新增实时转发逻辑
+                    if (frameSyncMode == FrameSyncMode.RealTime)
+                    {
+                        // 记录当前操作
+                        lock (realTimeLock)
+                        {
+                             realTimeOperations.Add(operation); // 改为添加到列表
+                        }
+                        
+                        // 立即转发给其他玩家
+                        ForwardPlayerOperation(operation);
+                    }
                     break;
                     
                 case ActionCode.ClientSendGameOver:
                     // 玩家游戏结束
                     UpdatePlayerGameOver(int.Parse(pack.Str));
                     break;
+            }
+        }
+
+        // 新增实时转发方法
+        private void ForwardPlayerOperation(InputPack operation)
+        {
+            MainPack forwardPack = new MainPack();
+            forwardPack.RequestCode = RequestCode.Battle;
+            forwardPack.ActionCode = ActionCode.BattlePushDowmPlayerOpeartions;
+            
+            BattleInfo battleInfo = new BattleInfo();
+            battleInfo.SelfOperation = operation;
+            forwardPack.BattleInfo = battleInfo;
+
+            // 遍历所有玩家并转发（排除操作发起者）
+            foreach (var pair in dic_battleid_ip_port)
+            {
+                if (pair.Key != operation.BattleId)
+                {
+                    UdpManager.Instance.Send(forwardPack, pair.Value);
+                }
             }
         }
 
@@ -216,92 +265,109 @@ namespace Battle
         /// </summary>
         private void Thread_SendFrameData()
         {
-            Console.WriteLine("开始战斗");
-            
-            bool isFinishBS = false;
-            
-            // 循环检查是否所有玩家都发送了第一帧操作
-            while (!isFinishBS)
+            if (frameSyncMode == FrameSyncMode.Optimistic)
             {
-                // 检查是否所有玩家都发送了第一帧操作
-                bool allData = true;
-                foreach (var op in dic_next_frame_opts.Values)
-                {
-                    if (op == null)
-                    {
-                        allData = false;
-                        break;
-                    }
-                }
+                Console.WriteLine("开始战斗（乐观帧模式）");
+                bool isFinishBS = false;
                 
-                if (allData)
+                // 循环检查是否所有玩家都发送了第一帧操作
+                while (!isFinishBS)
                 {
-                    Console.WriteLine("战斗服务器:收到全部玩家的第一次操作数据");
-                    frameid = 1;
-                    isFinishBS = true;
-                }
-                
-                Thread.Sleep(500);
-            }
-            
-            Console.WriteLine("开始发送帧数据");
-            
-            // 主帧同步循环
-            while (_isRun)
-            {
-                if (oneGameOver)
-                {
-                    break; // 有玩家游戏结束，停止帧同步
-                }
-                else
-                {
-                    // 收集当前帧的所有玩家操作
-                    AllPlayerOperation nextFrameOpt = new AllPlayerOperation();
-                    
-                    try
+                    // 检查是否所有玩家都发送了第一帧操作
+                    bool allData = true;
+                    foreach (var op in dic_next_frame_opts.Values)
                     {
-                        for (int i = 1; i <= playerCount; i++)
+                        if (op == null)
                         {
-                            if (dic_next_frame_opts.ContainsKey(i))
+                            allData = false;
+                            break;
+                        }
+                    }
+                    
+                    if (allData)
+                    {
+                        Console.WriteLine("战斗服务器:收到全部玩家的第一次操作数据");
+                        frameid = 1;
+                        isFinishBS = true;
+                    }
+                    
+                    Thread.Sleep(500);
+                }
+                
+                Console.WriteLine("开始发送帧数据");
+                
+                while (_isRun)
+                {
+                    if (oneGameOver)
+                    {
+                        break; // 有玩家游戏结束，停止帧同步
+                    }
+                    else
+                    {
+                        // 收集当前帧的所有玩家操作
+                        AllPlayerOperation nextFrameOpt = new AllPlayerOperation();
+                        
+                        try
+                        {
+                            for (int i = 1; i <= playerCount; i++)
                             {
-                                nextFrameOpt.Operations.Add(dic_next_frame_opts[i]);
+                                if (dic_next_frame_opts.ContainsKey(i))
+                                {
+                                    nextFrameOpt.Operations.Add(dic_next_frame_opts[i]);
+                                }
                             }
                         }
-                    }
-                    catch (Exception ex)
-                    {
-                        Console.WriteLine(ex);
-                        nextFrameOpt = new AllPlayerOperation();
-                    }
-                    
-                    // 保存当前帧操作
-                    nextFrameOpt.Frameid = frameid;
-                    dic_match_frames.Add(frameid, nextFrameOpt);
-                    
-                    // 向所有玩家发送帧操作
-                    foreach (var item in dic_battleid_ip_port)
-                    {
-                        // 如果没游戏结束才发送
-                        if (!dic_playerGameOver[item.Key])
+                        catch (Exception ex)
                         {
-                            SendUnsyncFrames(item.Value, item.Key);
+                            Console.WriteLine(ex);
+                            nextFrameOpt = new AllPlayerOperation();
+                        }
+                        
+                        // 保存当前帧操作
+                        nextFrameOpt.Frameid = frameid;
+                        dic_match_frames.Add(frameid, nextFrameOpt);
+                        
+                        // 向所有玩家发送帧操作
+                        foreach (var item in dic_battleid_ip_port)
+                        {
+                            // 如果没游戏结束才发送
+                            if (!dic_playerGameOver[item.Key])
+                            {
+                                SendUnsyncFrames(item.Value, item.Key);
+                            }
+                        }
+                        
+                        // 进入下一帧
+                        frameid++;
+                        
+                        // 清空下一帧操作缓存
+                        lock (lockThis)
+                        {
+                            dic_next_frame_opts.Clear();
                         }
                     }
                     
-                    // 进入下一帧
-                    frameid++;
-                    
-                    // 清空下一帧操作缓存
-                    lock (lockThis)
-                    {
-                        dic_next_frame_opts.Clear();
-                    }
+                    // 按帧率休眠
+                    // Thread.Sleep(FRAME_INTERVAL);
                 }
                 
-                // 按帧率休眠
-                Thread.Sleep(FRAME_INTERVAL);
+                // 删除此行 ↓
+                // Console.WriteLine("帧数据发送线程结束...................."); 
+            }
+            else
+            {
+                Console.WriteLine("开始战斗（实时转发模式）");
+                // 实时模式不需要帧同步线程
+                while (_isRun)
+                {
+                    if (oneGameOver) break;
+                    
+                    // 按帧率休眠保持循环
+                    Thread.Sleep(FRAME_INTERVAL);
+                }
             }
             
+            // 统一保留此行 ↓
             Console.WriteLine("帧数据发送线程结束.....................");
         }
 
@@ -314,7 +380,11 @@ namespace Battle
         {
             MainPack pack = new MainPack();
             pack.RequestCode = RequestCode.Battle;
-            pack.ActionCode = ActionCode.BattlePushDowmAllFrameOpeartions;
+            
+            // 根据模式使用不同的 ActionCode
+            pack.ActionCode = frameSyncMode == FrameSyncMode.Optimistic 
+                ? ActionCode.BattlePushDowmAllFrameOpeartions 
+                : ActionCode.BattlePushDowmPlayerOpeartions;
             
             BattleInfo battleInfo = new BattleInfo();
             

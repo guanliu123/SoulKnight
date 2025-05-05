@@ -142,6 +142,8 @@ namespace KnightServer
                 {
                     room.hostCode = HostCode.WaitForStartGame;
                 }
+                pack.RoomPacks.Clear();
+                pack.RoomPacks.Add(room.GetRoomPack());
                 pack.ReturnCode = ReturnCode.Success;
                 pack.IsBroadcastMessage = true;
                 pack.CharacterPacks[0].CharacterName = client.userName;
