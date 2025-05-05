@@ -19,7 +19,7 @@ public class RequestEnterOnlineStartRoom : BaseRequest
             Debug.Log("加入联机初始房间失败");
         }
         EventCenter.Instance.NotisfyObserver(EventType.OnEnterOnlineStartRoomResponse, pack);
-        EventCenter.Instance.NotisfyObserver(EventType.OnPlayerEnterBattleRoom);
+        EventCenter.Instance.NotisfyObserver(EventType.OnPlayerEnterOnlineRoom);
     }
     public void SendRequest(PlayerAttribute attr)
     {
