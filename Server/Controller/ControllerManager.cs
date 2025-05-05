@@ -78,6 +78,10 @@ namespace KnightServer
                 }
                 string userName = pack.LoginPack.UserName;
                 client  = server.GetClientByUserName(userName);
+                if (client == null){
+                    Console.WriteLine($"未找到对应IP:端口的客户端: {userName} {methodName}");
+                    return;
+                }
                 HandleRequest(pack, client, false);
                 // 如果找到了客户端，则调用对应的方法
                 if (client != null)

@@ -35,6 +35,9 @@ public class Message
     {
         byte[] data = pack.ToByteArray();
         byte[] head = BitConverter.GetBytes(data.Length);
+        if (data.Length > 1024){
+            Console.WriteLine($"data too long {pack}");
+        }
         return head.Concat(data).ToArray();
     }
     public static byte[] PackDataUDP(MainPack pack)

@@ -94,22 +94,21 @@ namespace KnightServer
                             playerPack.Battleid = battlePlayerId++; // 战斗内ID
                             playerPack.Playername = playerClient.userName;
                             battlePlayers.Add(playerPack);
+                        }else{
+                            Console.WriteLine($"StartEnterBattle: 玩家客户端为空，跳过...");
                         }
                     }
 
                     // --- 移动随机种子生成到这里 ---
                     Random random = new Random();
                     int seedValue = random.Next(0, 10000);
-                    Console.WriteLine($"StartEnterBattle: 为房间 '{roomName}' 生成随机种子: {seedValue}");
+                    Console.WriteLine($"StartEnterBattle: 为房间 '{roomName}' 生成随机种子: {seedValue} {players.Count}");
 
-                    // --- 修改 BeginBattle 调用以传递种子 (假设 BattleManager 已修改) ---
-                    // 注意：你需要修改 BattleManager.BeginBattle 方法签名以接受 seedValue
+                    // 创建战斗
                     int battleId = BattleManager.Instance.BeginBattle(battlePlayers, seedValue);
                     roomToBattleId[roomName] = battleId; // 记录房间与战斗的关联
-                    Console.WriteLine($"StartEnterBattle: 为房间 '{roomName}' 创建了战斗 {battleId}");
 
-                    // --- 移动发送 BattleInitInfo 的逻辑到这里 ---
-                    Console.WriteLine($"StartEnterBattle: 向房间 '{roomName}' 的所有客户端发送 BattleInitInfo (TCP)...");
+
                     MainPack initPack = new MainPack();
                     initPack.RequestCode = RequestCode.Battle;
                     initPack.ActionCode = ActionCode.StartEnterBattle;

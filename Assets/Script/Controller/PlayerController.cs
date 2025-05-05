@@ -47,7 +47,7 @@ public class PlayerController : AbstractController
                     }
                 }
 
-                Debug.Log("ÉèÖÃ½ÇÉ«");
+                Debug.Log("ï¿½ï¿½ï¿½Ã½ï¿½É«");
             }
         }
         if (isUpdatePlayerStateResponse)
@@ -108,7 +108,7 @@ public class PlayerController : AbstractController
             }
             else
             {
-                if (GameObject.Find("BirthPoint"))//Áª»ú·¿¼ä²âÊÔÓÃ
+                if (GameObject.Find("BirthPoint"))//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
                 {
                     m_Player.gameObject.transform.position = GameObject.Find("BirthPoint").transform.position;
                 }

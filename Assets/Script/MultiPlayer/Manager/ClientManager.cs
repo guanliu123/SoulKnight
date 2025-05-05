@@ -41,7 +41,7 @@ public class ClientManager : BaseManager
         {
             IPEndPoint ep = new IPEndPoint(IPAddress.Parse("127.0.0.1"), 9999);
             IAsyncResult connResult = socket.BeginConnect(ep, null, null);
-            connResult.AsyncWaitHandle.WaitOne(2);
+            connResult.AsyncWaitHandle.WaitOne(200);
             if (connResult.IsCompleted)
             {
                 BeginReceive();
@@ -73,8 +73,13 @@ public class ClientManager : BaseManager
         try
         {
             int len = socket.EndReceive(result);
+            // --- 添加日志 ---
+            Debug.Log($"[TCP Receive] Received {len} bytes.");
+            // --- 日志结束 ---
+
             if (len == 0)
             {
+                Debug.LogWarning("[TCP Receive] Connection closed by remote host (received 0 bytes).");
                 CloseSocket();
                 return;
             }
@@ -84,11 +89,17 @@ public class ClientManager : BaseManager
             });
             BeginReceive();
         }
+        catch(SocketException se) // 更具体地捕获 SocketException
+        {
+            Debug.LogError($"[TCP Receive Error] SocketException: {se.Message} (ErrorCode: {se.SocketErrorCode})");
+            // 根据错误码判断是否需要关闭 Socket
+            CloseSocket(); // 通常发生 Socket 错误后需要关闭
+        }
         catch(Exception e)
         {
-            Debug.Log(e);
-            Debug.Log("TCP服务器连接失败");
-            return;
+            Debug.LogError($"[TCP Receive Error] Unexpected Exception: {e}");
+            CloseSocket(); // 发生未知严重错误，也关闭 Socket
+            return; // 移除 return，因为 CloseSocket 已经处理
         }
     }
 

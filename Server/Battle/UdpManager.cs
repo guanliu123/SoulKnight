@@ -57,9 +57,8 @@ namespace Battle
                 if (data.Length > 0 && messageHandler != null)
                 {
                     MainPack pack = MainPack.Parser.ParseFrom(data);
-                    
                     pack.Str = remoteEP.ToString();
-                    messageHandler(pack);
+                    messageHandler(pack); // <-- 问题可能发生在这里调用的方法内部
                 }
                 
                 // 继续接收
@@ -73,10 +72,29 @@ namespace Battle
                 Console.WriteLine("UDP接收错误: UdpClient已被关闭。");
                 isRunning = false; // 停止后续接收尝试
             }
-            catch (Exception ex)
+            catch (Exception ex) // 捕获所有其他异常
             {
-                Console.WriteLine($"UDP接收错误: {ex.Message}");
-                
+                // --- 修改日志记录 ---
+                Console.WriteLine($"--- UDP 接收处理时发生异常 ---");
+                Console.WriteLine($"原始异常类型: {ex.GetType().FullName}");
+                Console.WriteLine($"原始异常消息: {ex.Message}");
+                // 检查并打印内部异常（这通常是 TargetInvocationException 的情况）
+                if (ex.InnerException != null)
+                {
+                    Console.WriteLine($"--- 内部异常 (根本原因) ---");
+                    Console.WriteLine($"内部异常类型: {ex.InnerException.GetType().FullName}");
+                    Console.WriteLine($"内部异常消息: {ex.InnerException.Message}");
+                    Console.WriteLine($"内部异常堆栈跟踪:\n{ex.InnerException.StackTrace}");
+                    Console.WriteLine($"--- 内部异常结束 ---");
+                }
+                else
+                {
+                    // 如果没有内部异常，打印外部异常的堆栈
+                    Console.WriteLine($"异常堆栈跟踪:\n{ex.StackTrace}");
+                }
+                 Console.WriteLine($"--- UDP 异常结束 ---");
+                // --- 日志记录修改结束 ---
+
                 // 发生其他错误时，也尝试继续接收（除非 UdpClient 已关闭）
                 if (isRunning && udpClient != null)
                 {
