@@ -24,6 +24,11 @@ namespace BattleScene
             m_Generator.CustomInputTask = input;
             CoroutinePool.Instance.StartCoroutine(Generate());
             m_Facade = new GameFacade();
+            if (ModelContainer.Instance.GetModel<MemoryModel>().isOnlineMode)
+            {
+                EventCenter.Instance.NotisfyObserver(EventType.OnSwitchOnlineSceneResponse,ModelContainer.Instance.GetModel<MemoryModel>().toBattlePack);
+                ModelContainer.Instance.GetModel<MemoryModel>().toBattlePack=null;
+            }
         }
         void Update()
         {

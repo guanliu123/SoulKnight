@@ -21,6 +21,7 @@ namespace BattleScene
         private MemoryModel m_MemoryModel;
         private PlayableDirector TimeLine;
         private bool isFirstEnter;
+        private bool canRun;
         public PanelBattle(IPanel parent) : base(parent)
         {
             isFirstEnter = true;
@@ -73,10 +74,6 @@ namespace BattleScene
                         GameMediator.Instance.GetController<PlayerController>().Player.EnterBattleScene();
                         GameMediator.Instance.GetController<PlayerController>().Player.m_Attr.isRun = true;
                     }, (float)TimeLine.duration);
-                }
-                else
-                {
-                    
                 }
                 TextMiddle.text = GetStageText();
             }

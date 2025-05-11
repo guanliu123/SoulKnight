@@ -156,7 +156,7 @@ public class PlayerController : AbstractController
             {
                 m_Player.EnterBattleScene();
             }
-            m_Player.m_Attr.isRun = false;
+            //m_Player.m_Attr.isRun = false;
         }
     }
     public void AddPlayer(PlayerAttribute attr, CharacterPack p)
@@ -169,7 +169,7 @@ public class PlayerController : AbstractController
         {
             players[players.Count - 1].EnterBattleScene();
         }
-        else if (ModelContainer.Instance.GetModel<SceneModel>().sceneName == SceneName.OnlineStartScene&&ModelContainer.Instance.GetModel<MemoryModel>().isOnlineMode)
+        else if (ModelContainer.Instance.GetModel<SceneModel>().sceneName == SceneName.BattleScene&&ModelContainer.Instance.GetModel<MemoryModel>().isOnlineMode)
         {
             players[players.Count - 1].EnterBattleScene();
         }

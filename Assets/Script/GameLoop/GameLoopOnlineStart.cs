@@ -5,16 +5,14 @@ public class GameLoopOnlineStart : MonoBehaviour
 {
     private MediatorOnlineStart m_Mediator;
     private bool needToBattleScene = false;
-    private MainPack pack = null;
     
     private void Start()
     {
         Time.timeScale = 1;
         m_Mediator = new MediatorOnlineStart();
-        EventCenter.Instance.RegisterObserver<MainPack>(EventType.OnNeedToBattleScene, (pack) =>
+        EventCenter.Instance.RegisterObserver(EventType.OnNeedToBattleScene,  ()=>
         {
             needToBattleScene = true;
-            this.pack = pack;
         });
     }
     private void Update()
@@ -22,9 +20,9 @@ public class GameLoopOnlineStart : MonoBehaviour
         m_Mediator.GameUpdate();
         if (needToBattleScene)
         {
+            needToBattleScene=false;
             SceneModelCommand.Instance.LoadScene(SceneName.BattleScene).completed+= (op) =>
             {
-                EventCenter.Instance.NotisfyObserver(EventType.OnSwitchOnlineSceneResponse, this.pack);
             };
         }
     }
