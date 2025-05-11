@@ -50,6 +50,7 @@ public class PlayerController : AbstractController
                     }
                 }
 
+                EventCenter.Instance.NotisfyObserver(EventType.OnOnlinePlayerInitOver);
                 Debug.Log("���ý�ɫ");
             }
         }

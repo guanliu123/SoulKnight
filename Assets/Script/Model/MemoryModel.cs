@@ -1,4 +1,5 @@
 ﻿using SoulKnightProtocol;
+using UnityEngine;
 
 public class MemoryModel : AbstractModel
 {

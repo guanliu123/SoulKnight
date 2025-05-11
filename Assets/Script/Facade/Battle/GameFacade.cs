@@ -33,11 +33,22 @@ namespace BattleScene
             {
                 m_ItemController.TurnOnController();
                 m_UIController.TurnOnController();
-                m_RoomController.TurnOnController();
                 m_BuffController.TurnOnController();
                 m_EnemyController.TurnOnController();
                 m_PlayerController.TurnOnController();
+                m_RoomController.TurnOnController();
             });
+            if(ModelContainer.Instance.GetModel<MemoryModel>().isOnlineMode)
+            {
+                EventCenter.Instance.RegisterObserver(EventType.OnOnlinePlayerInitOver, () =>
+                {
+                    
+                });
+            }
+            else
+            {
+                //m_RoomController.TurnOnController();
+            }
         }
         protected override void Init()
         {

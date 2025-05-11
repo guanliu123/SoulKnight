@@ -16,15 +16,18 @@ public class RoomController : AbstractController
     private EnemyController enemyController;
     private Room enterRoom;
     private IPlayer player;
+    private List<IPlayer> otherPlayers;
     private Animator m_FinishAnim;
     private bool isStart;
     private bool isEnterEnemyFloor;
     private bool isEnterEnemyFloorStart;
     private bool isClearEnemyStart;
+    private bool isOnlineMode;
     
     public RoomController()
     {
         m_FinishAnim = UnityTool.Instance.GetGameObjectFromCanvas("Finish").GetComponent<Animator>();
+        isOnlineMode = ModelContainer.Instance.GetModel<MemoryModel>().isOnlineMode;
     }
     protected override void Init()
     {
@@ -42,6 +45,11 @@ public class RoomController : AbstractController
         {
             isStart = true;
             player = GameMediator.Instance.GetController<PlayerController>().Player;
+            if (isOnlineMode)
+            {
+                otherPlayers = GameMediator.Instance.GetController<PlayerController>().players;
+            }
+
             RoomInstances = GameObject.Find("Generator").GetComponent<RoomPostProcessing>().GetRoomInstances();
             foreach (RoomInstanceGrid2D roomInstance in RoomInstances)
             {
@@ -50,6 +58,13 @@ public class RoomController : AbstractController
                 if ((roomInstance.Room as CustomRoom).RoomType == RoomType.BirthRoom)
                 {
                     player.gameObject.transform.position = UnityTool.Instance.GetComponentFromChild<CompositeCollider2D>(roomInstance.RoomTemplateInstance, "Floor").bounds.center;
+                    if (isOnlineMode)
+                    {
+                        foreach (var item in otherPlayers)
+                        {
+                            item.gameObject.transform.position = UnityTool.Instance.GetComponentFromChild<CompositeCollider2D>(roomInstance.RoomTemplateInstance, "Floor").bounds.center;
+                        }
+                    }
                 }
                 else if ((roomInstance.Room as CustomRoom).RoomType == RoomType.EnemyRoom)
                 {
@@ -68,27 +83,40 @@ public class RoomController : AbstractController
                     room.WaveNum = 0;
                     enemyController.AddBoss(room, GetFloorCenter(room));
                 }
-                TriggerCenter.Instance.RegisterObserver(TriggerType.OnTriggerEnter, player.gameObject, GetFloorCollider(room).gameObject, obj =>
+                
+                RegisterTriggerEvent(player,room,roomInstance);
+                if (isOnlineMode)
                 {
-                    RoomType roomType = (roomInstance.Room as CustomRoom).RoomType;
-                    if (roomType == RoomType.EnemyRoom || roomType == RoomType.EliteEnemyRoom || roomType == RoomType.BossRoom)
+                    foreach (var item in otherPlayers)
                     {
-                        enterRoom = room;
-                        isEnterEnemyFloor = true;
-                        isEnterEnemyFloorStart = false;
-                        isClearEnemyStart = false;
+                        RegisterTriggerEvent(item,room,roomInstance);
                     }
-                });
-                TriggerCenter.Instance.RegisterObserver(TriggerType.OnTriggerExit, player.gameObject, GetFloorCollider(room).gameObject, obj =>
-                {
-                    RoomType roomType = (roomInstance.Room as CustomRoom).RoomType;
-                    if (roomType == RoomType.EnemyRoom || roomType == RoomType.EliteEnemyRoom || roomType == RoomType.BossRoom)
-                    {
-                        isEnterEnemyFloor = false;
-                    }
-                });
+                }
             }
         }
+    }
+
+    private void RegisterTriggerEvent(IPlayer _player,Room room,RoomInstanceGrid2D roomInstance)
+    {
+        TriggerCenter.Instance.RegisterObserver(TriggerType.OnTriggerEnter, _player.gameObject, GetFloorCollider(room).gameObject, obj =>
+        {
+            RoomType roomType = (roomInstance.Room as CustomRoom).RoomType;
+            if (roomType == RoomType.EnemyRoom || roomType == RoomType.EliteEnemyRoom || roomType == RoomType.BossRoom)
+            {
+                enterRoom = room;
+                isEnterEnemyFloor = true;
+                isEnterEnemyFloorStart = false;
+                isClearEnemyStart = false;
+            }
+        });
+        TriggerCenter.Instance.RegisterObserver(TriggerType.OnTriggerExit, _player.gameObject, GetFloorCollider(room).gameObject, obj =>
+        {
+            RoomType roomType = (roomInstance.Room as CustomRoom).RoomType;
+            if (roomType == RoomType.EnemyRoom || roomType == RoomType.EliteEnemyRoom || roomType == RoomType.BossRoom)
+            {
+                isEnterEnemyFloor = false;
+            }
+        });
     }
     protected override void AlwaysUpdate()
     {
@@ -96,7 +124,24 @@ public class RoomController : AbstractController
         if (isEnterEnemyFloor)
         {
             RoomType roomType = (enterRoom.roomInstanceGrid2D.Room as CustomRoom).RoomType;
-            if (IsPlayerInFloor(GetFloorCollider(enterRoom).bounds, player.gameObject.transform.Find("BulletCheckBox").GetComponent<CapsuleCollider2D>().bounds))
+            bool isPlayerInFloor = false;
+            Transform inPlayerTrans = null;
+            isPlayerInFloor = IsPlayerInFloor(GetFloorCollider(enterRoom).bounds,
+                player.gameObject.transform.Find("BulletCheckBox").GetComponent<CapsuleCollider2D>().bounds);
+            if (isOnlineMode)
+            {
+                foreach (var item in otherPlayers)
+                {
+                    isPlayerInFloor=IsPlayerInFloor(GetFloorCollider(enterRoom).bounds,
+                        item.gameObject.transform.Find("BulletCheckBox").GetComponent<CapsuleCollider2D>().bounds);
+                    if (isPlayerInFloor)
+                    {
+                        inPlayerTrans =item.gameObject.transform;
+                        break;
+                    }
+                }
+            }
+            if (isPlayerInFloor)
             {
                 if (!isEnterEnemyFloorStart)
                 {
@@ -109,6 +154,15 @@ public class RoomController : AbstractController
                     else
                     {
                         EventCenter.Instance.NotisfyObserver(EventType.OnPlayerEnterBossRoom, enterRoom);
+                    }
+
+                    if (isOnlineMode&& inPlayerTrans!=null)
+                    {
+                        player.gameObject.transform.position = inPlayerTrans.position;
+                        foreach (var item in otherPlayers)
+                        {
+                            item.gameObject.transform.position = inPlayerTrans.position;
+                        }
                     }
                     CloseDoor(enterRoom.roomInstanceGrid2D);
                 }
@@ -131,6 +185,13 @@ public class RoomController : AbstractController
                 ShowBattleFinishAnim();
                 OpenDoor(enterRoom.roomInstanceGrid2D);
                 TriggerCenter.Instance.RemoveObserver(TriggerType.OnTriggerEnter, player.gameObject, GetFloorCollider(enterRoom).gameObject);
+                if (isOnlineMode)
+                {
+                    foreach (var item in otherPlayers)
+                    {
+                        TriggerCenter.Instance.RemoveObserver(TriggerType.OnTriggerEnter, item.gameObject, GetFloorCollider(enterRoom).gameObject);
+                    }
+                }
             }
 
         }
@@ -142,7 +203,15 @@ public class RoomController : AbstractController
             GameObject roomObj = door.ConnectedRoomInstance.RoomTemplateInstance;
             SetDoorAnimator(roomObj, true);
         }
+
         player.m_Attr.isBattle = true;
+        if (isOnlineMode)
+        {
+            foreach (var item in otherPlayers)
+            {
+                item.m_Attr.isBattle = true;
+            }
+        }
     }
     private void ShowBattleFinishAnim()
     {
@@ -156,6 +225,13 @@ public class RoomController : AbstractController
     private void OpenDoor(RoomInstanceGrid2D roomInstance)
     {
         player.m_Attr.isBattle = false;
+        if (isOnlineMode)
+        {
+            foreach (var item in otherPlayers)
+            {
+                item.m_Attr.isBattle = false;
+            }
+        }
         foreach (DoorInstanceGrid2D door in roomInstance.Doors)
         {
             GameObject roomObj = door.ConnectedRoomInstance.RoomTemplateInstance;
