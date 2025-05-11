@@ -80,7 +80,7 @@ namespace OnlineStartScene
                     return;
                 }
                 Debug.Log(model.RoomName);
-                //(ClientFacade.Instance.GetRequest(ActionCode.StartEnterBattle) as RequestStartEnterBattle).SendRequest(ModelContainer.Instance.GetModel<MemoryModel>().RoomName);
+                (ClientFacade.Instance.GetRequest(ActionCode.StartEnterBattle) as RequestStartEnterBattle).SendRequest(model.RoomName);
             });
         }
     }

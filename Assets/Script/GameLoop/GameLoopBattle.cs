@@ -32,8 +32,12 @@ namespace BattleScene
         private IEnumerator Generate()
         {
             //todo 使用某种子生成地图，用于多人联机
-            /*m_Generator.UseRandomSeed = false;
-            m_Generator.RandomGeneratorSeed = 0;*/
+            if (ModelContainer.Instance.GetModel<MemoryModel>().isOnlineMode)
+            {
+                m_Generator.UseRandomSeed = false;
+                m_Generator.RandomGeneratorSeed = ModelContainer.Instance.GetModel<MemoryModel>().RandomSeed;
+            }
+            
             yield return m_Generator.GenerateCoroutine();
             m_isFinishGenerate = true;
             SetTilemaps();

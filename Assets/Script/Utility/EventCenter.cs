@@ -20,7 +20,8 @@ public enum EventType
     OnFinishSelectPlayer,
     OnFindPlayerResponse,
     OnFinishRoomGenerate,
-    OnEnterOnlineStartRoomResponse,
+    OnSwitchOnlineSceneResponse,
+    OnNeedToBattleScene,//需要从联机房去战斗场景了 
 
     OnWantPlant,
     OnWantForging,

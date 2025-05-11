@@ -16,7 +16,7 @@ public class PlayerController : AbstractController
     private bool isHostPlayerInit;
     public PlayerController()
     {
-        EventCenter.Instance.RegisterObserver<MainPack>(EventType.OnEnterOnlineStartRoomResponse, (pack) =>
+        EventCenter.Instance.RegisterObserver<MainPack>(EventType.OnSwitchOnlineSceneResponse, (pack) =>
         {
             isEnterOnlineStartRoomResponse = true;
             this.pack = pack;
