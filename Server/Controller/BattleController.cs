@@ -110,9 +110,7 @@ namespace KnightServer
                     int battleId = BattleManager.Instance.BeginBattle(battlePlayers, seedValue);
                     roomToBattleId[roomName] = battleId; // 记录房间与战斗的关联
 
-
-
-                    pack.CharacterPacks.Clear();
+                    returnPack.CharacterPacks.Clear();
                     foreach (Client c in room.Clients)
                     {
                         if (c.PlayerType != null && c.PlayerType.Length != 0)
@@ -120,14 +118,13 @@ namespace KnightServer
                             CharacterPack p = new CharacterPack();
                             p.CharacterName = c.userName;
                             p.PlayerType = c.PlayerType;
-                            pack.CharacterPacks.Add(p);
+                            returnPack.CharacterPacks.Add(p);
                         }
                     }
                     BattleInitInfo battleInitInfo = new BattleInitInfo();
                     battleInitInfo.RandSeed = seedValue;
-                    pack.BattleInitInfo = battleInitInfo;
                     returnPack.BattleInitInfo = battleInitInfo;
-                    room.Broadcast(client, pack);
+                    room.Broadcast(client, returnPack);
                     Console.WriteLine($"StartEnterBattle: 向房间 '{roomName}' 的所有客户端发送 BattleInitInfo (TCP)...");
                 }
                 else
