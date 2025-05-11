@@ -149,8 +149,6 @@ namespace KnightServer
                 returnPack.RequestCode = RequestCode.Battle;
                 returnPack.ActionCode = ActionCode.StartEnterBattle;
                 returnPack.ReturnCode = ReturnCode.Fail;
-                // 可以在这里添加错误信息到 returnPack
-                // returnPack.Str = ex.Message;
                 return returnPack;
             }
         }

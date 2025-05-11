@@ -17,7 +17,7 @@ namespace KnightServer
             string username = pack.LoginPack.UserName;
             string password = pack.LoginPack.Password;
 
-            Console.WriteLine($"[注册流程] 收到注册请求，用户名: {username}，密码: {password}");
+            Console.WriteLine($"[注册流程] 收到注册请求，用户名: {username}");
 
             if (username.Length < 5 || username.Length > 25)
             {
@@ -111,6 +111,7 @@ namespace KnightServer
             {
                 pack.ReturnCode = ReturnCode.Fail;
             }
+            Console.WriteLine($"[登录流程] 用户名: {pack.LoginPack.UserName}，登录结果: {pack.ReturnCode}");
             return pack;
         }
 

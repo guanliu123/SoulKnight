@@ -120,7 +120,7 @@ namespace Battle
                     Client client = server.GetClientByID(_userUid);
                     if (client != null)
                     {
-                        client.Send(pack);
+                        // client.Send(pack);
                     }
                 }
                 
