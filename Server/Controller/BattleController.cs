@@ -127,9 +127,7 @@ namespace KnightServer
                     battleInitInfo.RandSeed = seedValue;
                     pack.BattleInitInfo = battleInitInfo;
                     returnPack.BattleInitInfo = battleInitInfo;
-                    pack.IsBroadcastMessage = true;
                     room.Broadcast(client, pack);
-                    pack.IsBroadcastMessage = false;
                     Console.WriteLine($"StartEnterBattle: 向房间 '{roomName}' 的所有客户端发送 BattleInitInfo (TCP)...");
                 }
                 else
