@@ -1,4 +1,6 @@
-﻿public class MemoryModel : AbstractModel
+﻿using SoulKnightProtocol;
+
+public class MemoryModel : AbstractModel
 {
     public PlayerAttribute PlayerAttr;
     public PetType PetType;
@@ -10,6 +12,7 @@
     public bool isHomeOwner;//是否是房主
     public int PlayerNum;//联机玩家数量
     public int RandomSeed=-1;//这局游戏的种子
+    public MainPack toBattlePack = null;
     
     protected override void OnInit()
     {
