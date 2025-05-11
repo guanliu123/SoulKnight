@@ -69,7 +69,7 @@ namespace KnightServer
             // 检查 socket 是否为 null 或已断开连接
             if (socket == null || !socket.Connected)
             {
-                Console.WriteLine($"尝试向已断开或未初始化的客户端 {userName ?? Id.ToString()} 发送消息，已跳过。");
+                // Console.WriteLine($"尝试向已断开或未初始化的客户端 {userName ?? Id.ToString()} 发送消息，已跳过。");
                 return;
             }
         
