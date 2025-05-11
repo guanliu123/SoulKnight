@@ -65,12 +65,19 @@ namespace BattleScene
             {
                 isFirstEnter = false;
                 TimeLine.Play();
-                CoroutinePool.Instance.DelayInvoke(() =>
+                if (!ModelContainer.Instance.GetModel<MemoryModel>().isOnlineMode)
                 {
-                    gameObject.GetComponent<Animator>().enabled = false;
-                    GameMediator.Instance.GetController<PlayerController>().Player.EnterBattleScene();
-                    GameMediator.Instance.GetController<PlayerController>().Player.m_Attr.isRun = true;
-                }, (float)TimeLine.duration);
+                    CoroutinePool.Instance.DelayInvoke(() =>
+                    {
+                        gameObject.GetComponent<Animator>().enabled = false;
+                        GameMediator.Instance.GetController<PlayerController>().Player.EnterBattleScene();
+                        GameMediator.Instance.GetController<PlayerController>().Player.m_Attr.isRun = true;
+                    }, (float)TimeLine.duration);
+                }
+                else
+                {
+                    
+                }
                 TextMiddle.text = GetStageText();
             }
         }

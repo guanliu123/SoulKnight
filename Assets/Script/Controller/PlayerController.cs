@@ -5,6 +5,8 @@ using UnityEngine;
 
 public class PlayerController : AbstractController
 {
+    //是否是本机的player
+    public bool IsMainPlayer;
     private IPlayer m_Player;
     public IPlayer Player => m_Player;
     public List<IPlayer> players = new List<IPlayer>();
@@ -39,6 +41,7 @@ public class PlayerController : AbstractController
                     if (p.CharacterName == ModelContainer.Instance.GetModel<MemoryModel>().UserName)
                     {
                         SetPlayer(AttributeFactory.Instance.GetPlayerAttr(System.Enum.Parse<PlayerType>(p.PlayerType)));
+                        IsMainPlayer = true;
                         TurnOnController();
                     }
                     else
@@ -59,6 +62,7 @@ public class PlayerController : AbstractController
                 {
                     player.m_Input = Message.ConvertToPlayerInput(upPack.CharacterPacks[0].InputPack);
                     player.gameObject.transform.position = player.m_Input.CharacterPos;
+                    
                 }
             }
         }
@@ -148,6 +152,10 @@ public class PlayerController : AbstractController
 
         if (ModelContainer.Instance.GetModel<SceneModel>().sceneName == SceneName.BattleScene)
         {
+            if (ModelContainer.Instance.GetModel<MemoryModel>().isOnlineMode)
+            {
+                m_Player.EnterBattleScene();
+            }
             m_Player.m_Attr.isRun = false;
         }
     }
@@ -158,6 +166,10 @@ public class PlayerController : AbstractController
         //players[players.Count - 1].gameObject.GetComponent<CapsuleCollider2D>().isTrigger = false;
         players[players.Count - 1].UserName = p.CharacterName;
         if (ModelContainer.Instance.GetModel<SceneModel>().sceneName == SceneName.OnlineStartScene)
+        {
+            players[players.Count - 1].EnterBattleScene();
+        }
+        else if (ModelContainer.Instance.GetModel<SceneModel>().sceneName == SceneName.OnlineStartScene&&ModelContainer.Instance.GetModel<MemoryModel>().isOnlineMode)
         {
             players[players.Count - 1].EnterBattleScene();
         }
@@ -209,5 +221,10 @@ public class PlayerController : AbstractController
             return null;
         }
         return o.GetComponent<Symbol>().GetCharacter() as IEnemy;
+    }
+
+    public void SetIsMainPlayer(bool isMainPlayer)
+    {
+        IsMainPlayer = isMainPlayer;
     }
 }
