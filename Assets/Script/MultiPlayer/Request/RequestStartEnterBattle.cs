@@ -21,7 +21,9 @@ public class RequestStartEnterBattle : BaseRequest
             Debug.Log("房主发送进入战斗失败");
         }
         //EventCenter.Instance.NotisfyObserver(EventType.OnStartEnterBattleResponse, pack);
-        ModelContainer.Instance.GetModel<MemoryModel>().RandomSeed = pack.BattleInitInfo.RandSeed;
+        var seed=pack.BattleInitInfo.RandSeed;
+        ModelContainer.Instance.GetModel<MemoryModel>().RandomSeed = seed;
+        Random.InitState(seed);
         ModelContainer.Instance.GetModel<MemoryModel>().toBattlePack=pack;
         EventCenter.Instance.NotisfyObserver(EventType.OnNeedToBattleScene);
     }
