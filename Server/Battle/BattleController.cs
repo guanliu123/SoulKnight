@@ -173,7 +173,21 @@ namespace Battle
                         BeginBattle();
                     }
                     break;
-                    
+                case ActionCode.UpdatePlayerState:
+                    // 玩家发送"我准备好了"
+                    if (isBeginBattle) return;
+                    string userName = pack.LoginPack.UserName;
+                    Client client  = server.GetClientByUserName(userName);
+                     Room room = client.Room;
+        if (room != null)
+        {
+            pack.CharacterPacks[0].CharacterName = client.userName;
+            pack.IsBroadcastMessage = true;
+            pack.ReturnCode = ReturnCode.Success;
+            room.Broadcast(client, pack);
+            pack.IsBroadcastMessage = false;
+        }
+                    break;
                 case ActionCode.BattlePushDowmPlayerOpeartions:
                     // 玩家发送"玩家认为的"帧消息
                     if (!isBeginBattle) return;
@@ -203,6 +217,27 @@ namespace Battle
                     UpdatePlayerGameOver(int.Parse(pack.Str));
                     break;
             }
+        }
+        private void UpdatePlayerState(MainPack pack){
+              if (!isBeginBattle) return;
+                    
+                    BattleInfo battleInfo = pack.BattleInfo;
+                    int syncFrameId = battleInfo.OperationID; // 玩家操作帧
+                    InputPack operation = battleInfo.SelfOperation; // 玩家操作，使用 InputPack
+                    
+                    UpdatePlayerOperation(operation, syncFrameId);
+                    
+                    // 新增实时转发逻辑
+                    if (frameSyncMode == FrameSyncMode.RealTime)
+                    {
+                        // 记录当前操作
+                        lock (realTimeLock)
+                        {
+                             realTimeOperations.Add(operation); // 改为添加到列表
+                        }
+                        // 立即转发给其他玩家
+                        ForwardPlayerOperation(operation);
+                    }
         }
 
         // 新增实时转发方法
