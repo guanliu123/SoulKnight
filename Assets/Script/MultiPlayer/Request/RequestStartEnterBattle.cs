@@ -23,19 +23,12 @@ public class RequestStartEnterBattle : BaseRequest
         //EventCenter.Instance.NotisfyObserver(EventType.OnStartEnterBattleResponse, pack);
         var seed=pack.BattleInitInfo.RandSeed;
         ModelContainer.Instance.GetModel<MemoryModel>().RandomSeed = seed;
-        Random.InitState(seed);
+        // Random.InitState(seed);
         ModelContainer.Instance.GetModel<MemoryModel>().toBattlePack=pack;
         EventCenter.Instance.NotisfyObserver(EventType.OnNeedToBattleScene);
     }
     public void SendRequest(string roomName,UnityAction<MainPack> receiveAction = null)
     {
-        /*MainPack pack = new MainPack();
-        pack.RequestCode = requestCode;
-        pack.ActionCode = actionCode;
-        CharacterPack characterPack = new CharacterPack();
-        characterPack.PlayerType = attr.m_ShareAttr.Type.ToString();
-        pack.CharacterPacks.Add(characterPack);
-        base.SendRequest(pack);*/
         MainPack mainPack = new MainPack();
         mainPack.RequestCode = RequestCode.Battle;
         mainPack.ActionCode = ActionCode.StartEnterBattle;
