@@ -38,6 +38,7 @@ public class GameController : BaseController
     }
     public MainPack UpdatePlayerState(Client client, MainPack pack)
     {
+        Console.WriteLine("UpdatePlayerState");
         if (null == client){
             Console.WriteLine("UpdatePlayerState client is null");
             return pack;
@@ -48,7 +49,7 @@ public class GameController : BaseController
             pack.CharacterPacks[0].CharacterName = client.userName;
             pack.IsBroadcastMessage = true;
             pack.ReturnCode = ReturnCode.Success;
-            room.Broadcast(client, pack);
+            room.BroadcastTo(client, pack);
             pack.IsBroadcastMessage = false;
         }
         else

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Net;
 using System.Net.Sockets;
 using System.Text;
+using KnightServer;
 using SoulKnightProtocol;
 
 namespace Battle
@@ -58,6 +59,16 @@ namespace Battle
                 {
                     MainPack pack = MainPack.Parser.ParseFrom(data);
                     pack.Str = remoteEP.ToString();
+                    string userName = pack.LoginPack.UserName;
+                    Client client   = ClientManager.Instance.GetClientByUserName(userName);
+                    if (client != null)
+                    {
+                        // pack.Str = client.IpAndPort;
+                        if (client.remoteEp == null || client.remoteEp.ToString() != remoteEP.ToString())
+                            client.remoteEp = remoteEP;
+                    }else{
+                        Console.WriteLine($"接收到来自 {remoteEP} 的消息无客户端");
+                    }
                     messageHandler(pack); // <-- 问题可能发生在这里调用的方法内部
                 }
                 
