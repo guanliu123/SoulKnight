@@ -71,6 +71,10 @@ crashlytics-build.properties
 /[Aa]ssets/[Ss]treamingAssets/aa/*
 Server/obj/
 ProtoBuff/
+PerformanceTester/
+ServerTests/
+TestJsonProto/
+Tests/
 NetworkBenchmark/
 **/NetworkBenchmark/
 *NetworkBenchmark*
