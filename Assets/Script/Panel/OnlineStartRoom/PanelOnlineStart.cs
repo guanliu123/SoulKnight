@@ -47,7 +47,6 @@ namespace OnlineStartScene
             });
             ButtonStart.onClick.AddListener(() =>
             {
-                //todo 房主点击开始游戏
                 Debug.Log(ModelContainer.Instance.GetModel<MemoryModel>().RoomName);
                 //(ClientFacade.Instance.GetRequest(ActionCode.StartEnterBattle) as RequestStartEnterBattle).SendRequest(ModelContainer.Instance.GetModel<MemoryModel>().RoomName);
             });*/

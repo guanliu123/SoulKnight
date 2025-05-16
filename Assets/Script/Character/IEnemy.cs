@@ -12,6 +12,8 @@ public class IEnemy : ICharacter
     public FixVector2 Velocity;
     protected IPlayer targetPlayer;
     public RectCollider rectCollider;
+    private float changeTargetTimer;
+    private float changeTargetCD;
 
     public IEnemy(GameObject obj) : base(obj)
     {
@@ -29,6 +31,7 @@ public class IEnemy : ICharacter
                 m_Attr.isRun = true;
             }
         });
+        
     }
     protected override void OnCharacterStart()
     {
@@ -42,13 +45,22 @@ public class IEnemy : ICharacter
     protected override void OnCharacterUpdate()
     {
         base.OnCharacterUpdate();
+        var pc = GameMediator.Instance.GetController<PlayerController>();
         if (!ModelContainer.Instance.GetModel<MemoryModel>().isOnlineMode)
         {
-            if(targetPlayer==null) targetPlayer =GameMediator.Instance.GetController<PlayerController>().Player;
+            if(targetPlayer==null) targetPlayer =pc.Player;
         }
         else
         {
-            //todo 多人模式随机选择一个玩家
+            if (targetPlayer == null) targetPlayer = pc.allPlayers[0];
+            changeTargetTimer += Time.deltaTime;
+            if (changeTargetTimer > changeTargetCD)
+            {
+                changeTargetTimer = 0;
+                changeTargetCD = Random.Range(2, 5);
+                var targetIdx = Random.Range(0, pc.allPlayers.Count);
+                targetPlayer = pc.allPlayers[targetIdx];
+            }
         }
         if (m_Weapon != null)//������ʱ�������
         {

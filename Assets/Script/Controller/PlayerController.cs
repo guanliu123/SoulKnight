@@ -10,6 +10,7 @@ public class PlayerController : AbstractController
     private IPlayer m_Player;
     public IPlayer Player => m_Player;
     public List<IPlayer> players = new List<IPlayer>();
+    public List<IPlayer> allPlayers = new List<IPlayer>();
     public List<IPlayerPet> pets = new List<IPlayerPet>();
     private MainPack pack;
     private MainPack upPack;
@@ -138,6 +139,8 @@ public class PlayerController : AbstractController
     public void SetPlayer(PlayerAttribute attr)
     {
         m_Player = PlayerFactory.Instance.GetPlayer(attr.m_ShareAttr.Type, attr);
+        allPlayers.Add(m_Player);
+        m_Player.UserName = ModelContainer.Instance.GetModel<MemoryModel>().UserName;
         if (ModelContainer.Instance.GetModel<MemoryModel>().isOnlineMode)
         {
             CoroutinePool.Instance.StartCoroutine(SendUpdatePack());
@@ -162,7 +165,9 @@ public class PlayerController : AbstractController
     }
     public void AddPlayer(PlayerAttribute attr, CharacterPack p)
     {
-        players.Add(PlayerFactory.Instance.GetPlayer(attr.m_ShareAttr.Type, attr));
+        var pl = PlayerFactory.Instance.GetPlayer(attr.m_ShareAttr.Type, attr);
+        players.Add(pl);
+        allPlayers.Add(pl);
         UnityTool.Instance.GetComponentFromChild<CapsuleCollider2D>(players[players.Count - 1].gameObject, "Collider").isTrigger = false;
         //players[players.Count - 1].gameObject.GetComponent<CapsuleCollider2D>().isTrigger = false;
         players[players.Count - 1].UserName = p.CharacterName;

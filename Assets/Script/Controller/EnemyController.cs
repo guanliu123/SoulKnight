@@ -70,13 +70,33 @@ public class EnemyController : AbstractController
     }
     public void SpawnEnemy(Room room, Vector2 pos, bool isRun, bool isElite)
     {
-        CoroutinePool.Instance.StartCoroutine(WaitForSpawnEnemy(room, pos, isRun, isElite));
+        //CoroutinePool.Instance.StartCoroutine(WaitForSpawnEnemy(room, pos, isRun, isElite));
+        DontWaitForSpawnEnemy(room, pos, isRun, isElite);
         room.CurrentEnemyNum += 1;
     }
     private IEnumerator WaitForSpawnEnemy(Room room, Vector2 pos, bool isRun, bool isElite)
     {
         EffectFactory.Instance.GetEffect(EffectType.Pane, pos).AddToController();
         yield return new WaitForSeconds(0.8f);
+        IEnemy enemy = null;
+        if (isElite)
+        {
+            enemy = EnemyFactory.Instance.GetEliteEnemy();
+        }
+        else
+        {
+            enemy = EnemyFactory.Instance.GetRandomEnemy();
+        }
+        enemy.m_Room = room;
+        enemy.gameObject.transform.position = pos;
+        enemy.m_Attr.isRun = isRun;
+        enemies.Add(enemy);
+    }
+    
+    private void DontWaitForSpawnEnemy(Room room, Vector2 pos, bool isRun, bool isElite)
+    {
+        EffectFactory.Instance.GetEffect(EffectType.Pane, pos).AddToController();
+        //yield return new WaitForSeconds(0.8f);
         IEnemy enemy = null;
         if (isElite)
         {
