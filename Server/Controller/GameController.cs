@@ -38,7 +38,6 @@ public class GameController : BaseController
     }
     public MainPack UpdatePlayerState(Client client, MainPack pack)
     {
-        Console.WriteLine("UpdatePlayerState");
         if (null == client){
             Console.WriteLine("UpdatePlayerState client is null");
             return pack;

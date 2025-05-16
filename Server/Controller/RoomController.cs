@@ -62,9 +62,11 @@ namespace KnightServer
                 {
                     foreach (Room room in RoomManager.Instance.GetAllRooms())
                     {
+                        if(room.IsEmpty()){
+                            continue;
+                        }
                          pack.RoomPacks.Add(room.GetRoomPack());
                     }
-                    Console.WriteLine("查询房间成功" + pack.RoomPacks.Count);
                     pack.ReturnCode = ReturnCode.Success;
                 }
             }
@@ -80,7 +82,6 @@ namespace KnightServer
         {
             bool isFind = false;
             Room findRoom = null;
-            Console.WriteLine("加入房间" + pack.RoomPacks[0].RoomName);
             foreach (Room room in RoomManager.Instance.GetAllRooms())
             {
                 if (room.m_RoomName == pack.RoomPacks[0].RoomName)

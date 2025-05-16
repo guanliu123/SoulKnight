@@ -23,6 +23,7 @@ namespace KnightServer
 
             // 初始化 UDPManager 并注册消息处理器
             UdpManager.Instance.RegisterHandler(HandleUdpMessage);
+            HeartbeatManager.Instance.Start(this);
 
             // 初始化战斗管理器
             BattleManager.Instance.Initialize(this);
@@ -73,6 +74,10 @@ namespace KnightServer
                 Socket clientSocket = serverSocket.EndAccept(result);
                 Console.WriteLine("接收到一个新连接...");
                 Client newClient = new Client(clientSocket, this);
+                
+                // 不要使用 BeginDisconnect，它会主动断开连接
+                // clientSocket.BeginDisconnect(false, DisconnectCallback, newClient);
+                
                 ClientManager.Instance.AddClient(newClient); // <-- 使用 ClientManager 添加
             }
             catch (ObjectDisposedException)

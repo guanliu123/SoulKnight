@@ -19,6 +19,7 @@ public class RequestManager
         requestDic.Add(ActionCode.EnterOnlineStartRoom, new RequestEnterOnlineStartRoom(this));
         requestDic.Add(ActionCode.UpdatePlayerState, new RequestUpdatePlayerState(this));
         requestDic.Add(ActionCode.StartEnterBattle,new RequestStartEnterBattle(this));
+        requestDic.Add(ActionCode.Heartbeat, new RequestHeartbeat(this));
     }
     public void AddRequest(BaseRequest request)
     {

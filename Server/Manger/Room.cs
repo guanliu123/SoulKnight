@@ -27,7 +27,17 @@ public class Room
         this.MaxNum = maxNum;
         this.CurrentNum = 0;
     }
+
+    public bool IsFull()
+    {
+        return clients.Count >= MaxNum;
+    }
     
+    public bool IsEmpty()
+    {
+        return clients.Count == 0;
+    }
+
     public RoomPack GetRoomPack()
     {
         RoomPack roomPack = new RoomPack();

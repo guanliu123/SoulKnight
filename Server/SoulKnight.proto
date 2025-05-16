@@ -8,7 +8,8 @@ enum RequestCode {
   User = 1;
   Room = 2;
   Game = 3;
-  Battle = 4; // 添加战斗请求码
+  Heart = 4;
+  Battle = 5; // 添加战斗请求码
 }
 
 enum ActionCode {
@@ -22,7 +23,7 @@ enum ActionCode {
   ExitRoom = 7;
   EnterOnlineStartRoom = 8;
   UpdatePlayerState = 9;
-  
+  Heartbeat = 10;
   // 战斗相关的动作码
   StartEnterBattle = 100; // 开始进入战斗
   BattleReady = 101;      // 战斗准备就绪

@@ -2,6 +2,7 @@
 using SoulKnightProtocol;
 using System.Reflection;
 using Battle;
+using Org.BouncyCastle.Asn1.Ocsp;
 
 namespace KnightServer
 {
@@ -16,6 +17,7 @@ namespace KnightServer
             controllerDic.Add(RequestCode.Room, new RoomController(this));
             controllerDic.Add(RequestCode.Game, new GameController(this));
             controllerDic.Add(RequestCode.Battle, new BattleController(this));
+            controllerDic.Add(RequestCode.Heart, new HeartController(this));
             this.server = server;
         }
         
@@ -61,6 +63,7 @@ namespace KnightServer
             // 如果是战斗相关的请求，直接转发给战斗管理器
             if (pack.RequestCode == RequestCode.Battle)
             {
+                Console.WriteLine($"收到战斗相关的 UDP 消息: {pack.RequestCode} {pack.ActionCode}");
                 // 战斗相关的 UDP 消息由 BattleManager 处理
                 HandleBattleRequest(pack);
                 return;
@@ -78,6 +81,7 @@ namespace KnightServer
                 }
                 string userName = pack.LoginPack.UserName;
                 client  = server.GetClientByUserName(userName);
+                
                 if (client == null){
                     Console.WriteLine($"未找到对应IP:端口的客户端: {userName} {methodName}");
                     return;
