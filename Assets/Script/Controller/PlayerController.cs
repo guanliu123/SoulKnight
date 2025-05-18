@@ -138,6 +138,10 @@ public class PlayerController : AbstractController
     }
     public void SetPlayer(PlayerAttribute attr)
     {
+        if (attr.m_ShareAttr.Type == PlayerType.Rogue)
+        {
+            attr.CurrentSkinType = SkinType.Rogue;
+        }
         m_Player = PlayerFactory.Instance.GetPlayer(attr.m_ShareAttr.Type, attr);
         allPlayers.Add(m_Player);
         m_Player.UserName = ModelContainer.Instance.GetModel<MemoryModel>().UserName;
