@@ -20,11 +20,11 @@ public class GameLoopOnlineStart : MonoBehaviour
         m_Mediator.GameUpdate();
         if (needToBattleScene)
         {
+            int seed =  ModelContainer.Instance.GetModel<MemoryModel>().RandomSeed;
+            Random.InitState(seed);
             needToBattleScene=false;
             SceneModelCommand.Instance.LoadScene(SceneName.BattleScene).completed+= (op) =>
             {
-                int seed =  ModelContainer.Instance.GetModel<MemoryModel>().RandomSeed;
-                Random.InitState(seed);
             };
         }
     }

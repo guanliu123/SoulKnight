@@ -9,7 +9,11 @@ public class DevilSnareIdleState : BossState
     protected override void StateStart()
     {
         base.StateStart();
-        CoroutinePool.Instance.StartCoroutine(WaitForAttack(), this);
+        TimerManager.Instance.Register(Random.Range(2f, 5f) / AttackFrequency, () =>
+        {
+            m_Controller.SetOtherState(typeof(DevilSnareAttackState));
+        });
+        //CoroutinePool.Instance.StartCoroutine(WaitForAttack(), this);
         if (isEnterAttackState)
         {
             m_Animator.SetBool("isAngerIdle", true);
