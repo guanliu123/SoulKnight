@@ -28,7 +28,7 @@ namespace KnightServer
             {
                 pack.IsBroadcastMessage = true;
                 pack.ReturnCode = ReturnCode.Success;
-                room.Broadcast(null, pack);
+                room.BroadcastTo(null, pack);
                 pack.IsBroadcastMessage = false;
             }
             else
