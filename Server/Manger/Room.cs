@@ -18,14 +18,17 @@ public class Room
     private List<Client> clients = new List<Client>();
     public List<Client> Clients => clients;
     public HostCode hostCode = HostCode.SelectCharacter;
+
+    public Client Master;
     
-    public Room(string RoomName, int  maxNum)
+    public Room(string RoomName, int  maxNum, Client client)
     {
         // 分配自增ID
         this.roomID = nextRoomID++;
         this.RoomName = RoomName;
         this.MaxNum = maxNum;
         this.CurrentNum = 0;
+        this.Master = client;
     }
 
     public bool IsFull()
