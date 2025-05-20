@@ -9,7 +9,7 @@ public class DevilSnareIdleState : BossState
     protected override void StateStart()
     {
         base.StateStart();
-        TimerManager.Instance.Register(Random.Range(2f, 5f) / AttackFrequency, () =>
+        TimerManager.Instance.Register(RandomTool.GetEnemyRandomFloat(2f, 5f) / AttackFrequency, () =>
         {
             m_Controller.SetOtherState(typeof(DevilSnareAttackState));
         });

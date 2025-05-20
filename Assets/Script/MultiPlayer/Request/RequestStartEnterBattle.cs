@@ -23,6 +23,7 @@ public class RequestStartEnterBattle : BaseRequest
         //EventCenter.Instance.NotisfyObserver(EventType.OnStartEnterBattleResponse, pack);
         var seed=pack.BattleInitInfo.RandSeed;
         ModelContainer.Instance.GetModel<MemoryModel>().RandomSeed = seed;
+        Debug.Log("种子"+seed);
         // Random.InitState(seed);
         ModelContainer.Instance.GetModel<MemoryModel>().toBattlePack=pack;
         EventCenter.Instance.NotisfyObserver(EventType.OnNeedToBattleScene);
