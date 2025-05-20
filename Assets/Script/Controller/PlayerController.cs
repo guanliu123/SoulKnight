@@ -169,6 +169,10 @@ public class PlayerController : AbstractController
     }
     public void AddPlayer(PlayerAttribute attr, CharacterPack p)
     {
+        if (attr.m_ShareAttr.Type == PlayerType.Rogue)
+        {
+            attr.CurrentSkinType = SkinType.Rogue;
+        }
         var pl = PlayerFactory.Instance.GetPlayer(attr.m_ShareAttr.Type, attr);
         players.Add(pl);
         allPlayers.Add(pl);

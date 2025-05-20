@@ -5,7 +5,7 @@ public abstract class CharacterAttribute
     public bool isEnemy;
     public bool isFreeze;
     public bool isDizzy;
-    public bool isPause;//½çÃæÔİÍ£Ê±µ÷ÓÃ
+    public bool isPause;//ç•Œé¢æš‚åœæ—¶è°ƒç”¨
     public bool isRun;
     public float SpeedDecreaseFac;
     protected CharacterShareAttr m_Attr;
