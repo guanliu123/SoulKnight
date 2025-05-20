@@ -16,6 +16,8 @@ public class ClientManager : BaseManager
     private Message message;
     private RequestManager requestManager;
     private String IPStr = "129.204.144.2";
+    // private String IPStr = "127.0.0.1";
+
     public RequestManager m_RequestManager => requestManager;
     public ClientManager(ClientFacade facade) : base(facade)
     {
@@ -174,14 +176,67 @@ public class ClientManager : BaseManager
     }
     private void ReceiveMsg()
     {
-        Debug.Log("UDP开始接收" +endPoint.ToString());
+        Debug.Log("UDP开始接收");
         while (true)
         {
-            int len = udpClient.ReceiveFrom(buffer, ref endPoint);
-       
-            MainPack pack = (MainPack)MainPack.Descriptor.Parser.ParseFrom(buffer, 0, len);
+            try
+            {
+                // 添加安全检查
+                if (!udpClient.Connected)
+                {
+                    Debug.LogWarning("UDP客户端未连接，尝试重新连接...");
+                    Thread.Sleep(1000); // 避免CPU占用过高
+                    continue;
+                }
 
-            requestManager.HandleResponse(pack);
+                int len = udpClient.ReceiveFrom(buffer, ref endPoint);
+                
+                // 添加数据有效性检查
+                if (len <= 0)
+                {
+                    Debug.LogWarning("接收到空的UDP数据包");
+                    continue;
+                }
+
+                // 记录接收到的数据（调试用）
+                string hexData = BitConverter.ToString(buffer, 0, Math.Min(len, 20));
+                // Debug.Log($"接收到UDP数据，长度: {len}, 前20字节: {hexData}");
+
+                try
+                {
+                    // 检查是否有长度前缀（通常是4字节整数）
+                    int startIndex = 0;
+                    if (len > 4 && buffer[0] != 0 && buffer[1] == 0 && buffer[2] == 0 && buffer[3] == 0)
+                    {
+                        // 可能存在长度前缀，跳过前4个字节
+                        startIndex = 4;
+                        // Debug.Log("检测到可能的长度前缀，跳过前4字节");
+                    }
+
+                    MainPack pack = (MainPack)MainPack.Descriptor.Parser.ParseFrom(buffer, startIndex, len - startIndex);
+                    Debug.Log($"成功解析UDP数据包: RequestCode={pack.RequestCode}, ActionCode={pack.ActionCode}");
+                    requestManager.HandleResponse(pack);
+                }
+                catch (Google.Protobuf.InvalidProtocolBufferException ex)
+                {
+                    Debug.LogError($"Protocol Buffer解析错误: {ex.Message}");
+                    // 可以在这里添加更详细的数据诊断信息
+                    if (len > 0)
+                    {
+                        Debug.LogError($"数据前20字节: {hexData}");
+                    }
+                }
+            }
+            catch (SocketException se)
+            {
+                Debug.LogError($"UDP接收Socket错误: {se.Message}, 错误码: {se.SocketErrorCode}");
+                Thread.Sleep(1000); // 避免错误循环过快
+            }
+            catch (Exception e)
+            {
+                Debug.LogError($"UDP接收未知错误: {e.Message}\n{e.StackTrace}");
+                Thread.Sleep(1000); // 避免错误循环过快
+            }
         }
     }
     public void Send(MainPack pack)
