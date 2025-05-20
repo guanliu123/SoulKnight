@@ -58,7 +58,7 @@ namespace Battle
         {
             this.server = server;
             this.battleID = battleID;
-            this.seedValue = seedValue; // 存储种子
+            this.seedValue = seedValue; 
 
             // 初始化字段，避免 null 引用
             dic_battleUserUid = new Dictionary<int, int>();
