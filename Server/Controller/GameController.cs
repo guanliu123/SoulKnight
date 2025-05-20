@@ -48,7 +48,7 @@ public class GameController : BaseController
             pack.CharacterPacks[0].CharacterName = client.userName;
             pack.IsBroadcastMessage = true;
             pack.ReturnCode = ReturnCode.Success;
-            room.BroadcastTo(client, pack);
+            room.Broadcast(client, pack);
             pack.IsBroadcastMessage = false;
         }
         else

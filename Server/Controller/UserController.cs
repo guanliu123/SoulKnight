@@ -93,7 +93,14 @@ namespace KnightServer
                 UserName = pack.LoginPack.UserName,
                 Password = encryptedPassword
             };
-            
+            Client client1 = ClientManager.Instance.GetClientByUserName(pack.LoginPack.UserName);
+            if (client1 != null)
+            {
+                Console.WriteLine($"[登录流程] 用户名: {pack.LoginPack.UserName}，登录结果: 已登录");
+                pack.ReturnCode = ReturnCode.Fail;
+                pack.Str = "已登录";
+                return pack;
+            }
             // 替换原始登录包
             MainPack newPack = new MainPack
             {

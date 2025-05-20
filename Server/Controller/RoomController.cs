@@ -36,7 +36,7 @@ namespace KnightServer
                     return pack;
                 }
                 
-                Room room = RoomManager.Instance.CreateRoom(pack.RoomPacks[0].RoomName, pack.RoomPacks[0].MaxNum);
+                Room room = RoomManager.Instance.CreateRoom(client, pack.RoomPacks[0].RoomName, pack.RoomPacks[0].MaxNum);
                 room.AddPlayer(client);
                 Console.WriteLine("创建房间成功" + pack.RoomPacks[0].RoomName);
                 pack.ReturnCode = ReturnCode.Success;
@@ -136,6 +136,7 @@ namespace KnightServer
         public MainPack EnterOnlineStartRoom(Client client, MainPack pack)
         {
             client.PlayerType = pack.CharacterPacks[0].PlayerType;
+            Console.WriteLine("进入在线开始房间" + client.userName +  client.PlayerType);
             Room room = client.Room;
             if (room != null)
             {
