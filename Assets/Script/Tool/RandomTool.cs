@@ -35,12 +35,19 @@ public static class RandomTool
     
     public static int GetBulletRandomInt(int min, int max)
     {
-
+        if (bulletRandom == null)
+        {
+            RandomTool.InitBulletRandom(-1);
+        }
         return bulletRandom.Next(min,max);
     }
     
     public static float GetBulletRandomFloat(float min, float max)
     {
+        if (bulletRandom == null)
+        {
+            RandomTool.InitBulletRandom(-1);
+        }
         return (float)(min + bulletRandom.NextDouble() * (max - min));
     }
 }
