@@ -26,7 +26,7 @@ public class GameLoopOnlineStart : MonoBehaviour
             RandomTool.InitEnemyRandom(seed);
             RandomTool.InitBulletRandom(seed);
 
-            //Random.InitState(seed);
+            Random.InitState(seed);
             SceneModelCommand.Instance.LoadScene(SceneName.BattleScene).completed+= (op) =>
             {
             };

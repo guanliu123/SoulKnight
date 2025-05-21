@@ -13,7 +13,7 @@ public class DevilSnareAttackState : BossState
     {
         base.StateStart();
         m_Animator.SetTrigger("isAttack");
-        int idx = Random.Range(0, skills.Count);
+        int idx = RandomTool.GetEnemyRandomInt(0, skills.Count);
         Debug.Log("Boss当前招式idx:"+idx);
         skills[idx].StartSkill();
         m_Controller.SetOtherState(typeof(DevilSnareIdleState));
