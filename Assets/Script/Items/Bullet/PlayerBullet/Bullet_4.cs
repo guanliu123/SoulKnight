@@ -15,7 +15,7 @@ public class Bullet_4 : IPlayerBullet
     {
         base.OnEnter();
         enemy = GetClosestEnemy();
-        RandomAngle = Random.Range(0, 30);
+        RandomAngle = RandomTool.GetBulletRandomInt(0, 30);
         gameObject.transform.Find("Trail").GetComponent<TrailRenderer>().Clear();
     }
     protected override void BeforeHitObstacleUpdate()
