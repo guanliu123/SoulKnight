@@ -54,7 +54,7 @@ public class EnemyTrackState : EnemyState
         if (finalDir.magnitude > 0)
         {
             enemy.transform.position += (Vector3)finalDir * 
-                                        enemy.m_Attr.m_ShareAttr.Speed * Time.deltaTime;
+                                        enemy.m_Attr.m_ShareAttr.Speed*1.5f * Time.deltaTime;
             
             enemy.isLeft = finalDir.x < 0;
         }

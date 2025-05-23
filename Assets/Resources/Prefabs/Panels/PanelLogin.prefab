@@ -66,7 +66,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "QQ\u90AE\u7BB1"
+  m_text: "\u8F93\u5165\u7528\u6237\u540D"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 2e75254f3c01a2d4f8e54cfd6ac2098f, type: 2}
   m_sharedMaterial: {fileID: -6915739636552262101, guid: 2e75254f3c01a2d4f8e54cfd6ac2098f, type: 2}
@@ -635,8 +635,8 @@ MonoBehaviour:
   m_VerticalScrollbarEventHandler: {fileID: 0}
   m_LayoutGroup: {fileID: 0}
   m_ScrollSensitivity: 1
-  m_ContentType: 0
-  m_InputType: 0
+  m_ContentType: 7
+  m_InputType: 2
   m_AsteriskChar: 42
   m_KeyboardType: 0
   m_LineType: 0
@@ -1558,7 +1558,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}
-  m_AnchoredPosition: {x: 100, y: 0}
+  m_AnchoredPosition: {x: 67.67, y: 0}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &9100714502693572870
@@ -1589,7 +1589,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\u90AE\u7BB1"
+  m_text: "\u7528\u6237\u540D"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 2e75254f3c01a2d4f8e54cfd6ac2098f, type: 2}
   m_sharedMaterial: {fileID: -6915739636552262101, guid: 2e75254f3c01a2d4f8e54cfd6ac2098f, type: 2}
@@ -2387,7 +2387,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "QQ\u90AE\u7BB1"
+  m_text: "\u8F93\u5165\u7528\u6237\u540D"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 2e75254f3c01a2d4f8e54cfd6ac2098f, type: 2}
   m_sharedMaterial: {fileID: -6915739636552262101, guid: 2e75254f3c01a2d4f8e54cfd6ac2098f, type: 2}
@@ -2601,8 +2601,8 @@ MonoBehaviour:
   m_VerticalScrollbarEventHandler: {fileID: 0}
   m_LayoutGroup: {fileID: 0}
   m_ScrollSensitivity: 1
-  m_ContentType: 0
-  m_InputType: 0
+  m_ContentType: 7
+  m_InputType: 2
   m_AsteriskChar: 42
   m_KeyboardType: 0
   m_LineType: 0
@@ -3096,9 +3096,9 @@ RectTransform:
   - {fileID: 3856364190828833007}
   m_Father: {fileID: 1453558352587088509}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 57.5, y: -491.25}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 115, y: 327.5}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2104357036569611766
@@ -3697,8 +3697,8 @@ MonoBehaviour:
   m_VerticalScrollbarEventHandler: {fileID: 0}
   m_LayoutGroup: {fileID: 0}
   m_ScrollSensitivity: 1
-  m_ContentType: 0
-  m_InputType: 0
+  m_ContentType: 7
+  m_InputType: 2
   m_AsteriskChar: 42
   m_KeyboardType: 0
   m_LineType: 0
@@ -3963,7 +3963,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}
-  m_AnchoredPosition: {x: 100, y: 0}
+  m_AnchoredPosition: {x: 69.3, y: 0}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &6989409461519251637
@@ -3994,7 +3994,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\u90AE\u7BB1"
+  m_text: "\u7528\u6237\u540D"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 2e75254f3c01a2d4f8e54cfd6ac2098f, type: 2}
   m_sharedMaterial: {fileID: -6915739636552262101, guid: 2e75254f3c01a2d4f8e54cfd6ac2098f, type: 2}
@@ -4096,9 +4096,9 @@ RectTransform:
   - {fileID: 7003747527918033682}
   m_Father: {fileID: 1453558352587088509}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 57.5, y: -163.75}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 115, y: 327.5}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &659622660752218648
@@ -4300,7 +4300,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1489241914971817893
 RectTransform:
   m_ObjectHideFlags: 0
